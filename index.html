@@ -193,6 +193,19 @@ body.lvpad{padding-bottom:110px}
 .lvsm{width:34px;height:34px;border-radius:50%;border:0;background:var(--slot);color:var(--ink);font-size:.95rem;cursor:pointer}
 .lvmic:focus-visible,.lvsm:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.lvav{transition:none}}
+.navb{position:relative}.ndot{position:absolute;top:-4px;left:-4px;min-width:17px;height:17px;border-radius:9px;background:var(--bad);color:#fff;font-size:.65rem;line-height:17px;padding:0 4px;font-weight:900;box-shadow:0 0 0 2px rgba(0,0,0,.15)}
+.fdrow{display:flex;align-items:center;gap:8px;background:var(--slot);border-radius:12px;padding:8px}
+.fdrow .fdn{flex:1;min-width:0;display:flex;flex-direction:column}.fdrow .fdn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.9rem}.fdrow .fdn small{color:var(--mut);font-size:.72rem}
+.fdrow .btn{padding:6px 10px;font-size:.8rem;flex:0 0 auto;width:auto;margin:0;position:relative}
+.fdav{position:relative;flex-shrink:0}.fdav .av{margin:0;width:38px;height:38px;font-size:1rem}.fdst{position:absolute;bottom:-1px;left:-1px;width:12px;height:12px;border-radius:50%;background:#9aa7c2;border:2px solid var(--card)}.fdst.on{background:#22c55e;box-shadow:0 0 6px #22c55e}
+.fdadd{display:flex;gap:6px;margin-top:8px}.fdadd input{flex:1;min-width:0;font:inherit;border:2px solid var(--slot);background:var(--card);color:var(--ink);border-radius:10px;padding:8px}.fdadd .btn{width:auto;flex:0 0 auto;margin:0}
+.fdsub{font-size:.8rem;color:var(--mut);margin:8px 0 2px;font-weight:800}
+.fdinv{border:2px solid var(--gold)}
+.fdpop{position:fixed;left:10px;right:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:90;background:var(--ink);color:var(--bg);border-radius:14px;padding:10px 12px;display:none;align-items:center;gap:8px;box-shadow:0 8px 24px rgba(0,0,0,.3);font-weight:800;font-size:.85rem}
+.fdpop.on{display:flex}.fdpop span{flex:1}.fdpop .btn{width:auto;flex:0 0 auto;margin:0;padding:6px 10px;background:var(--gold);color:#102a5c}
+#dmb{width:100%;height:52vh;overflow-y:auto;display:flex;flex-direction:column;gap:4px;margin-bottom:8px;border-radius:12px;background:var(--card);padding:8px}
+.dmt{font-size:.62rem;color:var(--mut);margin-top:2px}
+#dmb .m.me{background:var(--acc2);color:#fff}#dmb .m.me .dmt{color:rgba(255,255,255,.75)}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-app-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-auth-compat.js"></script>
@@ -207,7 +220,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 <div id="gate" style="display:none"><div class="gcard"><h1 class="glogo">فكّها</h1><p class="gsub">سجّل دخولك عشان ينحفظ حسابك</p><div id="phform"><button class="gbtn" id="gsign"><svg width="22" height="22" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg><span>الدخول بحساب قوقل</span></button><p id="phmsg" class="cnote" style="margin-top:8px"></p></div><p class="gnote">🔒 نستخدم حسابك بس عشان نحفظ اسمك وتقدمك ونحميهم، ونمنع الحسابات الوهمية. ما نشارك بياناتك مع أحد، وإيميلك ما يظهر للاعبين.</p><a class="gpriv" href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener">سياسة الخصوصية</a></div></div>
 <header>
 <h1 style="font-family:Marhey,Tajawal,system-ui,sans-serif;font-size:2.2rem;letter-spacing:0">فكّها</h1>
-<div class="nav"><button class="navb" data-p="home" aria-selected="true">الرئيسية</button><button class="navb" data-p="rooms">غرف</button><button class="navb" data-p="chat">دردشة</button><button class="navb" data-p="shop">شراء 🛒</button><button class="navb" data-p="custom">ملفي ✨</button><button class="navb" data-p="ach">إنجازات</button><button class="navb" data-p="lb">الصدارة</button></div>
+<div class="nav"><button class="navb" data-p="home" aria-selected="true">الرئيسية</button><button class="navb" data-p="rooms">غرف</button><button class="navb" data-p="chat">دردشة</button><button class="navb" data-p="friends">الأصدقاء 👥</button><button class="navb" data-p="shop">شراء 🛒</button><button class="navb" data-p="custom">ملفي ✨</button><button class="navb" data-p="ach">إنجازات</button><button class="navb" data-p="lb">الصدارة</button></div>
 </header>
 
 <section class="p on" id="home">
@@ -304,6 +317,20 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 <div class="send"><input id="ci" maxlength="200" placeholder="اكتب رسالة..." aria-label="رسالة"><button class="btn" id="stkb" type="button" style="padding:6px 10px">😀</button><select id="msgfx" style="font:inherit;border:2px solid var(--slot);background:var(--card);color:var(--ink);border-radius:10px;padding:6px;"><option value="none">عادي</option><option value="bounce">ارتداد</option><option value="fade">تلاشي</option><option value="rotate">دوران</option><option value="scale">تكبير</option></select><button class="btn" id="cs">إرسال</button></div>
 <div id="stktray" class="stktray" style="display:none"></div>
 </section>
+<section class="p" id="friends">
+<div class="box"><b>➕ أضف صديق</b><p style="color:var(--mut);font-size:.8rem;margin:4px 0 0">اكتب اسم اللاعب بالضبط مثل ما يطلع في اللعبة</p><div class="fdadd"><input id="fdname" maxlength="20" placeholder="اسم اللاعب" aria-label="اسم اللاعب"><button class="btn g" id="fdaddb">إرسال طلب</button></div></div>
+<div class="box fdinv" id="fdinvbox" style="display:none"><b>🎮 دعوات للغرف</b><div class="list" id="fdinvs"></div></div>
+<div class="box" id="fdreqbox" style="display:none"><b>📨 طلبات الصداقة</b><div class="list" id="fdreqs"></div></div>
+<div class="box"><b>👥 أصدقائي <small id="fdcount" style="color:var(--mut)"></small></b><div class="list" id="fdlist"></div></div>
+</section>
+
+<section class="p" id="dm">
+<div class="box" style="display:flex;align-items:center;gap:8px"><span id="dmav"></span><div style="flex:1;min-width:0"><b id="dmname" style="display:block"></b><small id="dmstat" style="color:var(--mut)"></small></div><button class="btn" id="dminv" style="width:auto;flex:0 0 auto;margin:0;padding:6px 10px">🎮 دعوة</button><button class="btn" id="dmback" style="width:auto;flex:0 0 auto;margin:0;padding:6px 10px">↩️</button></div>
+<div id="dmb"></div>
+<div class="send"><input id="dmi" maxlength="200" placeholder="اكتب رسالة..." aria-label="رسالة خاصة"><button class="btn" id="dms" style="width:auto;flex:0 0 auto;margin:0">إرسال</button></div>
+</section>
+<div class="fdpop" id="fdpop" role="status"><span id="fdpopt"></span><button class="btn" id="fdpopy">انضم</button><button class="btn" id="fdpopx" style="background:transparent;color:inherit">✕</button></div>
+
 
 <section class="p" id="shop">
 <div class="box"><b>🛒 المتجر</b><p style="margin-top:4px">رصيد التلميحات: <b id="shopcred" style="color:var(--gold)">٠</b> 💡</p></div>
@@ -954,6 +981,63 @@ function packsInit(){if(!LB.db||LB.mode==='ar')return;LB.db.doc('content/packs')
 vipTick();myAvDraw();
 
 (function(){setInterval(()=>{const S=document.querySelectorAll('#adbox .ads'),D=document.querySelectorAll('#addots b');if(!S.length)return;const k=AD.k%S.length;S[k].classList.remove('on');if(D[k])D[k].classList.remove('on');AD.k=(k+1)%S.length;S[AD.k].classList.add('on');if(D[AD.k])D[AD.k].classList.add('on');const t=$('pzleft'),a=$('adleft');if(t&&a)a.textContent=t.textContent},2800);renderAds();const go=()=>document.querySelector('.navb[data-p="rooms"]').click();$('adbox').onclick=go;$('adbox').onkeydown=e=>{if(e.key==='Enter')go()}})();
+</script>
+<script>
+/* ===== الأصدقاء: طلبات، متصلين، دعوات للغرفة الخاصة، دردشة خاصة ===== */
+const FD={on:false,list:{},reqIn:[],reqOut:[],inv:[],pres:{},presUn:{},meta:{},dm:null,dmUn:null,dmMsgs:[],dmLast:0,seen:{},t0:Date.now(),popInv:null,shown:new Set};
+try{FD.seen=JSON.parse(localStorage.getItem('wcp_dmseen')||'{}')}catch(e){}
+const fdPair=(a,b)=>[a,b].sort().join('_');
+const fdOnline=id=>{const p=FD.pres[id];return !!(p&&Date.now()-(Number(p.ts)||0)<150000)};
+const fdClean=t=>{try{return typeof clean==='function'?clean(t):t}catch(e){return t}};
+function fdAgo(ts){ts=Number(ts)||0;if(!ts)return 'غير متصل';const m=Math.floor((Date.now()-ts)/60000);if(m<1)return 'كان متصل قبل شوي';if(m<60)return 'آخر ظهور قبل '+ar(m)+' دقيقة';const h=Math.floor(m/60);if(h<24)return 'آخر ظهور قبل '+ar(h)+' ساعة';return 'آخر ظهور قبل '+ar(Math.floor(h/24))+' يوم'}
+function fdUnread(id){const k=fdPair(LB.uid,id),m=FD.meta[k];return !!(m&&m.lastFrom&&m.lastFrom!==LB.uid&&(Number(m.last)||0)>(Number(FD.seen[k])||0))}
+function fdNeed(){if(!pvOK()){alert('الأصدقاء يحتاجون اتصال بالإنترنت');return false}if(banGuard())return false;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية');return false}return true}
+function fdBeat(){try{if(!LB.db||!LB.uid||!u||IAMBANNED||document.hidden)return;LB.db.doc('presence/'+LB.uid).set({name:u.slice(0,20),ts:Date.now()}).catch(()=>{})}catch(e){}}
+function fdInit(){if(FD.on||!pvOK())return;FD.on=true;const fs=LB.db,me=LB.uid;fdBeat();setInterval(fdBeat,60000);document.addEventListener('visibilitychange',fdBeat);setInterval(()=>{if($('friends').classList.contains('on'))fdDraw();if($('dm').classList.contains('on'))dmHead()},30000);
+fs.collection('friends/'+me+'/list').onSnapshot(s=>{const L={};s.forEach(d=>{L[d.id]=d.data()||{}});FD.list=L;fdWatch();fdDraw()},e=>console.warn('friends',e));
+fs.collection('freq').where('to','==',me).onSnapshot(s=>{FD.reqIn=s.docs.map(d=>({id:d.id,...d.data()})).filter(r=>!isHidden(r.from));fdDraw()},e=>console.warn('freq',e));
+fs.collection('freq').where('from','==',me).onSnapshot(s=>{FD.reqOut=s.docs.map(d=>({id:d.id,...d.data()}));fdDraw()},e=>console.warn('freqo',e));
+fs.collection('invites').where('to','==',me).onSnapshot(s=>{const now=Date.now();FD.inv=s.docs.map(d=>({id:d.id,...d.data()})).filter(i=>now-(Number(i.at)||0)<3600000&&!isHidden(i.from)).sort((a,b)=>b.at-a.at);const nw=FD.inv.find(i=>i.at>FD.t0-5000&&!FD.shown.has(i.id+i.at));if(nw){FD.shown.add(nw.id+nw.at);fdPop(nw)}fdDraw()},e=>console.warn('inv',e));
+fs.collection('dms').where('u','array-contains',me).onSnapshot(s=>{s.forEach(d=>{FD.meta[d.id]=d.data()});fdDraw()},e=>console.warn('dms',e))}
+function fdWatch(){Object.keys(FD.list).forEach(id=>{if(FD.presUn[id])return;FD.presUn[id]=LB.db.doc('presence/'+id).onSnapshot(d=>{FD.pres[id]=d.exists?d.data():null;fdDraw();if(FD.dm===id)dmHead()},()=>{})});Object.keys(FD.presUn).forEach(id=>{if(!FD.list[id]){FD.presUn[id]();delete FD.presUn[id]}})}
+function fdBadge(){const n=FD.reqIn.length+FD.inv.length+Object.keys(FD.list).filter(fdUnread).length,b=document.querySelector('.navb[data-p="friends"]');if(!b)return;let d=b.querySelector('.ndot');if(!n){if(d)d.remove();return}if(!d){d=document.createElement('span');d.className='ndot';b.appendChild(d)}d.textContent=n>9?'+٩':ar(n)}
+function fdBtn(t,fn,cls){const b=document.createElement('button');b.className='btn'+(cls?' '+cls:'');b.textContent=t;b.onclick=e=>{e.stopPropagation();fn(b)};return b}
+function fdAvatar(id,name){const w=document.createElement('span');w.className='fdav';w.appendChild(avatarEl(id,name));const s=document.createElement('i');s.className='fdst'+(fdOnline(id)?' on':'');w.appendChild(s);return w}
+function fdRow(id,name,sub){const r=document.createElement('div');r.className='fdrow';r.appendChild(fdAvatar(id,name));const n=document.createElement('div');n.className='fdn';const b=document.createElement('b');b.textContent=String(name||'لاعب').slice(0,20);const sm=document.createElement('small');sm.textContent=sub||'';n.append(b,sm);r.appendChild(n);return r}
+let fdDT=null;function fdDraw(){fdBadge();clearTimeout(fdDT);fdDT=setTimeout(fdDraw2,60)}
+function fdDraw2(){if(!$('friends'))return;
+const iv=$('fdinvs');iv.innerHTML='';$('fdinvbox').style.display=FD.inv.length?'':'none';FD.inv.forEach(i=>{const r=fdRow(i.from,i.fromName,'يدعوك لغرفته الخاصة 🎮');r.append(fdBtn('انضم',()=>fdInvAccept(i),'g'),fdBtn('✕',()=>fdInvDel(i)));iv.appendChild(r)});
+const rq=$('fdreqs');rq.innerHTML='';$('fdreqbox').style.display=(FD.reqIn.length||FD.reqOut.length)?'':'none';FD.reqIn.forEach(q=>{const r=fdRow(q.from,q.fromName,'يبي يضيفك صديق');r.append(fdBtn('قبول',b=>{b.disabled=true;fdAccept(q)},'g'),fdBtn('رفض',()=>fdReqDel(q)));rq.appendChild(r)});if(FD.reqOut.length){const h=document.createElement('div');h.className='fdsub';h.textContent='طلبات أرسلتها (بانتظار الرد)';rq.appendChild(h);FD.reqOut.forEach(q=>{const r=fdRow(q.to,q.toName,'⏳ بانتظار الموافقة');r.append(fdBtn('إلغاء',()=>fdReqDel(q)));rq.appendChild(r)})}
+const L=$('fdlist');L.innerHTML='';const ids=Object.keys(FD.list).filter(id=>!isHidden(id));$('fdcount').textContent=ids.length?'('+ar(ids.length)+')':'';if(!ids.length){const n=document.createElement('div');n.className='note';n.textContent=pvOK()?'ما عندك أصدقاء بعد — أضف ربعك بأسمائهم فوق 👆':'الأصدقاء يحتاجون اتصال بالإنترنت';L.appendChild(n);return}
+ids.sort((a,b)=>(fdOnline(b)-fdOnline(a))||(fdUnread(b)-fdUnread(a))||String(FD.list[a].name).localeCompare(String(FD.list[b].name),'ar'));
+const on=ids.filter(fdOnline).length,hd=document.createElement('div');hd.className='fdsub';hd.textContent='🟢 متصل الحين: '+ar(on);L.appendChild(hd);
+ids.forEach(id=>{const f=FD.list[id],o=fdOnline(id),r=fdRow(id,f.name,o?'🟢 متصل الحين':fdAgo(FD.pres[id]&&FD.pres[id].ts));const c=fdBtn('💬',()=>dmOpen(id));if(fdUnread(id)){const d=document.createElement('span');d.className='ndot';d.textContent='•';c.appendChild(d)}r.append(c,fdBtn('🎮',b=>fdInvite(id,b),o?'g':''),fdBtn('⋯',()=>fdMenu(id)));r.onclick=()=>dmOpen(id);L.appendChild(r)})}
+async function fdAdd(){if(!fdNeed())return;const v=$('fdname').value.trim();if(!v)return;const fs=LB.db;let d;try{d=await fs.doc('names/'+nameDocId(v)).get()}catch(e){alert('تعذر البحث، تأكد من الإنترنت');return}if(!d.exists||!d.data().uid){alert('ما لقينا لاعب بهالاسم 🤔 تأكد من الكتابة');return}const to=d.data().uid,tn=String(d.data().name||v).slice(0,20);if(to===LB.uid){alert('هذا اسمك أنت 😄');return}if(isHidden(to)){alert('ما تقدر تضيف هذا اللاعب');return}if(FD.list[to]){alert(tn+' صديقك من قبل 👥');return}const inc=FD.reqIn.find(r=>r.from===to);if(inc){fdAccept(inc);$('fdname').value='';return}if(FD.reqOut.some(r=>r.to===to)){alert('أرسلت له طلب من قبل ⏳');return}if(FD.reqOut.length>=30){alert('عندك طلبات كثيرة معلّقة، انتظر الردود');return}try{await fs.doc('freq/'+to+'_'+LB.uid).set({from:LB.uid,to,fromName:u.slice(0,20),toName:tn,at:Date.now()});$('fdname').value='';fdToast('انرسل طلب الصداقة لـ '+tn+' ✅')}catch(e){console.warn(e);alert('ما انرسل الطلب، حاول مرة ثانية')}}
+async function fdAccept(q){if(!fdNeed())return;const fs=LB.db,me=LB.uid,now=Date.now(),b=fs.batch();b.set(fs.doc('friends/'+me+'/list/'+q.from),{name:String(q.fromName||'لاعب').slice(0,20),at:now});b.set(fs.doc('friends/'+q.from+'/list/'+me),{name:u.slice(0,20),at:now});b.delete(fs.doc('freq/'+me+'_'+q.from));try{await b.commit();if(FD.reqOut.some(r=>r.to===q.from))fs.doc('freq/'+q.from+'_'+me).delete().catch(()=>{});fdToast('صرتوا أصدقاء مع '+q.fromName+' 🎉')}catch(e){console.warn(e);alert('ما انقبل الطلب، حاول مرة ثانية');fdDraw()}}
+function fdReqDel(q){LB.db.doc('freq/'+q.id).delete().catch(e=>{console.warn(e);alert('صار خطأ، حاول مرة ثانية')})}
+function fdMenu(id){const f=FD.list[id]||{};if(!confirm('حذف '+(f.name||'اللاعب')+' من أصدقائك؟'))return;const fs=LB.db,b=fs.batch();b.delete(fs.doc('friends/'+LB.uid+'/list/'+id));b.delete(fs.doc('friends/'+id+'/list/'+LB.uid));b.commit().then(()=>fdToast('انحذف من أصدقائك')).catch(e=>{console.warn(e);alert('صار خطأ، حاول مرة ثانية')})}
+async function fdInvite(id,btn){if(!fdNeed())return;if(btn)btn.disabled=true;try{if(!PV.code){await pvCreate();if(!PV.code)return;const fb=document.querySelector('.navb[data-p="friends"]');if(FD.dm===id){showSec('dm');if(fb)fb.setAttribute('aria-selected','true')}else if(fb)fb.click()}await LB.db.doc('invites/'+id+'_'+LB.uid).set({from:LB.uid,to:id,fromName:u.slice(0,20),code:PV.code,at:Date.now()});fdToast('انرسلت الدعوة لـ '+((FD.list[id]||{}).name||'صديقك')+' 🎮 (كود الغرفة '+PV.code+')')}catch(e){console.warn(e);alert('ما انرسلت الدعوة، حاول مرة ثانية')}finally{if(btn)btn.disabled=false}}
+function fdInvDel(i){LB.db.doc('invites/'+i.id).delete().catch(()=>{})}
+function fdInvAccept(i){fdPopHide();fdInvDel(i);if(PV.code===i.code){pvGo();return}pvJoin(i.code)}
+let fdTT=null;function fdToast(t){const p=$('fdpop');$('fdpopt').textContent=t;$('fdpopy').style.display='none';FD.popInv=null;p.classList.add('on');clearTimeout(fdTT);fdTT=setTimeout(fdPopHide,3500)}
+function fdPop(i){const p=$('fdpop');$('fdpopt').textContent='🎮 '+String(i.fromName||'صديقك').slice(0,20)+' يدعوك لغرفته الخاصة';$('fdpopy').style.display='';FD.popInv=i;p.classList.add('on');clearTimeout(fdTT);fdTT=setTimeout(fdPopHide,15000);try{navigator.vibrate&&navigator.vibrate(120)}catch(e){}}
+function fdPopHide(){$('fdpop').classList.remove('on');FD.popInv=null}
+/* الدردشة الخاصة */
+function dmHead(){const id=FD.dm;if(!id)return;const f=FD.list[id]||{};$('dmname').textContent=String(f.name||'لاعب').slice(0,20);const a=$('dmav');a.innerHTML='';a.appendChild(fdAvatar(id,f.name));$('dmstat').textContent=fdOnline(id)?'🟢 متصل الحين':fdAgo(FD.pres[id]&&FD.pres[id].ts)}
+function dmOpen(id){if(!fdNeed())return;if(!FD.list[id])return;dmClose();FD.dm=id;FD.dmMsgs=[];showSec('dm');const fb=document.querySelector('.navb[data-p="friends"]');if(fb)fb.setAttribute('aria-selected','true');dmHead();dmDraw();const k=fdPair(LB.uid,id);FD.dmUn=LB.db.collection('dms/'+k+'/msgs').orderBy('ts','desc').limit(60).onSnapshot(s=>{FD.dmMsgs=s.docs.map(d=>({id:d.id,...d.data()})).reverse();dmSeen();dmDraw()},e=>{console.warn('dm',e);dmDraw(true)})}
+function dmSeen(){if(!FD.dm)return;const k=fdPair(LB.uid,FD.dm);FD.seen[k]=Date.now();try{localStorage.setItem('wcp_dmseen',JSON.stringify(FD.seen))}catch(e){}fdBadge()}
+function dmClose(){if(FD.dmUn)FD.dmUn();FD.dmUn=null;FD.dm=null}
+function dmDraw(err){const el=$('dmb');el.innerHTML='';const id=FD.dm;if(!id)return;if(err||!FD.dmMsgs.length){const n=document.createElement('div');n.className='note';n.textContent=err?'تعذر تحميل الرسائل، تأكد من الإنترنت':'ابدأ السالفة مع '+((FD.list[id]||{}).name||'صديقك')+' 👋';el.appendChild(n);return}
+FD.dmMsgs.forEach(m=>{if(isHidden(m.uid))return;const mine=m.uid===LB.uid,d=document.createElement('div');d.className='m'+(mine?' me':'');try{if(BB[m.bb])d.classList.add('bb-'+m.bb)}catch(e){}const tx=document.createElement('div');const st=String(m.text||'');let ok=false;try{if(st.startsWith('§st:')&&STK_ALL.has(st.slice(4))){tx.className='stk';tx.appendChild(stkEl(st.slice(4)));ok=true}}catch(e){}if(!ok)tx.textContent=fdClean(st);const t=document.createElement('div');t.className='dmt';const dt=new Date(Number(m.ts)||0);t.textContent=ar(dt.getHours()%12||12)+':'+ar(dt.getMinutes()).padStart(2,'٠')+(dt.getHours()<12?' ص':' م');d.append(tx,t);el.appendChild(d)});el.scrollTop=el.scrollHeight}
+async function dmSend(){if(!FD.dm||!fdNeed())return;const id=FD.dm;if(!FD.list[id]){alert('هذا اللاعب مو في أصدقائك');return}const v=$('dmi').value.trim().replace(/\s+/g,' ').slice(0,200);if(!v)return;if(Date.now()-FD.dmLast<1500){alert('شوي شوي 😅');return}FD.dmLast=Date.now();$('dmi').value='';const fs=LB.db,me=LB.uid,k=fdPair(me,id),now=Date.now();try{await fs.collection('dms/'+k+'/msgs').add({uid:me,name:u.slice(0,20),text:v,bb:(typeof EQ!=='undefined'&&EQ.bb)||'',ts:now});fs.doc('dms/'+k).set({u:[me,id].sort(),last:now,lastFrom:me}).catch(()=>{});dmSeen()}catch(e){console.warn(e);$('dmi').value=v;alert('ما انرسلت الرسالة، تأكد من الإنترنت')}}
+$('fdaddb').onclick=fdAdd;$('fdname').onkeydown=e=>{if(e.key==='Enter')fdAdd()};
+$('dms').onclick=dmSend;$('dmi').onkeydown=e=>{if(e.key==='Enter')dmSend()};
+$('dmback').onclick=()=>{dmClose();document.querySelector('.navb[data-p="friends"]').click()};
+$('dminv').onclick=()=>{if(FD.dm)fdInvite(FD.dm,$('dminv'))};
+$('fdpopy').onclick=()=>{const i=FD.popInv;if(i)fdInvAccept(i)};$('fdpopx').onclick=fdPopHide;
+document.querySelectorAll('.navb').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.p!=='dm'&&FD.dm)dmClose();if(b.dataset.p==='friends'){if(!FD.on&&pvOK())fdInit();fdDraw()}}));
+(function w(){if(pvOK()&&u){try{fdInit()}catch(e){console.warn('fdInit',e)}return}setTimeout(w,1500)})();
+fdDraw();
 </script>
 </body>
 </html>

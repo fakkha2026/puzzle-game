@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>تحدي الألغاز برو</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;800&display=swap" rel="stylesheet">
+<title>فكّها</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;800&family=Marhey:wght@700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#e4ecff;--ink:#102a5c;--card:#fff;--tile:#ff6b35;--slot:#c3d3f5;--ok:#1fa97a;--bad:#e5484d;--mut:#4a628f;--gold:#ffb703;--acc1:#0ea5e9;--acc2:#7c3aed;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1430;--ink:#e8efff;--card:#13224a;--slot:#1d3270;--mut:#a3b6e6}}
@@ -154,7 +154,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 </head>
 <body>
 <header>
-<h1>تحدي الألغاز برو 🧩</h1>
+<h1 style="font-family:Marhey,Tajawal,system-ui,sans-serif;font-size:2.2rem;letter-spacing:0">فكّها</h1>
 <div class="nav"><button class="navb" data-p="home" aria-selected="true">الرئيسية</button><button class="navb" data-p="rooms">غرف</button><button class="navb" data-p="chat">دردشة</button><button class="navb" data-p="shop">شراء 🛒</button><button class="navb" data-p="custom">ملفي ✨</button><button class="navb" data-p="ach">إنجازات</button><button class="navb" data-p="lb">الصدارة</button></div>
 </header>
 
@@ -246,6 +246,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 </div>
 </div>
 <div class="box"><b>حالتك الحالية</b><div id="cststat"></div></div>
+<div class="box"><b>الحساب والخصوصية</b><p style="color:var(--mut);font-size:.85rem;margin:6px 0">نحفظ اسمك ونقاطك ورسائلك عشان تشتغل اللعبة بس، وما نبيع بياناتك لأحد.</p><div class="btns"><a class="btn" href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener" style="text-decoration:none">🔒 سياسة الخصوصية</a><button class="btn" id="delacc" style="background:var(--bad);color:#fff">🗑️ حذف حسابي</button></div></div>
 </section>
 
 <section class="p" id="ach">
@@ -335,7 +336,7 @@ function el(t,cls,txt){const e=document.createElement(t);if(cls)e.className=cls;
 function pvDraw(box){const sb=document.querySelector('#chat .send');if(sb)sb.style.display='none';
 if(!pvOK()){box.appendChild(el('div','note','الغرف الخاصة الصوتية تحتاج اتصال بالإنترنت'));return}
 if(!PV.code){box.appendChild(el('div','note','🎙️ الدردشة الخاصة صوتية: سوّ غرفة وارسل الكود لأصحابك (حتى ١٠ لاعبين)'));const b=el('button','btn g','➕ غرفة خاصة جديدة');b.style.cssText='width:100%;margin:8px 0';b.onclick=pvCreate;box.appendChild(b);const row=el('div');row.style.cssText='display:flex;gap:6px';const inp=el('input');inp.maxLength=5;inp.placeholder='كود الغرفة';inp.style.cssText='flex:1;font:inherit;border:2px solid var(--slot);background:var(--card);color:var(--ink);border-radius:10px;padding:8px;text-transform:uppercase;letter-spacing:3px;text-align:center';const jb=el('button','btn','دخول');jb.onclick=()=>pvJoin(inp.value);row.append(inp,jb);box.appendChild(row);return}
-const hd=el('div');hd.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px';const t=el('b',null,'🔒 غرفة: '+PV.code);t.style.cssText='flex:1;letter-spacing:2px';const cp=el('button','btn','📋 نسخ الكود');cp.onclick=()=>{const s='تعال العب معي تحدي الألغاز برو 🧩 كود غرفتي: '+PV.code;(navigator.share?navigator.share({text:s}):navigator.clipboard.writeText(s).then(()=>alert('انسخ الكود ✅'))).catch(()=>{})};const lv=el('button','btn','خروج');lv.onclick=()=>{if(confirm('تطلع من الغرفة؟'))pvLeave()};hd.append(t,cp,lv);box.appendChild(hd);
+const hd=el('div');hd.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px';const t=el('b',null,'🔒 غرفة: '+PV.code);t.style.cssText='flex:1;letter-spacing:2px';const cp=el('button','btn','📋 نسخ الكود');cp.onclick=()=>{const s='تعال العب معي «فكّها» 🧩 كود غرفتي: '+PV.code;(navigator.share?navigator.share({text:s}):navigator.clipboard.writeText(s).then(()=>alert('انسخ الكود ✅'))).catch(()=>{})};const lv=el('button','btn','خروج');lv.onclick=()=>{if(confirm('تطلع من الغرفة؟'))pvLeave()};hd.append(t,cp,lv);box.appendChild(hd);
 const mem=(PV.room&&PV.room.members)||[];const ml=el('div','rcpl');mem.forEach(id=>{const c=el('span','pc'+(id===LB.uid?' me':''),(PV.names[id]||'…')+(id===(PV.room&&PV.room.owner)?' 👑':''));ml.appendChild(c)});const cnt=el('small',null,'اللاعبين: '+ar(mem.length)+'/١٠');cnt.style.color='var(--mut)';box.append(cnt,ml);
 const vl=PV.voices.filter(v=>!blocked.has(v.uid));if(!vl.length)box.appendChild(el('div','note','ما فيه رسائل صوتية بعد، سجّل أول وحدة 🎙️'));vl.forEach(v=>{const mine=v.uid===LB.uid,d=el('div','m'+(mine?' me':''));const sm=el('small'),nm=el('span',null,String(v.name||'لاعب').slice(0,20));if(v.cust&&COLORS[v.color]){nm.style.color=COLORS[v.color];if(EFFECTS[v.cfx])nm.className='fx-'+v.cfx}sm.appendChild(nm);if(!mine){const a=el('span',null,' ⋯');a.style.cssText='opacity:.6;cursor:pointer';a.onclick=()=>pvMenu(v);sm.appendChild(a)}const pb=el('button','btn','▶️ شغّل ('+ar(v.dur||0)+'ث)');pb.style.marginTop='4px';pb.onclick=()=>pvPlay(v,pb);d.append(sm,pb);box.appendChild(d)});
 const rb=el('button','btn'+(PV.rec?'':' g'),PV.rec?'⏹️ إيقاف وإرسال':'🎙️ ابدأ التسجيل');rb.id='pvrec';rb.style.cssText='width:100%;margin-top:10px;padding:16px;font-size:1.1rem'+(PV.rec?';background:var(--bad);color:#fff':'');rb.onclick=pvRec;box.appendChild(rb);box.appendChild(el('small',null,'أقصى مدة ٣٠ ثانية'));box.scrollTop=box.scrollHeight}
@@ -361,7 +362,7 @@ updateRooms();drawChat();
 
 function updateCustomUI(){$('unamecst').value=u;try{nameLockUI()}catch(e){}$('cststat').innerHTML=customized?`<b style="color:var(--gold)">✅ مفعل</b><p>اللون: ${Object.keys(COLORS)[Object.values(COLORS).indexOf(COLORS[custColor])]}</p><p>التأثير: ${EFFECTS[custEffect]}</p>`:'<b style="color:var(--mut)">⏳ غير مفعل</b><p>فعّل التخصيص من خانة 🛒</p>';if(customized)$('cstUI').style.display='block';const cg=$('colorGrid');cg.innerHTML='';Object.keys(COLORS).forEach(k=>{const b=document.createElement('div');b.className='color-box';b.style.background=COLORS[k];b.setAttribute('aria-selected',k===custColor);b.onclick=()=>{custColor=k;document.querySelectorAll('.color-box').forEach(x=>x.setAttribute('aria-selected',false));b.setAttribute('aria-selected',true);styleNamePreview();save()};cg.appendChild(b)});const eg=$('effectGrid');eg.innerHTML='';Object.keys(EFFECTS).forEach(k=>{const b=document.createElement('div');b.className='effect-btn';b.textContent=EFFECTS[k];b.setAttribute('aria-selected',k===custEffect);b.onclick=()=>{custEffect=k;document.querySelectorAll('.effect-btn').forEach(x=>x.setAttribute('aria-selected',false));b.setAttribute('aria-selected',true);styleNamePreview();save()};eg.appendChild(b)});styleNamePreview()}
 $('buycst').onclick=()=>{$('cstUI').style.display='block';styleNamePreview();$('preview').scrollIntoView({behavior:'smooth',block:'center'})};
-$('unamecst').oninput=styleNamePreview;nameLockUI();
+$('unamecst').oninput=styleNamePreview;$('delacc').onclick=deleteAccount;nameLockUI();
 $('savecst').onclick=()=>{if(!u){alert('اختر اسمك من الصفحة الرئيسية أول');return}save();updateHome();if(!customized){$('mt').textContent='🔒 التخصيص غير مفعّل';$('mp').textContent='تم حفظ اختيارك — فعّل التخصيص من خانة 🛒 عشان يظهر للجميع';$('mok').textContent='روح للخانة';$('mok').onclick=()=>{$('md').classList.remove('on');document.querySelector('.navb[data-p="shop"]').click()};$('md').classList.add('on');return}updateCustomUI();alert('✅ تم حفظ التخصيص!')};
 
 $('mno').onclick=()=>$('md').classList.remove('on');
@@ -412,6 +413,21 @@ async function hofLoad(){const el=$('hof');if(!el||!LB.db||LB.mode==='ar')return
 async function champsInit(){if(!LB.db||LB.mode==='ar')return;const pm=prevMonthKey(mkey);CH2.prev=pm;try{const sn=await LB.db.collection('months/'+pm+'/scores').orderBy('mscore','desc').limit(3).get();sn.docs.forEach((d,i)=>{if((Number(d.data().mscore)||0)>0)CH2.champs[d.id]={r:i,m:pm,name:String(d.data().name||'لاعب')}});const top=sn.docs[0];if(top&&CH2.champs[top.id]){const s=document.querySelector('#adbox .ads');if(s){s.querySelector('.adbig').textContent='🎉 '+CH2.champs[top.id].name.slice(0,20);s.querySelector('.adsm').textContent='👑 بطل '+monthName(pm)+' — مبروك!'}}const me=CH2.champs[LB.uid];if(me&&!CH2.claimed['m'+pm]){const g=[100,50,25][me.r];credits+=g;CH2.claimed['m'+pm]=1;save();updateHome();cAlert(['👑 مبروك! أنت بطل ','🥈 مبروك! أنت وصيف ','🥉 مبروك! أنت ثالث '][me.r]+monthName(pm),'كسبت '+ar(g)+' تلميحة 💡'+(me.r===0?' + اسم ذهبي حصري طول هالشهر ✨':' + لقب يظهر جنب اسمك'))}}catch(e){console.warn('champs',e)}
 try{const pw=String(Number(wkey)-1);if(!CH2.claimed['w'+pw]){const sn=await LB.db.collection('weeks/'+pw+'/scores').orderBy('wscore','desc').limit(10).get();const i=sn.docs.findIndex(d=>d.id===LB.uid);CH2.claimed['w'+pw]=1;if(i>=0){const g=i<3?15:5;credits+=g;save();updateHome();cAlert('🔥 جائزة الأسبوع!','كنت رقم '+ar(i+1)+' الأسبوع الماضي، كسبت '+ar(g)+' تلميحة 💡')}}}catch(e){console.warn('weekclaim',e)}
 try{localStorage.setItem('wcp_claimed',JSON.stringify(CH2.claimed))}catch(e){}try{drawChat()}catch(e){}if($('lb').classList.contains('on')){LB.unsub&&LB.unsub();LB.unsub=null;lbSub()}}
+async function deleteAccount(){if(!LB.db||!LB.uid||LB.mode==='ar'){alert('حذف الحساب يحتاج اتصال بالإنترنت');return}
+if(!confirm('⚠️ متأكد تبي تحذف حسابك؟\nبينحذف اسمك ونقاطك ورسائلك نهائياً، وما تقدر ترجعها.'))return;if(prompt('اكتب كلمة: حذف')!=='حذف')return;
+const fs=LB.db,me=LB.uid,b=$('delacc');b.disabled=true;b.textContent='جارٍ الحذف…';
+try{try{await pvLeave(true)}catch(e){}try{if(RM.named)await RM.named.leave()}catch(e){}
+const ops=[];const add=p=>ops.push(fs.doc(p));
+try{const pd=await fs.doc('players/'+me).get();if(pd.exists&&pd.data().key)add('names/'+pd.data().key)}catch(e){}
+for(let k=mkey;k>='2026-10';k=prevMonthKey(k))add('months/'+k+'/scores/'+me);
+for(let w=Number(weekKey()),i=0;i<60&&w>0;i++,w--)add('weeks/'+w+'/scores/'+me);
+PUBS.forEach(r=>add('rooms/'+r.id+'/players/'+me));
+try{const sn=await fs.collection('chat_pub').where('uid','==',me).limit(400).get();sn.docs.forEach(d=>ops.push(d.ref))}catch(e){console.warn(e)}
+add('players/'+me);
+for(let i=0;i<ops.length;i+=400){const bt=fs.batch();ops.slice(i,i+400).forEach(r=>bt.delete(r));await bt.commit()}
+try{await firebase.auth().currentUser.delete()}catch(e){try{await firebase.auth().signOut()}catch(_){}}
+try{['wcp','wcp_month','wcp_week','wcp_rplayed','wcp_priv','wcp_block','wcp_claimed'].forEach(k=>localStorage.removeItem(k))}catch(e){}
+alert('تم حذف حسابك ✅');location.reload()}catch(e){console.warn(e);alert('صار خطأ في الحذف، حاول مرة ثانية');b.disabled=false;b.textContent='🗑️ حذف حسابي'}}
 function cAlert(t,p){$('mt').textContent=t;$('mp').textContent=p;$('mok').textContent='حلو 🎉';$('mok').onclick=()=>$('md').classList.remove('on');$('md').classList.add('on')}
 function lbNote(t){$('lblist').innerHTML='';const d=document.createElement('div');d.className='note';d.textContent=t;$('lblist').appendChild(d)}
 function lbLocal(){const el=$('lblist');el.innerHTML='';if(!mscore){lbNote('ادخل غرفة عامة من خانة الغرف وحل التحدي عشان يظهر اسمك 🏆');return}lbRender([{id:'me',name:u||'لاعب',mscore,best,cust:customized,color:custColor,fx:custEffect}],true)}

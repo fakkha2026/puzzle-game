@@ -786,6 +786,7 @@ document.querySelector('.navb[data-p="lb"]').addEventListener('click',()=>{LB.db
 lbLocal();
 
 const PUBS=[{id:'pub1',n:'الغرفة العامة ١'},{id:'pub2',n:'الغرفة العامة ٢'},{id:'pub3',n:'الغرفة العامة ٣'}],RCAP=5,ROUND=600000;
+/* v6.1: سعر النخبة ٥٩ ريال */
 /* v6.0: الغرف العامة — عدّ تنازلي ٢٠ ثانية ثم تبدأ الجولة حتى لو اللاعب لحاله، والجولة ٣ دقائق */
 const CD=20000,RLEN=180000,RJOIN=60000;
 const hashStr=t=>{let h=2166136261;for(const c of t){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return h>>>0};
@@ -956,7 +957,7 @@ const STKS={fg:{n:'فكّوه الذهبي',elite:1,l:Object.keys(FK).map(k=>'fg
 const STK_ALL=new Set([...STKS.fg.l,...STKS.fe.l,...STKS.fk.l,...STKS.fw.l,...STKS.fun.l,...STKS.vip.l]);const STK_ANIM={'😂':'shake','🔥':'flame','👏':'clap','😎':'cool','🤯':'boom','💪':'flex','🎉':'party','😭':'cry','🫡':'salute','🤝':'pulse','👀':'look','💯':'hundred','👑':'float','💎':'spin','🏆':'boom','🦅':'fly','⚡':'flash','🎖️':'swing','🌟':'twinkle','🥇':'swing'};function stkEl(s){if(s.startsWith('fg:')&&FK[s.slice(3)]){const x=document.createElement('span');x.className='sa sa-fk';x.innerHTML=fkSVG(s.slice(3),1);return x}if(s.startsWith('fe:')&&FE[s.slice(3)])return feEl(s.slice(3));if(s.startsWith('fk:')&&FK[s.slice(3)]){const x=document.createElement('span');x.className='sa sa-fk';x.innerHTML=fkSVG(s.slice(3));return x}if(s.startsWith('fw:')&&FW[s.slice(3)])return fwEl(s.slice(3));const x=document.createElement('span');x.className='sa sa-'+(STK_ANIM[s]||'pulse')+(STKS.vip.l.includes(s)?' sa-vip':'');x.textContent=s;return x}
 let OWN=new Set,EQ={fr:'',bd:'',bb:''},VIP={until:0,claim:0},MYAV='';
 try{OWN=new Set(JSON.parse(localStorage.getItem('wcp_own')||'[]'))}catch(e){}try{EQ={...EQ,...JSON.parse(localStorage.getItem('wcp_eq')||'{}')}}catch(e){}try{VIP={...VIP,...JSON.parse(localStorage.getItem('wcp_vip')||'{}')}}catch(e){}try{MYAV=localStorage.getItem('wcp_av')||''}catch(e){}
-const isVIP=()=>VIP.until>Date.now(),isElite=()=>isVIP()&&VIP.tier==='elite',vipTier=()=>isElite()?'elite':isVIP()?'vip':'';const TIERS={vip:{n:'VIP',p:29,h:150,ic:'💜'},elite:{n:'النخبة',p:100,h:500,ic:'👑'}};const profTier=d=>d?(d.vip===true?'vip':(d.vip==='vip'||d.vip==='elite'?d.vip:'')):'';const profIsElite=id=>profTier(profGet(id))==='elite';
+const isVIP=()=>VIP.until>Date.now(),isElite=()=>isVIP()&&VIP.tier==='elite',vipTier=()=>isElite()?'elite':isVIP()?'vip':'';const TIERS={vip:{n:'VIP',p:29,h:150,ic:'💜'},elite:{n:'النخبة',p:59,h:500,ic:'👑'}};const profTier=d=>d?(d.vip===true?'vip':(d.vip==='vip'||d.vip==='elite'?d.vip:'')):'';const profIsElite=id=>profTier(profGet(id))==='elite';
 const cosSave=()=>{try{localStorage.setItem('wcp_own',JSON.stringify([...OWN]));localStorage.setItem('wcp_eq',JSON.stringify(EQ));localStorage.setItem('wcp_vip',JSON.stringify(VIP));if(MYAV)localStorage.setItem('wcp_av',MYAV);else localStorage.removeItem('wcp_av')}catch(e){}};
 const isChampNow=(n=1)=>{try{const c=CH2.champs[LB.uid];return !!(c&&c.r===n-1)}catch(e){return false}};const kingDays=()=>(RK.td||[]).length;const KING_DAYS=30;const earnOk=c=>{try{return rkTier(c)>=3}catch(e){return false}};
 const hasCos=(t,k,D)=>!!D[k]&&(D[k].free?true:D[k].earn?earnOk(D[k].earn):D[k].champ?isChampNow(D[k].champ):D[k].king?kingDays()>=KING_DAYS:D[k].elite?isElite():D[k].vip?isVIP():OWN.has(t+':'+k));

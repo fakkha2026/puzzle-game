@@ -457,7 +457,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 <div class="box"><b>🚫 اللاعبين المحظورين</b><p style="color:var(--mut);font-size:.85rem;margin:6px 0">ما تشوف رسائلهم في الدردشة والغرف</p><div id="blocklist"></div></div>
 <div class="box" id="phbox"><b>🔐 حسابك</b><div id="phstate"></div>
 </div>
-<div class="box"><b>الحساب والخصوصية</b><p style="color:var(--mut);font-size:.75rem;margin:4px 0;word-break:break-all">معرّفك: <span id="myid">—</span></p><p style="color:var(--mut);font-size:.85rem;margin:6px 0">نحفظ اسمك ونقاطك ورسائلك عشان تشتغل اللعبة بس، وما نبيع بياناتك لأحد.</p><div class="btns"><a class="btn" href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener" style="text-decoration:none">🔒 سياسة الخصوصية</a><button class="btn" id="delacc" style="background:var(--bad);color:#fff">🗑️ حذف حسابي</button></div></div>
+<div class="box"><b>الحساب والخصوصية</b><p style="color:var(--mut);font-size:.75rem;margin:4px 0;word-break:break-all">معرّفك: <span id="myid">—</span></p><p style="color:var(--mut);font-size:.85rem;margin:6px 0">نحفظ اسمك ونقاطك ورسائلك عشان تشتغل اللعبة بس، وما نبيع بياناتك لأحد.</p><p style="color:var(--mut);font-size:.85rem;margin:6px 0">🕒 رسائل الدردشة العامة تنحذف بعد ٢٤ ساعة، والرسائل الخاصة بعد ٧ أيام، والبلاغات بعد ٣٠ يوم.</p><div class="btns"><a class="btn" href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener" style="text-decoration:none">🔒 سياسة الخصوصية</a><button class="btn" id="delacc" style="background:var(--bad);color:#fff">🗑️ حذف حسابي</button></div></div>
 </section>
 
 <section class="p" id="ach">
@@ -622,6 +622,7 @@ if(!PV.code){box.appendChild(el('div','note','🎙️ الدردشة الخاص�
 const hd=el('div');hd.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px';const t=el('b',null,'🔒 غرفة: '+PV.code);t.style.cssText='flex:1;letter-spacing:2px';const cp=el('button','btn','📋 نسخ الكود');cp.onclick=()=>{const s='تعال العب معي «فكّها» 🧩 كود غرفتي: '+PV.code;(navigator.share?navigator.share({text:s}):navigator.clipboard.writeText(s).then(()=>alert('انسخ الكود ✅'))).catch(()=>{})};const lv=el('button','btn','خروج');lv.onclick=()=>{if(confirm('تطلع من الغرفة؟'))pvLeave()};hd.append(t,cp,lv);box.appendChild(hd);
 const mem=(PV.room&&PV.room.members)||[];const ml=el('div','rcpl');mem.forEach(id=>{const c=el('span','pc'+(id===LB.uid?' me':''),(PV.names[id]||'…')+(id===(PV.room&&PV.room.owner)?' 👑':''));ml.appendChild(c)});const cnt=el('small',null,'اللاعبين: '+ar(mem.length)+'/١٠');cnt.style.color='var(--mut)';box.append(cnt,ml);try{lvWatch();lvBar()}catch(e){console.warn(e)}
 try{pvChalBox(box)}catch(e){console.warn(e)}box.scrollTop=box.scrollHeight}
+const CHAT_TTL=864e5,DM_TTL=7*864e5,REP_TTL=30*864e5;const chatLive=m=>(Number(m&&m.ts)||0)>Date.now()-CHAT_TTL;
 let msgs=[],cmode='pub',CH={on:false,last:0,unsub:null};
 let blocked=new Set;try{blocked=new Set(JSON.parse(localStorage.getItem('wcp_block')||'[]'))}catch(e){}
 let blockN={};try{blockN=JSON.parse(localStorage.getItem('wcp_blockn')||'{}')}catch(e){}
@@ -738,7 +739,7 @@ if(tx.classList.contains('stk')){}else{const t=tx.textContent;tx.className='dvtx
 if(nw){d.classList.add('dvnew');for(let j=0;j<14;j++){const b=document.createElement('i');b.className='dvburst';const an=j/14*Math.PI*2,r=60+Math.random()*50;b.style.setProperty('--bx',Math.cos(an)*r+'px');b.style.setProperty('--by',Math.sin(an)*r*.6+'px');b.style.animationDelay=(Math.random()*.15)+'s';d.appendChild(b);setTimeout(()=>b.remove(),1300)}}}
  const ELSEEN=new Set;let ELFIRST=true;function elTx(m,tx){let e=false;try{e=profIsElite(m.uid)}catch(_){}if(!e)return false;const k=m.id||(m.uid+'|'+m.ts),nw=!ELFIRST&&!ELSEEN.has(k);ELSEEN.add(k);tx.className='eltx';let i=0;clean(m.text).split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){tx.appendChild(document.createTextNode(' '));return}const sp=document.createElement('span');sp.className='elw'+(nw?' in':'');sp.textContent=w;if(nw)sp.style.animationDelay=(i*0.09)+'s,0s';i++;tx.appendChild(sp)});return true}
 function drawChat(){setTimeout(()=>{ELFIRST=false},0);const el=$('cb');el.innerHTML='';{const sb=document.querySelector('#chat .send');if(sb)sb.style.display=''}if(cmode==='pri'){pvDraw(el);return}
-const list=(msgs||[]).filter(m=>!isHidden(m.uid));if(!list.length){const n=document.createElement('div');n.className='note';n.textContent=CH.on?'ما فيه رسائل بعد، كن أول واحد يسلّم 👋':'الدردشة العامة تحتاج اتصال بالإنترنت';el.appendChild(n)}
+const list=(msgs||[]).filter(m=>!isHidden(m.uid)&&chatLive(m));if(!list.length){const n=document.createElement('div');n.className='note';n.textContent=CH.on?'ما فيه رسائل بعد، كن أول واحد يسلّم 👋':'الدردشة العامة تحتاج اتصال بالإنترنت';el.appendChild(n)}
 list.forEach(m=>{const mine=m.uid===uid,d=document.createElement('div');d.className='m'+(mine?' me':'')+(m.fx&&m.fx!=='none'?' m-'+m.fx:'');const sm=document.createElement('small'),nm=document.createElement('span');nm.textContent=String(m.name||'لاعب').slice(0,20);if(m.cust&&COLORS[m.color]){nm.style.color=COLORS[m.color];if(EFFECTS[m.cfx])nm.className='fx-'+m.cfx}sm.appendChild(nm);decoName(m.uid,nm,sm);try{if(profIsElite(m.uid))nm.classList.add('nm-elite');sm.insertBefore(avatarEl(m.uid,m.name),nm);const bg=badgeEl(m.uid);if(bg)nm.after(bg);if(BB[m.bb])d.classList.add('bb-'+m.bb)}catch(e){}
 if(!mine&&CH.on&&m.id){const act=document.createElement('span');act.className='umore';act.textContent='⋮';act.onclick=e=>{e.stopPropagation();chatMenu(m)};sm.appendChild(act)}
 const tx=document.createElement('div');{const st=String(m.text||'');if(st.startsWith('§st:')&&STK_ALL.has(st.slice(4))){tx.className='stk';tx.appendChild(stkEl(st.slice(4)))}else if(elTx(m,tx)){}else tx.textContent=clean(m.text)}d.append(sm,tx);try{devBubble(m,d,tx)}catch(e){}el.appendChild(d)});el.scrollTop=el.scrollHeight;setTimeout(()=>{DVFIRST=false},0)}
@@ -1123,7 +1124,7 @@ function fdPop(i){const p=$('fdpop');$('fdpopt').textContent='🎮 '+String(i.fr
 function fdPopHide(){$('fdpop').classList.remove('on');FD.popInv=null}
 /* الدردشة الخاصة */
 function dmHead(){const id=FD.dm;if(!id)return;const f=FD.list[id]||{};$('dmname').textContent=String(f.name||'لاعب').slice(0,20);const a=$('dmav');a.innerHTML='';a.appendChild(fdAvatar(id,f.name));$('dmstat').textContent=fdOnline(id)?'🟢 متصل الحين':fdAgo(FD.pres[id]&&FD.pres[id].ts)}
-function dmOpen(id){if(!fdNeed())return;if(!FD.list[id])return;dmClose();FD.dm=id;FD.dmMsgs=[];showSec('dm');const fb=document.querySelector('.navb[data-p="friends"]');if(fb)fb.setAttribute('aria-selected','true');dmHead();dmDraw();const k=fdPair(LB.uid,id);FD.dmUn=LB.db.collection('dms/'+k+'/msgs').orderBy('ts','desc').limit(60).onSnapshot(s=>{FD.dmMsgs=s.docs.map(d=>({id:d.id,...d.data()})).reverse();dmSeen();dmDraw()},e=>{console.warn('dm',e);dmDraw(true)})}
+function dmOpen(id){if(!fdNeed())return;if(!FD.list[id])return;dmClose();FD.dm=id;FD.dmMsgs=[];showSec('dm');const fb=document.querySelector('.navb[data-p="friends"]');if(fb)fb.setAttribute('aria-selected','true');dmHead();dmDraw();const k=fdPair(LB.uid,id);FD.dmUn=LB.db.collection('dms/'+k+'/msgs').orderBy('ts','desc').limit(60).onSnapshot(s=>{FD.dmMsgs=s.docs.map(d=>({id:d.id,...d.data()})).filter(m=>(Number(m.ts)||0)>Date.now()-DM_TTL).reverse();dmSeen();dmDraw()},e=>{console.warn('dm',e);dmDraw(true)})}
 function dmSeen(){if(!FD.dm)return;const k=fdPair(LB.uid,FD.dm);FD.seen[k]=Date.now();try{localStorage.setItem('wcp_dmseen',JSON.stringify(FD.seen))}catch(e){}fdBadge()}
 function dmClose(){if(FD.dmUn)FD.dmUn();FD.dmUn=null;FD.dm=null}
 function dmDraw(err){const el=$('dmb');el.innerHTML='';const id=FD.dm;if(!id)return;if(err||!FD.dmMsgs.length){const n=document.createElement('div');n.className='note';n.textContent=err?'تعذر تحميل الرسائل، تأكد من الإنترنت':'ابدأ السالفة مع '+((FD.list[id]||{}).name||'صديقك')+' 👋';el.appendChild(n);return}
@@ -1168,6 +1169,16 @@ m.innerHTML='<div><h2>📜 قبل ما تبدأ</h2>'+
 document.body.appendChild(m);document.getElementById('tmdok').onclick=()=>{try{localStorage.setItem('wcp_terms','1')}catch(e){}m.remove()}}
 termsGate();
 
+/* v7.5: حذف الرسائل القديمة: العامة ٢٤ ساعة، الخاصة ٧ أيام، البلاغات ٣٠ يوم */
+async function ttlDel(refs){for(let i=0;i<refs.length;i+=400){const b=LB.db.batch();refs.slice(i,i+400).forEach(r=>b.delete(r));await b.commit()}}
+async function ttlClean(){if(!LB.db||!LB.uid||LB.mode==='ar'||navigator.onLine===false)return;const fs=LB.db,me=LB.uid,now=Date.now();
+try{const sn=await fs.collection('chat_pub').where('uid','==',me).limit(200).get();const r=sn.docs.filter(d=>(Number(d.data().ts)||0)<now-CHAT_TTL).map(d=>d.ref);if(r.length)await ttlDel(r)}catch(e){console.warn('ttl chat',e)}
+if(IS_ADMIN){try{const sn=await fs.collection('chat_pub').where('ts','<',now-CHAT_TTL).limit(400).get();if(sn.docs.length)await ttlDel(sn.docs.map(d=>d.ref))}catch(e){console.warn('ttl chat adm',e)}
+try{const sn=await fs.collection('reports').where('ts','<',now-REP_TTL).limit(200).get();if(sn.docs.length)await ttlDel(sn.docs.map(d=>d.ref))}catch(e){console.warn('ttl rep',e)}}
+let dmBlock=false;try{dmBlock=localStorage.getItem('wcp_dmttl')==='x'}catch(e){}
+if(!dmBlock){for(const k of Object.keys(FD.meta||{})){try{const sn=await fs.collection('dms/'+k+'/msgs').where('ts','<',now-DM_TTL).limit(100).get();const r=sn.docs.filter(d=>d.data().uid===me).map(d=>d.ref);if(r.length)await ttlDel(r)}catch(e){console.warn('ttl dm',e);if(e&&e.code==='permission-denied'){try{localStorage.setItem('wcp_dmttl','x')}catch(_){}}break}}}}
+setTimeout(()=>{try{ttlClean()}catch(e){}},12000);setInterval(()=>{try{ttlClean()}catch(e){}},30*60000);
+setInterval(()=>{try{if($('chat').classList.contains('on')&&cmode==='pub'&&(msgs||[]).some(m=>!chatLive(m)))drawChat()}catch(e){}},60000);
 /* v7.4: المطوّر ما يظهر في الصدارة ولا قاعة المشاهير ولا الجوائز */
 /* v7.3: رسالة عدم الاتصال وإعادة الاتصال تلقائياً */
 (function(){const bar=document.createElement('div');bar.id='netbar';bar.setAttribute('role','status');bar.setAttribute('aria-live','polite');document.body.appendChild(bar);let t=null;

@@ -214,6 +214,35 @@ body.lvpad{padding-bottom:110px}
 .lvb small{font-weight:600;font-size:.7rem;color:var(--mut)}
 .lvb.on{border-color:var(--gold);background:var(--gold);color:#102a5c;box-shadow:0 0 0 2px rgba(255,183,3,.35)}
 .lvb.on small{color:#102a5c}
+
+/* v7.2: فقاعة المطوّر الحصرية في الدردشة العامة */
+.m.m-dev{position:relative;margin:1.5em 0 .5em;min-width:62%;padding:10px 14px 12px;color:#ffe9a8;border:2px solid transparent!important;border-radius:16px;overflow:visible;
+background:repeating-linear-gradient(45deg,rgba(255,215,0,.05) 0 2px,transparent 2px 12px) padding-box,radial-gradient(120% 140% at 50% 0%,#2a1f08 0%,#0d0a05 55%,#050505 100%) padding-box,conic-gradient(from var(--dva,0deg),#7a5410,#ffd700,#fff7c2,#c99a2e,#3a2a08,#ffd700,#fff7c2,#7a5410) border-box;
+box-shadow:0 0 18px rgba(255,200,40,.45),0 0 2px #000,inset 0 0 18px rgba(255,215,0,.15);animation:dvglow 3s ease-in-out infinite}
+@property --dva{syntax:'<angle>';inherits:false;initial-value:0deg}
+.m.m-dev{animation:dvglow 3s ease-in-out infinite,dvspin 4s linear infinite}
+@keyframes dvspin{to{--dva:360deg}}
+@keyframes dvglow{50%{box-shadow:0 0 28px rgba(255,215,0,.75),0 0 2px #000,inset 0 0 22px rgba(255,215,0,.25)}}
+.m.m-dev small{color:#ffd76a!important;opacity:1!important;position:relative;z-index:2}
+.m.m-dev .dvsweep{position:absolute;inset:0;border-radius:14px;overflow:hidden;pointer-events:none;z-index:1}
+.m.m-dev .dvsweep::after{content:"";position:absolute;top:-20%;bottom:-20%;width:35%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,240,180,.28),transparent);transform:skewX(-20deg);animation:dvsw 4.5s ease-in-out infinite}
+@keyframes dvsw{0%,55%{left:-60%}100%{left:130%}}
+.m.m-dev .dvcrest{position:absolute;top:-1.55em;left:50%;transform:translateX(-50%);width:84px;height:34px;z-index:3;pointer-events:none;filter:drop-shadow(0 0 6px rgba(255,200,40,.8))}
+.m.m-dev .dvcrest .wl{transform-origin:34px 20px;animation:dvwl 2.4s ease-in-out infinite}.m.m-dev .dvcrest .wr{transform-origin:50px 20px;animation:dvwr 2.4s ease-in-out infinite}
+@keyframes dvwl{50%{transform:rotate(-9deg)}}@keyframes dvwr{50%{transform:rotate(9deg)}}
+.m.m-dev .dvcrest .gm{animation:dvgm 1.8s ease-in-out infinite}@keyframes dvgm{50%{fill:#3b3b4a}}
+.m.m-dev .dvsp{position:absolute;width:8px;height:8px;z-index:3;pointer-events:none;background:#fff3b0;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 4px #ffd700);animation:dvtw 2s ease-in-out infinite}
+.m.m-dev .dvsp.a{top:-4px;right:8px}.m.m-dev .dvsp.b{bottom:-4px;left:10px;animation-delay:.7s}.m.m-dev .dvsp.c{bottom:30%;right:-4px;animation-delay:1.3s;width:6px;height:6px}
+@keyframes dvtw{0%,100%{opacity:.2;transform:scale(.5) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(45deg)}}
+.m.m-dev .dvtx{position:relative;z-index:2;font-weight:800;font-size:.95rem;line-height:1.6}
+.m.m-dev .dvw{display:inline-block;background:linear-gradient(90deg,#c9962a,#ffe27a,#fffbe6,#ffd700,#b8861b,#ffe27a);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:dvtxt 3s linear infinite;filter:drop-shadow(0 0 3px rgba(255,200,40,.55))}
+.m.m-dev .dvw.in{animation:dvin .7s cubic-bezier(.2,1.4,.4,1) both,dvtxt 3s linear infinite}
+@keyframes dvtxt{to{background-position:-300% 0}}
+@keyframes dvin{0%{opacity:0;transform:translateY(8px) scale(.4);filter:blur(4px) drop-shadow(0 0 10px #ffd700)}100%{opacity:1;transform:none;filter:drop-shadow(0 0 3px rgba(255,200,40,.55))}}
+.m.m-dev.dvnew{animation:dventer .9s cubic-bezier(.2,1.3,.4,1),dvglow 3s ease-in-out infinite,dvspin 4s linear infinite}
+@keyframes dventer{0%{transform:scale(.6);opacity:0;filter:brightness(2.5)}60%{transform:scale(1.04);opacity:1}100%{transform:none;filter:none}}
+.m.m-dev .dvburst{position:absolute;left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#ffd700;z-index:4;pointer-events:none;box-shadow:0 0 6px #ffd700;animation:dvb 1s ease-out forwards}
+@keyframes dvb{to{transform:translate(var(--bx),var(--by)) scale(.2);opacity:0}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-app-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/firebase@10.12.2/firebase-auth-compat.js"></script>
@@ -687,12 +716,20 @@ function badWord(w0){const raw=String(w0||'').toLowerCase().replace(/[^a-z0-9]/g
 function hasBad(t){const ws=String(t||'').split(/[\s_\-.،,?؟:;"'()]+/).filter(Boolean);if(ws.some(badWord))return true;let j='';for(const w of ws){if(fNorm(w).replace(/[^\p{L}]/gu,'').length===1)j+=w;else{if(j.length>1&&badWord(j))return true;j=''}}if(j.length>1&&badWord(j))return true;const all=fNorm(ws.join('')).replace(/[^\p{L}]/gu,'');return BX.some(b=>b.length>=5&&all.includes(b))}
 const BADW=BS;const clean=t=>String(t).split(/(\s+)/).map(w=>badWord(w)?'*'.repeat(w.length):w).join('');
 const BADMSG='🚫 رسالتك فيها كلمات ممنوعة، عدّلها وأرسلها. الشتم يعرّض حسابك للإيقاف.';
+
+const DVSEEN=new Set;let DVFIRST=true;
+const DVCREST='<svg class="dvcrest" viewBox="0 0 84 34" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="dvg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c4"/><stop offset=".45" stop-color="#ffd700"/><stop offset="1" stop-color="#8a5c0e"/></linearGradient></defs><g class="wl"><path d="M34 20 C24 8 12 6 2 10 C8 12 10 14 12 16 C6 16 4 18 2 21 C10 20 14 22 16 24 C12 25 10 27 9 30 C18 27 26 26 34 24Z" fill="#0b0b10" stroke="url(#dvg)" stroke-width="1.2"/></g><g class="wr"><path d="M50 20 C60 8 72 6 82 10 C76 12 74 14 72 16 C78 16 80 18 82 21 C74 20 70 22 68 24 C72 25 74 27 75 30 C66 27 58 26 50 24Z" fill="#0b0b10" stroke="url(#dvg)" stroke-width="1.2"/></g><path d="M33 6 L36 1 L39 5 L42 0 L45 5 L48 1 L51 6Z" fill="url(#dvg)" stroke="#5a3d08" stroke-width=".6"/><path d="M42 33 C33 29 31 22 31 13 C35 12 39 10 42 7 C45 10 49 12 53 13 C53 22 51 29 42 33Z" fill="url(#dvg)" stroke="#5a3d08" stroke-width=".8"/><path class="gm" d="M42 13 L47 19 L42 26 L37 19Z" fill="#111" stroke="#fff3b0" stroke-width=".7"/><circle cx="42" cy="3.6" r="1.2" fill="#111" stroke="#fff3b0" stroke-width=".4"/></svg>';
+function devBubble(m,d,tx){let a=false;try{a=ADMINS.has(m.uid)}catch(_){}if(!a)return;[...d.classList].forEach(c=>{if(c.startsWith('bb-')||(c.startsWith('m-')&&c!=='m-dev'))d.classList.remove(c)});d.classList.add('m-dev');
+const k=m.id||(m.uid+'|'+m.ts),nw=!DVFIRST&&!DVSEEN.has(k);DVSEEN.add(k);
+const sw=document.createElement('div');sw.className='dvsweep';d.prepend(sw);d.insertAdjacentHTML('beforeend',DVCREST+'<i class="dvsp a"></i><i class="dvsp b"></i><i class="dvsp c"></i>');
+if(tx.classList.contains('stk')){}else{const t=tx.textContent;tx.className='dvtx';tx.innerHTML='';let i=0;String(t).split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){tx.appendChild(document.createTextNode(' '));return}const sp=document.createElement('span');sp.className='dvw'+(nw?' in':'');sp.textContent=w;if(nw)sp.style.animationDelay=(0.35+i*0.11)+'s,0s';i++;tx.appendChild(sp)})}
+if(nw){d.classList.add('dvnew');for(let j=0;j<14;j++){const b=document.createElement('i');b.className='dvburst';const an=j/14*Math.PI*2,r=60+Math.random()*50;b.style.setProperty('--bx',Math.cos(an)*r+'px');b.style.setProperty('--by',Math.sin(an)*r*.6+'px');b.style.animationDelay=(Math.random()*.15)+'s';d.appendChild(b);setTimeout(()=>b.remove(),1300)}}}
  const ELSEEN=new Set;let ELFIRST=true;function elTx(m,tx){let e=false;try{e=profIsElite(m.uid)}catch(_){}if(!e)return false;const k=m.id||(m.uid+'|'+m.ts),nw=!ELFIRST&&!ELSEEN.has(k);ELSEEN.add(k);tx.className='eltx';let i=0;clean(m.text).split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){tx.appendChild(document.createTextNode(' '));return}const sp=document.createElement('span');sp.className='elw'+(nw?' in':'');sp.textContent=w;if(nw)sp.style.animationDelay=(i*0.09)+'s,0s';i++;tx.appendChild(sp)});return true}
 function drawChat(){setTimeout(()=>{ELFIRST=false},0);const el=$('cb');el.innerHTML='';{const sb=document.querySelector('#chat .send');if(sb)sb.style.display=''}if(cmode==='pri'){pvDraw(el);return}
 const list=(msgs||[]).filter(m=>!isHidden(m.uid));if(!list.length){const n=document.createElement('div');n.className='note';n.textContent=CH.on?'ما فيه رسائل بعد، كن أول واحد يسلّم 👋':'الدردشة العامة تحتاج اتصال بالإنترنت';el.appendChild(n)}
 list.forEach(m=>{const mine=m.uid===uid,d=document.createElement('div');d.className='m'+(mine?' me':'')+(m.fx&&m.fx!=='none'?' m-'+m.fx:'');const sm=document.createElement('small'),nm=document.createElement('span');nm.textContent=String(m.name||'لاعب').slice(0,20);if(m.cust&&COLORS[m.color]){nm.style.color=COLORS[m.color];if(EFFECTS[m.cfx])nm.className='fx-'+m.cfx}sm.appendChild(nm);decoName(m.uid,nm,sm);try{if(profIsElite(m.uid))nm.classList.add('nm-elite');sm.insertBefore(avatarEl(m.uid,m.name),nm);const bg=badgeEl(m.uid);if(bg)nm.after(bg);if(BB[m.bb])d.classList.add('bb-'+m.bb)}catch(e){}
 if(!mine&&CH.on&&m.id){const act=document.createElement('span');act.className='umore';act.textContent='⋮';act.onclick=e=>{e.stopPropagation();chatMenu(m)};sm.appendChild(act)}
-const tx=document.createElement('div');{const st=String(m.text||'');if(st.startsWith('§st:')&&STK_ALL.has(st.slice(4))){tx.className='stk';tx.appendChild(stkEl(st.slice(4)))}else if(elTx(m,tx)){}else tx.textContent=clean(m.text)}d.append(sm,tx);el.appendChild(d)});el.scrollTop=el.scrollHeight}
+const tx=document.createElement('div');{const st=String(m.text||'');if(st.startsWith('§st:')&&STK_ALL.has(st.slice(4))){tx.className='stk';tx.appendChild(stkEl(st.slice(4)))}else if(elTx(m,tx)){}else tx.textContent=clean(m.text)}d.append(sm,tx);try{devBubble(m,d,tx)}catch(e){}el.appendChild(d)});el.scrollTop=el.scrollHeight;setTimeout(()=>{DVFIRST=false},0)}
 function sendMsg(){if(banGuard())return;const v=$('ci').value.trim().replace(/\s+/g,' ').slice(0,200);if(!v)return;if(cmode==='pri'){alert('الدردشة الخاصة صوتية وقريباً تنفتح 🎙️');return}const fx=$('msgfx').value;
 if(!CH.on){msgs.push({uid:uid||'guest',name:u||'لاعب',cust:customized,color:custColor,cfx:custEffect,text:v,fx,ts:Date.now()});$('ci').value='';drawChat();return}
 if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية عشان تقدر تكتب في الدردشة');return}if(hasBad(v)){alert(BADMSG);return}if(Date.now()-CH.last<3000){alert('شوي شوي 😅 انتظر ثواني بين الرسائل');return}CH.last=Date.now();$('ci').value='';
@@ -800,6 +837,7 @@ const PUBS=[{id:'pub1',n:'الغرفة العامة ١'},{id:'pub2',n:'الغر�
 /* v6.9: تصميم جديد لإطار المطوّر (أسود وذهبي بتاج وأجنحة) */
 /* v7.0: إطار المطوّر: درع ذهبي مرصّع بجواهر سوداء + تاج + أجنحة سوداء */
 /* v7.1: إطار المطوّر: لمعة ذهب + بريق جواهر + رفرفة أجنحة + تفاصيل أدق */
+/* v7.2: فقاعة المطوّر الحصرية في الدردشة العامة (درع وأجنحة، إطار ذهبي يدور، نص ذهبي يلمع، دخول بانفجار ذهبي) */
 /* v6.0: الغرف العامة — عدّ تنازلي ٢٠ ثانية ثم تبدأ الجولة حتى لو اللاعب لحاله، والجولة ٣ دقائق */
 const CD=20000,RLEN=180000,RJOIN=60000;
 const hashStr=t=>{let h=2166136261;for(const c of t){h^=c.codePointAt(0);h=Math.imul(h,16777619)}return h>>>0};

@@ -1175,8 +1175,8 @@ async function ttlClean(){if(!LB.db||!LB.uid||LB.mode==='ar'||navigator.onLine==
 try{const sn=await fs.collection('chat_pub').where('uid','==',me).limit(200).get();const r=sn.docs.filter(d=>(Number(d.data().ts)||0)<now-CHAT_TTL).map(d=>d.ref);if(r.length)await ttlDel(r)}catch(e){console.warn('ttl chat',e)}
 if(IS_ADMIN){try{const sn=await fs.collection('chat_pub').where('ts','<',now-CHAT_TTL).limit(400).get();if(sn.docs.length)await ttlDel(sn.docs.map(d=>d.ref))}catch(e){console.warn('ttl chat adm',e)}
 try{const sn=await fs.collection('reports').where('ts','<',now-REP_TTL).limit(200).get();if(sn.docs.length)await ttlDel(sn.docs.map(d=>d.ref))}catch(e){console.warn('ttl rep',e)}}
-let dmBlock=false;try{dmBlock=localStorage.getItem('wcp_dmttl')==='x'}catch(e){}
-if(!dmBlock){for(const k of Object.keys(FD.meta||{})){try{const sn=await fs.collection('dms/'+k+'/msgs').where('ts','<',now-DM_TTL).limit(100).get();const r=sn.docs.filter(d=>d.data().uid===me).map(d=>d.ref);if(r.length)await ttlDel(r)}catch(e){console.warn('ttl dm',e);if(e&&e.code==='permission-denied'){try{localStorage.setItem('wcp_dmttl','x')}catch(_){}}break}}}}
+let dmBlock=false;try{dmBlock=localStorage.getItem('wcp_dmttl2')==='x'}catch(e){}
+if(!dmBlock){for(const k of Object.keys(FD.meta||{})){try{const sn=await fs.collection('dms/'+k+'/msgs').where('ts','<',now-DM_TTL).limit(100).get();const r=sn.docs.map(d=>d.ref);if(r.length)await ttlDel(r)}catch(e){console.warn('ttl dm',e);if(e&&e.code==='permission-denied'){try{localStorage.setItem('wcp_dmttl2','x')}catch(_){}}break}}}}
 setTimeout(()=>{try{ttlClean()}catch(e){}},12000);setInterval(()=>{try{ttlClean()}catch(e){}},30*60000);
 setInterval(()=>{try{if($('chat').classList.contains('on')&&cmode==='pub'&&(msgs||[]).some(m=>!chatLive(m)))drawChat()}catch(e){}},60000);
 /* v7.4: المطوّر ما يظهر في الصدارة ولا قاعة المشاهير ولا الجوائز */

@@ -1170,8 +1170,22 @@ m.innerHTML='<div><h2>📜 قبل ما تبدأ</h2>'+
 '<p>🚩 تقدر تبلّغ عن أي رسالة أو لاعب وتحظره بضغطة. نراجع البلاغات خلال ٢٤ ساعة، ونحذف المحتوى المخالف ونوقف حساب صاحبه.</p>'+
 '<p>✅ بالضغط على "أوافق" تكون موافق على <a href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener">شروط الاستخدام وسياسة الخصوصية</a>.</p>'+
 '<button class="btn g" id="tmdok">✅ أوافق وأبدأ</button></div>';
-document.body.appendChild(m);document.getElementById('tmdok').onclick=()=>{try{localStorage.setItem('wcp_terms','1')}catch(e){}m.remove()}}
+document.body.appendChild(m);document.getElementById('tmdok').onclick=()=>{try{localStorage.setItem('wcp_terms','1')}catch(e){}m.remove();setTimeout(()=>{try{notifPlan()}catch(e){}},800)}}
 termsGate();
+
+/* v7.8: إشعارات من الجوال نفسه (بدون سيرفر) */
+const LN=()=>{try{return IS_NATIVE&&window.Capacitor.Plugins.LocalNotifications||null}catch(e){return null}};
+async function notifPlan(){const P=LN();if(!P)return;try{let st=await P.checkPermissions();if(st.display!=='granted'&&st.display!=='denied'){if(!termsOK())return;st=await P.requestPermissions()}if(st.display!=='granted')return;
+try{await P.cancel({notifications:[101,102,103,104].map(id=>({id}))})}catch(e){}
+const now=new Date(),DAY=864e5,at=(d,h)=>{const x=new Date(d);x.setHours(h,0,0,0);return x},L=[];
+L.push({id:101,title:'🌟 التحدي اليومي جاهز',body:'١٠ كلمات تنتظرك اليوم، حلّها وكمّل سلسلتك 🔥',schedule:{on:{hour:16,minute:0}}});
+const played=STK.last===dayKey(),n=streakNow();
+if(n>0){let d=played?at(now.getTime()+DAY,21):at(now,21);if(!played&&d<=now)d=null;if(d)L.push({id:102,title:'🔥 لا تضيّع سلسلتك',body:'عندك '+ar(n)+' يوم متتالي، لا تخليها تنقطع! حل تحدي اليوم',schedule:{at:d}})}
+L.push({id:103,title:'🏆 بدأت منافسة الشهر الجديد',body:'الصدارة رجعت من الصفر، الحين فرصتك تكون بطل الشهر 👑',schedule:{at:new Date(now.getFullYear(),now.getMonth()+1,1,12,0,0)}});
+L.push({id:104,title:'👋 وحشتنا!',body:'كلمات جديدة وربعك ينتظرونك في فكّها',schedule:{at:at(now.getTime()+3*DAY,18)}});
+await P.schedule({notifications:L})}catch(e){console.warn('notif',e)}}
+setTimeout(notifPlan,4000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')notifPlan()});
 
 /* v7.6: الدخول بقوقل داخل تطبيق الآيفون */
 /* v7.5: حذف الرسائل القديمة: العامة ٢٤ ساعة، الخاصة ٧ أيام، البلاغات ٣٠ يوم */

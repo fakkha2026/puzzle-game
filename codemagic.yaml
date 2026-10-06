@@ -1,0 +1,71 @@
+# فكّها: بناء تطبيق الآيفون
+# ios-check: يجرّب إن التطبيق ينبني بدون أخطاء (ما يحتاج حساب أبل)
+workflows:
+  ios-check:
+    name: فكّها - تجربة البناء
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: تثبيت الأدوات
+        script: |
+          npm install
+
+      - name: تجهيز ملفات اللعبة
+        script: |
+          rm -rf www && mkdir -p www
+          cp index.html www/index.html
+          cp privacy.html www/privacy.html
+
+      - name: إنشاء مشروع الآيفون
+        script: |
+          npx cap add ios
+
+      - name: الأيقونة
+        script: |
+          if [ -f icon.png ]; then
+            mkdir -p assets
+            cp icon.png assets/icon-only.png
+            cp icon.png assets/icon.png
+            npx @capacitor/assets generate --ios --iconBackgroundColor '#102a5c' --splashBackgroundColor '#102a5c'
+          else
+            echo "ما فيه icon.png، بيستخدم الأيقونة الافتراضية"
+          fi
+
+      - name: إعدادات التطبيق (الاسم والأذونات)
+        script: |
+          set -e
+          PL=ios/App/App/Info.plist
+          REV=$(plutil -extract REVERSED_CLIENT_ID raw GoogleService-Info.plist)
+          plutil -replace CFBundleDisplayName -string "فكّها" $PL
+          plutil -replace NSMicrophoneUsageDescription -string "نحتاج المايك عشان تسولف مع ربعك في الغرف الخاصة" $PL
+          plutil -replace NSCameraUsageDescription -string "نحتاج الكاميرا إذا حبيت تصوّر صورة لملفك" $PL
+          plutil -replace NSPhotoLibraryUsageDescription -string "نحتاج الصور عشان تختار صورة لملفك" $PL
+          plutil -replace ITSAppUsesNonExemptEncryption -bool NO $PL
+          plutil -replace CFBundleDevelopmentRegion -string "ar" $PL
+          plutil -replace CFBundleURLTypes -json "[{\"CFBundleURLSchemes\":[\"$REV\"]}]" $PL
+          plutil -lint $PL
+          echo "----- Info.plist -----"
+          cat $PL
+
+      - name: ربط Firebase وتسجيل الدخول بقوقل
+        script: |
+          set -e
+          cp GoogleService-Info.plist ios/App/App/GoogleService-Info.plist
+          ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); f=g.new_reference('GoogleService-Info.plist'); t.add_resources([f]); p.save"
+          sed -i '' "s#pod 'CapacitorFirebaseAuthentication',#pod 'CapacitorFirebaseAuthentication/Google',#" ios/App/Podfile
+          echo "----- Podfile -----"
+          cat ios/App/Podfile
+          cd ios/App && pod install --repo-update
+
+      - name: بناء التطبيق (تجربة)
+        script: |
+          set -o pipefail
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO build -quiet
+          echo "✅ التطبيق انبنى بدون أخطاء"

@@ -1,0 +1,16 @@
+{
+  "appId": "com.fakkha.game",
+  "appName": "Fakkha",
+  "webDir": "www",
+  "backgroundColor": "#102a5c",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#102a5c"
+  },
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": ["google.com"]
+    }
+  }
+}

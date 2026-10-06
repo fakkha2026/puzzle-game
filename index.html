@@ -703,7 +703,12 @@ catch(e){if(e&&e.code==='auth/credential-already-in-use'&&e.credential){{try{awa
 b.disabled=false}
 function phWipe(){CS.ready=false;clearTimeout(CS.t);CS.applying=true;try{localStorage.removeItem('wcp_saveAt');localStorage.removeItem('wcp_syncUid');['wcp','wcp_month','wcp_week','wcp_rplayed','wcp_priv','wcp_block','wcp_blockn','wcp_claimed','wcp_daily2','wcp_streak','wcp_pvg','wcp_own','wcp_eq','wcp_vip','wcp_av','wcp_profk','wcp_rank'].forEach(k=>localStorage.removeItem(k))}catch(e){}}
 async function phLogout(){if(!confirm('تبي تسجل خروج؟\nتقدر ترجع لحسابك بنفس حساب قوقل.'))return;try{await firebase.auth().signOut()}catch(e){}phWipe();location.reload()}
+/* v7.6: داخل تطبيق الآيفون، الدخول بقوقل يكون بالطريقة الأصلية حق الجوال */
+const IS_NATIVE=(()=>{try{return !!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform())}catch(e){return false}})();
+async function gNative(){const P=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FirebaseAuthentication;if(!P)throw {code:'native/no-plugin'};const r=await P.signInWithGoogle({skipNativeAuth:true});const c=r&&r.credential;if(!c||!c.idToken)throw {code:'auth/popup-closed-by-user'};const cred=firebase.auth.GoogleAuthProvider.credential(c.idToken,c.accessToken||null);const auth=firebase.auth(),us=auth.currentUser;
+try{if(us&&us.isAnonymous)await us.linkWithCredential(cred);else await auth.signInWithCredential(cred)}catch(e){if(e&&(e.code==='auth/credential-already-in-use'||e.code==='auth/email-already-in-use')){await auth.signInWithCredential(cred);phWipe();location.reload();return 'reload'}throw e}}
 async function gSign(){const b=$('gsign');b.disabled=true;phMsg('جارٍ فتح قوقل…');const auth=firebase.auth();auth.languageCode='ar';const pv=new firebase.auth.GoogleAuthProvider();pv.setCustomParameters({prompt:'select_account'});
+if(IS_NATIVE){try{const r=await gNative();if(r!=='reload')gDone()}catch(e){const m=String((e&&(e.message||e.code))||'');if(/cancel/i.test(m)||(e&&e.code==='auth/popup-closed-by-user')){phMsg('')}else{console.warn('gnative',e);phMsg('تعذر الدخول بقوقل ('+((e&&e.code)||m||'؟')+')',1)}}b.disabled=false;return}
 try{const us=auth.currentUser;if(us&&us.isAnonymous)await us.linkWithPopup(pv);else await auth.signInWithPopup(pv);gDone()}
 catch(e){await gErr(e)}b.disabled=false}
 async function gErr(e){const c=(e&&e.code)||'';console.warn('google',e);
@@ -1169,6 +1174,7 @@ m.innerHTML='<div><h2>📜 قبل ما تبدأ</h2>'+
 document.body.appendChild(m);document.getElementById('tmdok').onclick=()=>{try{localStorage.setItem('wcp_terms','1')}catch(e){}m.remove()}}
 termsGate();
 
+/* v7.6: الدخول بقوقل داخل تطبيق الآيفون */
 /* v7.5: حذف الرسائل القديمة: العامة ٢٤ ساعة، الخاصة ٧ أيام، البلاغات ٣٠ يوم */
 async function ttlDel(refs){for(let i=0;i<refs.length;i+=400){const b=LB.db.batch();refs.slice(i,i+400).forEach(r=>b.delete(r));await b.commit()}}
 async function ttlClean(){if(!LB.db||!LB.uid||LB.mode==='ar'||navigator.onLine===false)return;const fs=LB.db,me=LB.uid,now=Date.now();

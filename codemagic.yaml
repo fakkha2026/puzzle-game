@@ -26,14 +26,18 @@ workflows:
 
       - name: الأيقونة
         script: |
+          set -e
+          mkdir -p assets
           if [ -f icon.png ]; then
-            mkdir -p assets
             cp icon.png assets/icon-only.png
-            cp icon.png assets/icon.png
-            npx @capacitor/assets generate --ios --iconBackgroundColor '#102a5c' --splashBackgroundColor '#102a5c'
+          elif [ -f icon.jpg ]; then
+            sips -s format png icon.jpg --out assets/icon-only.png
           else
-            echo "ما فيه icon.png، بيستخدم الأيقونة الافتراضية"
+            echo "ما فيه أيقونة"; exit 1
           fi
+          cp assets/icon-only.png assets/icon.png
+          npx --yes @capacitor/assets generate --ios --iconBackgroundColor '#102a5c' --splashBackgroundColor '#102a5c'
+          echo "✅ الأيقونة انربطت"
 
       - name: إعدادات التطبيق (الاسم والأذونات)
         script: |

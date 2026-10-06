@@ -1,88 +1,144 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>فكّها — سياسة الخصوصية وشروط الاستخدام</title>
+<title>فكّها | شروط الاستخدام وسياسة الخصوصية</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧩</text></svg>">
 <style>
-:root{--bg:#f5f6ff;--card:#fff;--ink:#1c1f45;--mut:#5a5f8f;--acc:#7b2ff7}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1330;--card:#1a1f4a;--ink:#eef0ff;--mut:#a9afe0;--acc:#b58cff}}
+:root{--ink:#102a5c;--gold:#ffb703;--bg:#f4f6fb;--card:#fff;--txt:#1d2a44;--mut:#5b6785;--line:#e3e8f2}
+@media (prefers-color-scheme:dark){:root{--bg:#0b1630;--card:#132245;--txt:#e9eefb;--mut:#a9b5d3;--line:#22345f}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.8;padding:max(16px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
-main{max-width:760px;margin:0 auto}
-h1{font-size:1.6rem;margin:8px 0 2px}
-h2{font-size:1.15rem;margin:22px 0 6px;color:var(--acc)}
-.card{background:var(--card);border-radius:18px;padding:18px 20px;margin:14px 0;box-shadow:0 6px 20px -12px rgba(0,0,0,.35)}
-small{color:var(--mut)}
-ul{padding-inline-start:20px;margin:6px 0}
-a{color:var(--acc)}
-.en{direction:ltr;text-align:left}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"SF Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif;line-height:1.85;font-size:16px;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+header{background:var(--ink);color:#fff;padding:34px 20px 28px;text-align:center}
+header .logo{font-size:2.6rem;line-height:1}
+header h1{margin:10px 0 4px;font-size:1.6rem}
+header p{margin:0;opacity:.85;font-size:.9rem}
+main{max-width:760px;margin:0 auto;padding:18px 16px 40px}
+nav{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-bottom:16px}
+nav b{display:block;margin-bottom:6px}
+nav a{display:inline-block;margin:3px 0 3px 12px;color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid var(--gold)}
+@media (prefers-color-scheme:dark){nav a{color:var(--gold);border-color:transparent}}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:14px}
+h2{margin:0 0 8px;font-size:1.2rem;color:var(--ink)}
+@media (prefers-color-scheme:dark){h2{color:var(--gold)}}
+h3{margin:14px 0 4px;font-size:1rem}
+ul{margin:6px 0;padding-inline-start:22px}
+li{margin:4px 0}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+th,td{border:1px solid var(--line);padding:9px 10px;text-align:right}
+th{background:var(--ink);color:#fff}
+.note{background:rgba(255,183,3,.14);border-inline-start:4px solid var(--gold);padding:10px 14px;border-radius:10px;margin-top:8px}
+footer{text-align:center;color:var(--mut);font-size:.85rem;padding:10px 16px 30px}
+a{color:inherit}
 </style>
 </head>
 <body>
+<header>
+<div class="logo">🧩</div>
+<h1>فكّها</h1>
+<p>شروط الاستخدام وسياسة الخصوصية · آخر تحديث: ٦ أكتوبر ٢٠٢٦</p>
+</header>
 <main>
-<h1>🧩 فكّها</h1>
-<small>آخر تحديث: أكتوبر ٢٠٢٦</small>
 
-<div class="card">
-<h2>سياسة الخصوصية</h2>
-<p>نحترم خصوصيتك. هذي الصفحة توضح وش البيانات اللي تجمعها لعبة «فكّها» وليش، وكيف تقدر تحذفها.</p>
+<nav><b>المحتويات</b>
+<a href="#terms">شروط الاستخدام</a>
+<a href="#data">البيانات اللي نجمعها</a>
+<a href="#retention">مدة الاحتفاظ</a>
+<a href="#voice">المايكات</a>
+<a href="#buy">المشتريات</a>
+<a href="#share">مشاركة البيانات</a>
+<a href="#delete">حذف الحساب</a>
+<a href="#kids">الأعمار</a>
+<a href="#contact">التواصل</a>
+</nav>
 
-<h2>وش البيانات اللي نجمعها؟</h2>
+<section id="terms">
+<h2>📜 شروط الاستخدام</h2>
+<p>فكّها لعبة ألغاز كلمات عربية فيها غرف ودردشة وأصدقاء. باستخدامك اللعبة توافق على هذي الشروط:</p>
 <ul>
-<li><b>معرّف حساب مجهول:</b> تنشئه اللعبة تلقائياً عشان تتعرف عليك، بدون إيميل ولا رقم جوال ولا اسم حقيقي.</li>
-<li><b>اسم اللاعب:</b> الاسم المستعار اللي تختاره، ويظهر للاعبين الثانيين في الصدارة والدردشة والغرف.</li>
-<li><b>النقاط والإحصائيات:</b> نقاطك في الغرف العامة والصدارة الأسبوعية والشهرية.</li>
-<li><b>رسائل الدردشة العامة:</b> النصوص اللي ترسلها، وتظهر لكل اللاعبين.</li>
-<li><b>الرسائل الصوتية:</b> التسجيلات اللي ترسلها داخل الغرف الخاصة، ويسمعها أعضاء الغرفة فقط. نستخدم المايك فقط لما تضغط زر التسجيل.</li>
-<li><b>البلاغات:</b> إذا بلّغت عن رسالة، نحفظ البلاغ عشان نراجعه.</li>
-<li><b>بيانات على جهازك:</b> تقدمك في اللعبة، والتلميحات، وقائمة اللاعبين اللي حظرتهم، تنحفظ على جهازك.</li>
+<li><b>ما فيه أي تساهل</b> مع الشتم، والإساءة، والتحرش، والتنمر، والعنصرية، والمحتوى غير اللائق، أو الأسماء والصور المسيئة.</li>
+<li>تقدر تبلّغ عن أي رسالة أو لاعب وتحظره بضغطة. نراجع البلاغات خلال ٢٤ ساعة، ونحذف المحتوى المخالف ونوقف حساب صاحبه.</li>
+<li>ممنوع الغش أو التلاعب بالنقاط أو الصدارة، أو استخدام أي برامج تساعد على ذلك. أي تلاعب يحذف نقاطك وممكن يوقف حسابك.</li>
+<li>ممنوع انتحال شخصية أحد، أو نشر معلومات شخصية لك أو لغيرك (أرقام، عناوين، حسابات).</li>
+<li>الجوائز والمكافآت داخل اللعبة حسب الشروط المعلنة وقتها، ونحتفظ بحق إلغائها لأي لاعب مخالف.</li>
+<li>نقدر نعدّل اللعبة أو هذي الشروط في أي وقت، وننشر التحديث في هذي الصفحة.</li>
 </ul>
+</section>
 
-<h2>المشتريات</h2>
-<p>كل المشتريات داخل اللعبة تتم عن طريق Apple (App Store). ما نستقبل ولا نحفظ أي بيانات دفع أو بطاقات.</p>
-
-<h2>ليش نستخدم البيانات؟</h2>
+<section id="data">
+<h2>🗂️ البيانات اللي نجمعها</h2>
+<p>نجمع أقل قدر ممكن، وبس اللي تحتاجه اللعبة عشان تشتغل:</p>
 <ul>
-<li>عشان تشتغل ميزات اللعبة: الأسماء، الصدارة، الغرف، الدردشة، والجوائز داخل اللعبة.</li>
-<li>عشان نحمي اللاعبين ونراجع البلاغات ونمنع الإساءة.</li>
+<li><b>الحساب:</b> لما تسجّل بحساب قوقل أو أبل، نستلم معرّف حسابك عشان نحفظ تقدّمك. ما نستخدم إيميلك للتسويق ولا نعرضه لأحد.</li>
+<li><b>اسمك في اللعبة وصورتك:</b> الاسم اللي تختاره، والصورة إذا رفعتها، وتظهر للاعبين.</li>
+<li><b>التقدّم والنقاط:</b> نقاطك، ومستواك، وإنجازاتك، ومشترياتك داخل اللعبة، وترتيبك في الصدارة.</li>
+<li><b>الرسائل:</b> رسائل الدردشة العامة والرسائل الخاصة بينك وبين أصدقائك.</li>
+<li><b>الأصدقاء:</b> قائمة أصدقائك، وطلبات الصداقة، والدعوات، وإذا كنت متصل الحين.</li>
+<li><b>البلاغات:</b> إذا بلّغت عن أحد أو أحد بلّغ عنك، نحفظ البلاغ ونسخة من الرسالة المبلّغ عنها عشان نراجعه.</li>
 </ul>
-<p>ما نبيع بياناتك لأي أحد، وما نستخدمها للإعلانات، وما فيه متتبعات إعلانية في اللعبة.</p>
+<div class="note">ما نجمع موقعك، ولا جهات اتصالك، ولا صورك، ولا نتتبّعك في تطبيقات أو مواقع ثانية، وما فيه إعلانات من جهات خارجية.</div>
+</section>
 
-<h2>وين تنحفظ البيانات؟</h2>
-<p>على خوادم Google Firebase في منطقة الدمام (المملكة العربية السعودية)، وهي اللي تشغّل قاعدة بيانات اللعبة وتسجيل الدخول المجهول.</p>
+<section id="retention">
+<h2>🕒 مدة الاحتفاظ بالبيانات</h2>
+<div class="tbl"><table>
+<tr><th>البيانات</th><th>المدة</th></tr>
+<tr><td>رسائل الدردشة العامة</td><td>تنحذف تلقائياً بعد ٢٤ ساعة</td></tr>
+<tr><td>الرسائل الخاصة بين الأصدقاء</td><td>تنحذف تلقائياً بعد ٧ أيام</td></tr>
+<tr><td>البلاغات ونسخة الرسالة المبلّغ عنها</td><td>تنحذف بعد ٣٠ يوم</td></tr>
+<tr><td>الحساب والنقاط والتقدّم</td><td>لين ما تحذف حسابك</td></tr>
+</table></div>
+<p>قوائم الحظر تبقى ما دام الحظر قائم، عشان نحمي اللاعبين.</p>
+</section>
 
-<h2>حذف حسابك وبياناتك</h2>
-<p>تقدر تحذف حسابك بأي وقت من داخل اللعبة: <b>ملفي ← حذف حسابي</b>. ينحذف اسمك ونقاطك ورسائلك في الدردشة العامة نهائياً. وإذا احتجت مساعدة، راسلنا على الإيميل تحت.</p>
-
-<h2>الأطفال</h2>
-<p>اللعبة فيها دردشة مع لاعبين آخرين، وما هي موجهة للأطفال تحت ١٣ سنة. إذا كنت ولي أمر وتعتقد إن طفلك أرسل لنا بيانات، تواصل معنا ونحذفها.</p>
-
-<h2>التواصل</h2>
-<p>📧 <a href="mailto:fakkha2026@gmail.com">fakkha2026@gmail.com</a></p>
-</div>
-
-<div class="card">
-<h2>شروط الاستخدام</h2>
+<section id="voice">
+<h2>🎙️ المايكات في الغرف الخاصة</h2>
 <ul>
-<li>باستخدامك للعبة توافق على هذي الشروط.</li>
-<li><b>ممنوع منعاً باتاً</b> أي محتوى مسيء: السب والشتم، الكلام البذيء، العنصرية، التحرش، التهديد، المحتوى الجنسي، أو انتحال شخصية أحد. ما نتسامح مع أي محتوى من هالنوع.</li>
-<li>تقدر تبلّغ عن أي رسالة أو تحظر أي لاعب من زر ⋯ جنب رسالته. نراجع البلاغات خلال ٢٤ ساعة، ونحذف المحتوى المسيء ونوقف حساب صاحبه.</li>
-<li>الأسماء المسيئة أو المنتحلة تنحذف بدون إنذار.</li>
-<li>أي غش أو تلاعب بالنقاط يلغي النقاط والجوائز.</li>
-<li>الجوائز كلها داخل اللعبة (تلميحات، ألقاب، تأثيرات)، وما لها قيمة نقدية ولا تنستبدل بفلوس. شركتا Apple وGoogle ما لهما علاقة بالمسابقات ولا يرعونها.</li>
-<li>التلميحات والتخصيصات المشتراة تستخدمها داخل اللعبة فقط، ولا تنسترد إلا حسب سياسة Apple.</li>
-<li>نقدر نحدّث هذي الشروط، وبنكتب تاريخ آخر تحديث فوق.</li>
+<li>نطلب إذن المايك بس لما تشغّله أنت داخل غرفة خاصة.</li>
+<li>الصوت مباشر بينك وبين اللي معك في الغرفة، و<b>ما نسجّله ولا نحفظه</b> عندنا.</li>
+<li>تقدر تقفل المايك أو تطلع من الغرفة في أي وقت.</li>
 </ul>
-</div>
+</section>
 
-<div class="card en">
-<h2>Privacy Policy (English summary)</h2>
-<p>Fakkha collects an anonymous account ID, the nickname you choose, your game scores, public chat messages, voice messages you send in private rooms (microphone is used only while you record), and reports you submit. Data is stored on Google Firebase (Dammam, Saudi Arabia) and used only to run the game and keep players safe. We do not sell data, show ads, or use ad trackers. Purchases are handled by Apple; we never receive payment details. You can delete your account and data anytime in the app: Profile → Delete my account. The game is not directed to children under 13.</p>
-<h2>Terms of Use</h2>
-<p>There is no tolerance for objectionable content or abusive users. Players can report messages and block users; reports are reviewed within 24 hours, offending content is removed and offending accounts are suspended. All prizes are in-game only with no cash value; Apple and Google are not sponsors of any contest.</p>
-<p>Contact: <a href="mailto:fakkha2026@gmail.com">fakkha2026@gmail.com</a></p>
-</div>
+<section id="buy">
+<h2>🛒 المشتريات</h2>
+<ul>
+<li>الدفع يتم عن طريق متجر أبل، و<b>ما نشوف بيانات بطاقتك</b> أبداً.</li>
+<li>الاشتراكات تتجدد تلقائياً إلا إذا ألغيتها من إعدادات حسابك في أبل قبل نهاية المدة بـ ٢٤ ساعة على الأقل.</li>
+<li>تقدر تستعيد مشترياتك من داخل اللعبة.</li>
+<li>الاسترجاع يكون حسب سياسة أبل.</li>
+</ul>
+</section>
+
+<section id="share">
+<h2>🤝 مشاركة البيانات</h2>
+<ul>
+<li><b>ما نبيع بياناتك لأحد</b>، ولا نشاركها لأغراض تسويقية.</li>
+<li>بيانات اللعبة محفوظة على خدمة Firebase من قوقل، وهي اللي تشغّل الحسابات والدردشة والصدارة.</li>
+<li>تسجيل الدخول يتم عن طريق قوقل أو أبل حسب اختيارك.</li>
+<li>ممكن نكشف بيانات إذا طلبتها جهة رسمية حسب النظام.</li>
+</ul>
+</section>
+
+<section id="delete">
+<h2>🗑️ حذف الحساب</h2>
+<p>تقدر تحذف حسابك بنفسك من داخل اللعبة: <b>ملفي ✨ ← الحساب والخصوصية ← 🗑️ حذف حسابي</b>. الحذف ينهي حسابك ويمسح اسمك وصورتك ونقاطك ورسائلك العامة، وما يمكن التراجع عنه.</p>
+</section>
+
+<section id="kids">
+<h2>👨‍👩‍👧 الأعمار</h2>
+<p>اللعبة فيها دردشة مع لاعبين ثانيين، فهي مناسبة لعمر ١٣ سنة وفوق. إذا كنت أصغر، العب بإشراف أهلك. ما نجمع بيانات أطفال عن قصد، وإذا عرفنا إن حساب يخص طفل صغير نحذفه.</p>
+</section>
+
+<section id="contact">
+<h2>✉️ التواصل</h2>
+<p>لأي سؤال أو طلب يخص بياناتك أو حسابك، راسلنا على: <a href="mailto:fakkha2026@gmail.com"><b>fakkha2026@gmail.com</b></a></p>
+</section>
+
 </main>
+<footer>© ٢٠٢٦ فكّها · جميع الحقوق محفوظة</footer>
 </body>
 </html>

@@ -1212,5 +1212,56 @@ function back(){show(false);try{fbChatInit()}catch(e){}try{chatSub()}catch(e){}t
 window.addEventListener('offline',()=>show(true));window.addEventListener('online',back);
 if(navigator.onLine===false)show(true)})();
 </script>
+<script>
+/* v8.0: أصوات واهتزاز + مشاركة نتيجة التحدي اليومي + شرح سريع لأول مرة */
+(function(){
+const LS={g(k){try{return localStorage.getItem(k)}catch(e){return null}},s(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+/* ---- الأصوات والاهتزاز ---- */
+let AC=null;
+const sndOn=()=>LS.g('wcp_snd')!=='0', vibOn=()=>LS.g('wcp_vib')!=='0';
+function ac(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
+function tone(f,d,t,v,dl){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain(),s=a.currentTime+(dl||0);o.type=t||'sine';o.frequency.setValueAtTime(f,s);g.gain.setValueAtTime(0.0001,s);g.gain.exponentialRampToValueAtTime(v||0.18,s+0.015);g.gain.exponentialRampToValueAtTime(0.0001,s+d);o.connect(g);g.connect(a.destination);o.start(s);o.stop(s+d+0.03)}
+function buzz(kind){if(!vibOn())return;try{const H=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Haptics;if(H){if(kind==='ok')H.notification({type:'SUCCESS'});else if(kind==='bad')H.notification({type:'ERROR'});else H.impact({style:'LIGHT'});return}}catch(e){}try{navigator.vibrate&&navigator.vibrate(kind==='bad'?[40,40,40]:kind==='ok'?30:8)}catch(e){}}
+window.fkFx=function(kind){if(sndOn()){if(kind==='tap')tone(880,0.06,'triangle',0.07);else if(kind==='ok'){tone(660,0.12,'sine',0.16);tone(990,0.18,'sine',0.16,0.09)}else if(kind==='bad'){tone(220,0.16,'square',0.06);tone(170,0.2,'square',0.06,0.1)}else if(kind==='win'){[523,659,784,1047].forEach((f,i)=>tone(f,0.22,'sine',0.15,i*0.11))}}buzz(kind)};
+document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('.tile');if(b&&!b.classList.contains('used'))fkFx('tap')},true);
+document.addEventListener('touchstart',()=>{ac()},{once:true,passive:true});
+new MutationObserver(ms=>{ms.forEach(m=>{const t=m.target;if(!t||!t.id)return;if(!/slots$/.test(t.id)&&t.id!=='pans')return;const was=String(m.oldValue||''),now=t.className||'';const has=(s,c)=>(' '+s+' ').indexOf(' '+c+' ')>=0;if(has(now,'ok')&&!has(was,'ok'))fkFx('ok');else if(has(now,'bad')&&!has(was,'bad'))fkFx('bad')})}).observe(document.body,{attributes:true,attributeFilter:['class'],attributeOldValue:true,subtree:true});
+
+/* ---- مشاركة نتيجة التحدي اليومي ---- */
+const GAME_URL='https://fakkha2026.github.io/puzzle-game';
+function shareText(){let d={};try{d=JSON.parse(LS.g('wcp_daily2')||'{}')}catch(e){}let st={};try{st=JSON.parse(LS.g('wcp_streak')||'{}')}catch(e){}
+const res=(d.res||[]);let grid='';for(let i=0;i<10;i++)grid+=res[i]?'🟩':'⬜';const ok=res.filter(Boolean).length;const n=Number(st.n)||0;
+return 'فكّها 🧩 تحدي اليوم\n'+grid+'\nحليت '+ar(ok)+' من ١٠ · النقاط '+ar(d.sc||0)+(n?'\n🔥 سلسلتي '+ar(n)+' يوم':'')+'\n\nتقدر تغلبني؟ 👇\n'+GAME_URL}
+async function doShare(){const t=shareText();try{const S=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Share;if(S){await S.share({text:t,dialogTitle:'شارك نتيجتك'});return}}catch(e){if(String(e&&e.message||'').match(/cancel/i))return}
+try{if(navigator.share){await navigator.share({text:t});return}}catch(e){if(e&&e.name==='AbortError')return}
+try{await navigator.clipboard.writeText(t);cAlert('📋 تم النسخ','الصق نتيجتك في الواتساب أو أي مكان')}catch(e){prompt('انسخ نتيجتك:',t)}}
+function shareBtn(show){let b=document.getElementById('dshare');if(!show){if(b)b.remove();return}fkFx('win');if(b)return;const m=document.getElementById('dmsg');if(!m)return;b=document.createElement('button');b.id='dshare';b.textContent='📤 شارك نتيجتك';b.style.cssText='display:block;margin:10px auto 6px;padding:12px 22px;border:0;border-radius:14px;font:800 1.05rem Tajawal,system-ui,sans-serif;color:#fff;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 6px 16px rgba(18,140,126,.35);cursor:pointer';b.onclick=doShare;m.insertAdjacentElement('afterend',b)}
+try{const end0=DG&&DG.g;}catch(e){}
+const _open=window.dailyOpen;if(typeof _open==='function'){window.dailyOpen=function(){shareBtn(false);return _open.apply(this,arguments)};try{dailyOpen=window.dailyOpen}catch(e){}}
+setInterval(()=>{try{const t=dayKey();let d={};try{d=JSON.parse(LS.g('wcp_daily2')||'{}')}catch(e){}const sec=document.getElementById('dmsg');if(!sec)return;const vis=sec.offsetParent!==null;const has=!!document.getElementById('dshare');if(vis&&d.day===t&&d.done&&DG&&DG.g&&DG.g.done){if(!has)shareBtn(true)}else if(has&&!(d.day===t&&d.done))shareBtn(false)}catch(e){}},700);
+
+/* ---- شرح سريع لأول مرة ---- */
+const TUT=[
+['🧩','رتّب الحروف','كل جولة فيها كلمة حروفها ملخبطة.<br>اضغط الحروف بالترتيب الصحيح عشان تكوّن الكلمة.<br><br>📂 التصنيف و💡 التلميح فوق يساعدونك، ولو غلطت اضغط على الحرف في الخانات يرجع.'],
+['🎮','اختر طريقة لعبك','🌟 <b>التحدي اليومي</b>: ١٠ كلمات نفسها للكل، وكل يوم تحله تكبر سلسلتك 🔥<br>🖼️ <b>خمّن الصورة</b>: الصورة تتوضح شوي شوي<br>🏆 <b>الغرف العامة</b>: نافس اللاعبين على الصدارة وجوائز الشهر<br>👥 <b>تحدّى ربعك</b>: غرفة خاصة مع أصدقائك'],
+['🏆','اجمع النقاط','⚡ كل ما حليت أسرع، نقاطك أكثر<br>💡 التلميحة تكشف لك حرف (ممنوعة في الغرف العامة عشان المنافسة عادلة)<br>👥 أضف ربعك من خانة الأصدقاء وسولفوا بالمايك<br><br>جاهز؟ يلّا فكّها! 🔥']];
+function tutShow(){if(document.getElementById('tut'))return;let i=0;const m=document.createElement('div');m.id='tut';m.style.cssText='position:fixed;inset:0;z-index:99998;background:linear-gradient(160deg,#ff9a1f,#ff3d7f 50%,#8b3dff);display:flex;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-y:auto';
+const c=document.createElement('div');c.style.cssText='width:min(92vw,400px);background:#fff;color:#102a5c;border-radius:24px;padding:26px 22px 20px;text-align:center;box-shadow:0 18px 50px rgba(0,0,0,.3);font-family:Tajawal,system-ui,sans-serif';m.appendChild(c);
+function r(){const s=TUT[i];c.innerHTML='<div style="font-size:3.6rem;line-height:1.1">'+s[0]+'</div><h2 style="font-family:Marhey,Tajawal,sans-serif;margin:10px 0 12px;font-size:1.6rem">'+s[1]+'</h2><div style="font-size:1.02rem;line-height:1.75;text-align:right;min-height:9.5em">'+s[2]+'</div><div style="display:flex;justify-content:center;gap:8px;margin:14px 0">'+TUT.map((_,k)=>'<span style="width:'+(k===i?22:8)+'px;height:8px;border-radius:8px;background:'+(k===i?'#ff3d7f':'#d5dcef')+';transition:.3s"></span>').join('')+'</div>';
+const nx=document.createElement('button');nx.textContent=i<TUT.length-1?'التالي ←':'يلّا نلعب 🚀';nx.style.cssText='width:100%;padding:14px;border:0;border-radius:14px;font:800 1.1rem Tajawal,system-ui,sans-serif;color:#fff;background:linear-gradient(135deg,#ff8a00,#e91e63,#8b3dff);cursor:pointer';nx.onclick=()=>{fkFx('tap');if(i<TUT.length-1){i++;r()}else done()};c.appendChild(nx);
+if(i<TUT.length-1){const sk=document.createElement('button');sk.textContent='تخطّي';sk.style.cssText='margin-top:10px;background:none;border:0;color:#4a628f;font:700 .95rem Tajawal,system-ui,sans-serif;cursor:pointer';sk.onclick=done;c.appendChild(sk)}}
+function done(){LS.s('wcp_tut','1');m.remove()}r();document.body.appendChild(m)}
+window.tutShow=tutShow;
+setInterval(()=>{if(LS.g('wcp_tut')==='1'||document.getElementById('tut'))return;const g=document.getElementById('gate'),sp=document.getElementById('splash');if(g&&g.classList.contains('on'))return;if(sp&&sp.style.display!=='none'&&sp.style.display!=='')return;if(document.getElementById('tmd'))return;if(LS.g('wcp_logged')!=='1')return;tutShow()},1200);
+
+/* ---- إعدادات في ملفي: الأصوات، الاهتزاز، طريقة اللعب ---- */
+function setBox(){const st=document.getElementById('phstate');if(!st||document.getElementById('fkset'))return;const b=document.createElement('div');b.id='fkset';b.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin-top:10px';
+const mk=(lab,fn)=>{const x=document.createElement('button');x.className='btn2';x.style.cssText='flex:1 1 30%;padding:10px 6px;border-radius:12px;border:1px solid #c3d3f5;background:var(--card);color:var(--ink);font:800 .92rem Tajawal,system-ui,sans-serif;cursor:pointer';x.onclick=()=>{fn();paint()};b.appendChild(x);return x};
+const s1=mk('',()=>LS.s('wcp_snd',sndOn()?'0':'1')),s2=mk('',()=>LS.s('wcp_vib',vibOn()?'0':'1')),s3=mk('📖 طريقة اللعب',tutShow);
+function paint(){s1.textContent=sndOn()?'🔊 الأصوات: شغّالة':'🔇 الأصوات: مطفية';s2.textContent=vibOn()?'📳 الاهتزاز: شغّال':'📴 الاهتزاز: مطفي'}paint();st.appendChild(b)}
+setInterval(setBox,1000);
+})();
+</script>
+
 </body>
 </html>

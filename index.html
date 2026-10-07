@@ -1228,19 +1228,22 @@ window.addEventListener('offline',()=>show(true));window.addEventListener('onlin
 if(navigator.onLine===false)show(true)})();
 </script>
 <script>
-/* v8.1: صفحة الإعدادات · v8.0: أصوات واهتزاز + مشاركة نتيجة التحدي اليومي + شرح سريع لأول مرة */
+/* v8.2: إصلاح الصوت بالآيفون · v8.1: صفحة الإعدادات · v8.0: أصوات واهتزاز + مشاركة نتيجة التحدي اليومي + شرح سريع لأول مرة */
 (function(){
 const LS={g(k){try{return localStorage.getItem(k)}catch(e){return null}},s(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 /* ---- الأصوات والاهتزاز ---- */
 let AC=null;
 const sndOn=()=>LS.g('wcp_snd')!=='0', vibOn=()=>LS.g('wcp_vib')!=='0';
-function ac(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state==='suspended')AC.resume();return AC}catch(e){return null}}
+function ac(){try{if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C()}if(AC.state!=='running')AC.resume();return AC}catch(e){return null}}
+/* v8.2: فتح الصوت في الآيفون (حتى لو الجوال على الصامت) */
+function unlock(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback'&&navigator.audioSession.type!=='play-and-record')navigator.audioSession.type='playback'}catch(e){}const a=ac();if(!a)return;try{const b=a.createBuffer(1,1,22050),src=a.createBufferSource();src.buffer=b;src.connect(a.destination);src.start(0)}catch(e){}}
+['touchend','click','pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,()=>{if(!AC||AC.state!=='running')unlock()},true));
 const vol=()=>{const v=Number(LS.g('wcp_vol'));return v>=10&&v<=100?v/100:0.7};const tapOn=()=>LS.g('wcp_tap')!=='0';
 function tone(f,d,t,v,dl){const a=ac();if(!a)return;v=(v||0.18)*vol()*1.4;const o=a.createOscillator(),g=a.createGain(),s=a.currentTime+(dl||0);o.type=t||'sine';o.frequency.setValueAtTime(f,s);g.gain.setValueAtTime(0.0001,s);g.gain.exponentialRampToValueAtTime(v||0.18,s+0.015);g.gain.exponentialRampToValueAtTime(0.0001,s+d);o.connect(g);g.connect(a.destination);o.start(s);o.stop(s+d+0.03)}
 function buzz(kind){if(!vibOn())return;try{const H=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.Haptics;if(H){if(kind==='ok')H.notification({type:'SUCCESS'});else if(kind==='bad')H.notification({type:'ERROR'});else H.impact({style:'LIGHT'});return}}catch(e){}try{navigator.vibrate&&navigator.vibrate(kind==='bad'?[40,40,40]:kind==='ok'?30:8)}catch(e){}}
 window.fkFx=function(kind){if(sndOn()){if(kind==='tap'){if(tapOn())tone(880,0.06,'triangle',0.07)}else if(kind==='tap0')tone(880,0.06,'triangle',0.07);else if(kind==='ok'){tone(660,0.12,'sine',0.16);tone(990,0.18,'sine',0.16,0.09)}else if(kind==='bad'){tone(220,0.16,'square',0.06);tone(170,0.2,'square',0.06,0.1)}else if(kind==='win'){[523,659,784,1047].forEach((f,i)=>tone(f,0.22,'sine',0.15,i*0.11))}}buzz(kind)};
 document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('.tile');if(b&&!b.classList.contains('used'))fkFx('tap')},true);
-document.addEventListener('touchstart',()=>{ac()},{once:true,passive:true});
+
 new MutationObserver(ms=>{ms.forEach(m=>{const t=m.target;if(!t||!t.id)return;if(!/slots$/.test(t.id)&&t.id!=='pans')return;const was=String(m.oldValue||''),now=t.className||'';const has=(s,c)=>(' '+s+' ').indexOf(' '+c+' ')>=0;if(has(now,'ok')&&!has(was,'ok'))fkFx('ok');else if(has(now,'bad')&&!has(was,'bad'))fkFx('bad')})}).observe(document.body,{attributes:true,attributeFilter:['class'],attributeOldValue:true,subtree:true});
 
 /* ---- مشاركة نتيجة التحدي اليومي ---- */

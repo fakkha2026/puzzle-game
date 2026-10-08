@@ -328,6 +328,25 @@ body.lvpad{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .gfc4 svg>g[opacity="1"]:nth-of-type(3n){animation-delay:-.7s;animation-duration:2.2s}
 @keyframes gftw{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.35);opacity:.35}}
 @media (prefers-reduced-motion:reduce){.gfc4 svg>g[opacity="1"]{animation:none}}
+/* v8.6: الإهداء لأكثر من شخص + عدّادات الهدايا */
+.gftoi{position:relative}
+.gfck{position:absolute;top:2px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#102a5c;font-style:normal;font-weight:900;font-size:.7rem;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--card)}
+.gsbox{background:linear-gradient(135deg,#2a1466,#1e1050);color:#efe9ff;border:1.5px solid rgba(167,139,250,.45)}
+.gsrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.gst{font:inherit;color:inherit;cursor:pointer;opacity:.6;transition:opacity .15s,transform .15s;display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,61,127,.14);border:1.5px solid rgba(255,61,127,.4);border-radius:14px;padding:10px 4px}
+.gst.s{background:rgba(255,197,61,.12);border-color:rgba(255,197,61,.45)}
+.gsn{font-family:Marhey,Tajawal,sans-serif;font-size:1.7rem;line-height:1.1;color:#fff}
+.gst small{font-weight:800;font-size:.78rem;color:#d6cdf7}
+.gst.on{opacity:1;transform:scale(1.02);box-shadow:0 0 0 2px rgba(255,61,127,.6),0 6px 16px rgba(255,61,127,.25)}
+.gst.s.on{box-shadow:0 0 0 2px rgba(255,197,61,.7),0 6px 16px rgba(255,197,61,.22)}
+.gst:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.gslist{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:10px;background:#1e1050;border:1px solid rgba(167,139,250,.25);border-radius:14px;overflow:hidden}
+.gsit{display:flex;flex-direction:column;align-items:center;gap:1px;padding:10px 4px 9px;box-shadow:inset -1px -1px 0 rgba(167,139,250,.22);background:radial-gradient(circle at 50% 36%,rgba(139,92,246,.28),transparent 60%)}
+.gsit svg{width:62px;height:62px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+.box .gsit b{margin:0;font-size:.78rem;font-weight:700;color:#d6cdf7;text-align:center}
+.gsc{direction:ltr;unicode-bidi:isolate;font-family:Marhey,Tajawal,sans-serif;font-size:1.15rem;color:#ffd34d;line-height:1.2}
+.gsempty{grid-column:1/-1;text-align:center;color:#cfc6ef;font-size:.85rem;padding:18px 10px;margin:0}
+.gsline{font-size:.82rem;font-weight:800;color:var(--acc2);margin:2px 0 6px;min-height:1em}
 /* سطر الهدية في الدردشة */
 .m:has(.gfc){background:linear-gradient(135deg,rgba(139,61,255,.16),rgba(255,61,127,.16))!important;border:1.5px solid rgba(255,61,127,.4)}
 .stk.gfc{font-size:.85rem;line-height:1.45;animation:none;display:flex;align-items:center;gap:8px}
@@ -406,7 +425,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 </script>
 </head>
 <body>
-<div id="usheet" class="usheet"><div class="ushbox"><b id="ushn"></b><button class="btn" id="ushr">🚩 إبلاغ عن الرسالة</button><button class="btn" id="ushd" style="display:none">🗑️ حذف الرسالة (مشرف)</button><button class="btn" id="ushban" style="display:none;background:#7f1d1d;color:#fff">⛔ إيقاف اللاعب (مشرف)</button><button class="btn" id="ushav" style="display:none">🖼️ حذف صورته (مشرف)</button><button class="btn" id="ushf" style="display:none">💔 حذف من الأصدقاء</button><button class="btn" id="ushb" style="background:var(--bad);color:#fff">🚫 حظر اللاعب</button><button class="btn" id="ushx">إلغاء</button></div></div>
+<div id="usheet" class="usheet"><div class="ushbox"><b id="ushn"></b><div class="gsline" id="ushgs"></div><button class="btn" id="ushr">🚩 إبلاغ عن الرسالة</button><button class="btn" id="ushd" style="display:none">🗑️ حذف الرسالة (مشرف)</button><button class="btn" id="ushban" style="display:none;background:#7f1d1d;color:#fff">⛔ إيقاف اللاعب (مشرف)</button><button class="btn" id="ushav" style="display:none">🖼️ حذف صورته (مشرف)</button><button class="btn" id="ushf" style="display:none">💔 حذف من الأصدقاء</button><button class="btn" id="ushb" style="background:var(--bad);color:#fff">🚫 حظر اللاعب</button><button class="btn" id="ushx">إلغاء</button></div></div>
 <div id="banbar" style="display:none;position:sticky;top:0;z-index:50;background:var(--bad);color:#fff;text-align:center;padding:8px;font-weight:800;border-radius:10px;margin-bottom:8px">⛔ حسابك موقوف بسبب مخالفة شروط الاستخدام</div>
 <div id="splash" style="display:none"><h1>فكّها</h1><p>فكّ الحروف… وفوز 🧩</p></div>
 <script>/* v7.9: أول مرة صفحة الدخول، وبعدها واجهة فكّها ٤ ثواني */(function(){var IN=false;try{IN=localStorage.getItem("wcp_logged")==="1"}catch(e){}window.__fkIn=IN;document.addEventListener("DOMContentLoaded",function(){if(IN){var sp=document.getElementById("splash");sp.style.display="flex";setTimeout(function(){sp.classList.add("out");setTimeout(function(){sp.style.display="none"},500)},4000)}else{var g=document.getElementById("gate");if(g)g.classList.add("on")}})})();</script>
@@ -540,6 +559,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 </section>
 
 <section class="p" id="custom">
+<div class="box gsbox"><b>🎁 الهدايا</b><div class="gsrow" role="tablist"><button type="button" role="tab" class="gst on" data-t="r" aria-selected="true"><span class="gsn" id="gsr">٠</span><small>🎁 المستلمة</small></button><button type="button" role="tab" class="gst s" data-t="s" aria-selected="false"><span class="gsn" id="gss">٠</span><small>💝 المرسلة</small></button></div><div class="gslist" id="gslist"></div></div>
 <div class="box"><b>تخصيص اسمك ✨</b><p style="color:var(--mut);margin-bottom:8px">اكتب اسمك واضغط معاينة الاسم لتشوف شكله بعد التعديل</p>
 <div style="display:flex;gap:6px;margin-bottom:10px"><input id="unamecst" type="text" maxlength="20" placeholder="اسمك" value="" style="flex:1;font:inherit;border:2px solid var(--slot);background:var(--card);color:var(--ink);border-radius:10px;padding:6px"><button class="btn g" id="buycst">👁️ معاينة الاسم</button></div>
 <div id="cstUI" style="display:none">
@@ -792,7 +812,7 @@ function blockUser(id,name){blocked.add(id);blockN[id]=String(name||'لاعب').
 function unblockUser(id){blocked.delete(id);delete blockN[id];saveBlocks();try{drawChat()}catch(e){}drawBlocks()}
 function drawBlocks(){const el=$('blocklist');if(!el)return;el.innerHTML='';const ids=[...blocked];if(!ids.length){const n=document.createElement('div');n.className='note';n.textContent='ما حظرت أحد';el.appendChild(n);return}ids.forEach(id=>{const r=document.createElement('div');r.style.cssText='display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--slot)';const b=document.createElement('b');b.textContent='🚫 '+(blockN[id]||'لاعب');const u=document.createElement('button');u.className='btn';u.textContent='فك الحظر';u.onclick=()=>{if(confirm('تفك الحظر عن '+(blockN[id]||'اللاعب')+'؟'))unblockUser(id)};r.append(b,u);el.appendChild(r)})}
 function report(m,txt){if(!LB.db)return;LB.db.collection('reports').add({by:LB.uid,uid:m.uid,name:String(m.name||'').slice(0,20),text:String(txt||'').slice(0,200),msg:m.id||'',path:m.path||'',ts:Date.now()}).then(()=>alert('شكراً، وصلنا البلاغ وبنراجعه خلال ٢٤ ساعة ✅')).catch(()=>alert('تعذر إرسال البلاغ، حاول مرة ثانية'))}
-function userSheet(m,txt){const sh=$('usheet');$('ushn').textContent=String(m.name||'لاعب').slice(0,20);const ad=IS_ADMIN&&m.uid!==LB.uid;$('ushd').style.display=ad&&m.path?'':'none';$('ushban').style.display=ad?'':'none';$('ushd').onclick=async()=>{sh.classList.remove('on');if(confirm('تحذف الرسالة؟'))await admDelete(m.path)};$('ushban').onclick=()=>{sh.classList.remove('on');admBan(m.uid,m.name)};$('ushr').onclick=()=>{sh.classList.remove('on');report(m,txt)};$('ushb').onclick=()=>{sh.classList.remove('on');if(confirm('تحظر '+m.name+'؟ ما بتشوف رسائله، وتقدر تفك الحظر من ملفي.'))blockUser(m.uid,m.name)};$('ushav').style.display=ad?'':'none';$('ushav').onclick=async()=>{sh.classList.remove('on');if(!confirm('تحذف صورة '+m.name+'؟'))return;try{await LB.db.doc('profiles/'+m.uid).delete();delete PROF[m.uid];profRedraw()}catch(e){alert('تعذر الحذف')}};let isF=false;try{isF=!!(FD&&FD.list&&FD.list[m.uid])}catch(e){}$('ushf').style.display=isF?'':'none';$('ushf').onclick=()=>{sh.classList.remove('on');fdRemove(m.uid)};$('ushr').style.display=m.uid===LB.uid?'none':'';$('ushb').style.display=m.uid===LB.uid?'none':'';$('ushx').onclick=()=>sh.classList.remove('on');sh.classList.add('on')}
+function userSheet(m,txt){const sh=$('usheet');$('ushn').textContent=String(m.name||'لاعب').slice(0,20);{const g=$('ushgs');g.textContent='';if(m.uid&&window.gsGet){g.textContent='…';gsGet(m.uid).then(v=>{g.textContent='🎁 استلم '+ar(v.r)+' هدية · 💝 أرسل '+ar(v.s)})}}const ad=IS_ADMIN&&m.uid!==LB.uid;$('ushd').style.display=ad&&m.path?'':'none';$('ushban').style.display=ad?'':'none';$('ushd').onclick=async()=>{sh.classList.remove('on');if(confirm('تحذف الرسالة؟'))await admDelete(m.path)};$('ushban').onclick=()=>{sh.classList.remove('on');admBan(m.uid,m.name)};$('ushr').onclick=()=>{sh.classList.remove('on');report(m,txt)};$('ushb').onclick=()=>{sh.classList.remove('on');if(confirm('تحظر '+m.name+'؟ ما بتشوف رسائله، وتقدر تفك الحظر من ملفي.'))blockUser(m.uid,m.name)};$('ushav').style.display=ad?'':'none';$('ushav').onclick=async()=>{sh.classList.remove('on');if(!confirm('تحذف صورة '+m.name+'؟'))return;try{await LB.db.doc('profiles/'+m.uid).delete();delete PROF[m.uid];profRedraw()}catch(e){alert('تعذر الحذف')}};let isF=false;try{isF=!!(FD&&FD.list&&FD.list[m.uid])}catch(e){}$('ushf').style.display=isF?'':'none';$('ushf').onclick=()=>{sh.classList.remove('on');fdRemove(m.uid)};$('ushr').style.display=m.uid===LB.uid?'none':'';$('ushb').style.display=m.uid===LB.uid?'none':'';$('ushx').onclick=()=>sh.classList.remove('on');sh.classList.add('on')}
 function chatMenu(m){userSheet({...m,path:'chat_pub/'+m.id},m.text)}
 function pvMenu(v){userSheet({...v,path:'privrooms/'+PV.code+'/voice/'+v.id},'[رسالة صوتية في غرفة '+PV.code+']')}
 function isHidden(id){return blocked.has(id)||BANNED.has(id)}
@@ -1371,7 +1391,7 @@ window.addEventListener('offline',()=>show(true));window.addEventListener('onlin
 if(navigator.onLine===false)show(true)})();
 </script>
 <script>
-/* v8.5: متجر الهدايا الجديد — رسومات فخمة بلمعة وظلال (١٣ هدية مع كيكة عيد الميلاد) · v8.4: الهدايا والجواهر · v8.2: إصلاح الصوت بالآيفون · v8.1: صفحة الإعدادات · v8.0: أصوات واهتزاز + مشاركة نتيجة التحدي اليومي + شرح سريع لأول مرة */
+/* v8.7: هداياي — قائمة المستلمة والمرسلة بنوع كل هدية وعددها · v8.6: الإهداء لشخص أو شخصين أو الجميع + عدّادات الهدايا في الملف · v8.5: متجر الهدايا الجديد — رسومات فخمة بلمعة وظلال (١٣ هدية مع كيكة عيد الميلاد) · v8.4: الهدايا والجواهر · v8.2: إصلاح الصوت بالآيفون · v8.1: صفحة الإعدادات · v8.0: أصوات واهتزاز + مشاركة نتيجة التحدي اليومي + شرح سريع لأول مرة */
 (function(){
 const LS={g(k){try{return localStorage.getItem(k)}catch(e){return null}},s(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 /* ---- الأصوات والاهتزاز ---- */
@@ -1481,8 +1501,8 @@ const DIA='<svg class="gfdia" viewBox="0 0 24 20" aria-hidden="true"><path d="M6
 function gfCell(el,k){const G=GIFTS[k];el.className=(el.className||'')+' gfc4 t'+G.t;el.innerHTML=(G.nw?'<i class="gfnw">جديد</i>':'')+gArt(k);const nb=document.createElement('b');nb.textContent=G.n;const pr=document.createElement('small');pr.innerHTML='<span>'+ar(G.p)+'</span>'+DIA;el.append(nb,pr)}
 
 /* ---- رسالة الهدية: §gf:النوع:العدد:المستلم:اسمه ---- */
-function gfParse(t){t=String(t||'');if(!t.startsWith('§gf:'))return null;const p=t.slice(4).split(':');const k=p[0],n=Math.floor(Number(p[1]));if(!GIFTS[k]||!(n>=1&&n<=99))return null;return{k,n,to:p[2]||'*',tn:p.slice(3).join(':').slice(0,20)}}
-const toName=g=>g.to==='*'?'الجميع':(g.tn||'لاعب');
+function gfParse(t){t=String(t||'');if(!t.startsWith('§gf:'))return null;const p=t.slice(4).split(':');const k=p[0],n=Math.floor(Number(p[1]));if(!GIFTS[k]||!(n>=1&&n<=99))return null;const to=p[2]||'*',tos=to==='*'?['*']:to.split('+').filter(Boolean).slice(0,2),tns=p.slice(3).join(':').split('+').map(x=>x.slice(0,20));return{k,n,to,tos,tns,tn:tns[0]||''}}
+const toName=g=>g.to==='*'?'الجميع':(g.tos||[g.to]).map((x,i)=>(g.tns&&g.tns[i])||'لاعب').join(' و ');
 
 window.gfRender=function(m,tx){const g=gfParse(m.text);if(!g){tx.textContent='🎁 هدية';return true}const G=GIFTS[g.k];tx.className='stk gfc';tx.innerHTML=gArt(g.k);const t=document.createElement('div');t.className='gft';t.append('🎁 أهدى ');const b=document.createElement('b');b.textContent=toName(g);t.append(b,' '+G.n+' ');const n=document.createElement('span');n.className='gfn';n.textContent='×'+ar(g.n);t.appendChild(n);tx.appendChild(t);return true};
 
@@ -1490,7 +1510,7 @@ window.gfRender=function(m,tx){const g=gfParse(m.text);if(!g){tx.textContent='�
 const GSEEN=new Set,GQ=[];let GBUSY=false;
 window.gfScan=function(list){const now=Date.now();(list||[]).forEach(m=>{const key=m.id||(m.uid+'|'+m.ts);if(GSEEN.has(key))return;GSEEN.add(key);const g=gfParse(m.text);if(!g)return;if((Number(m.ts)||0)<now-45000)return;try{if(isHidden(m.uid))return}catch(e){}
  const nm=String(m.name||'لاعب').slice(0,20);
- if(g.to===LB.uid&&m.uid!==LB.uid){try{fdToast('🎁 '+nm+' أهداك '+GIFTS[g.k].n+' ×'+ar(g.n))}catch(e){}}
+ if((g.tos||[g.to]).includes(LB.uid)&&m.uid!==LB.uid){try{fdToast('🎁 '+nm+' أهداك '+GIFTS[g.k].n+' ×'+ar(g.n))}catch(e){}}
  let vis=false;try{vis=$('chat').classList.contains('on')&&cmode==='pub'}catch(e){}if(!vis)return;
  if(GQ.length<6)GQ.push({...g,uid:m.uid,name:nm});if(!GBUSY)gfNext()})};
 function gfNext(){const ev=GQ.shift();if(!ev){GBUSY=false;return}GBUSY=true;const G=GIFTS[ev.k];gfBanner(ev);if(G.t>=2)gfBig(ev);try{fkFx(G.t>=2?'win':'ok')}catch(e){}setTimeout(gfNext,G.t===3?4400:G.t===2?3100:2900)}
@@ -1505,37 +1525,68 @@ function gfBig(ev){const G=GIFTS[ev.k],big=G.t===3,o=document.createElement('div
  document.body.appendChild(o);setTimeout(()=>o.remove(),big?4400:3100)}
 
 /* ---- نافذة إرسال الهدية ---- */
-const GF={to:'*',tn:'',k:'rose',n:1};
+const GF={sel:[{id:'*',name:'الجميع'}],k:'rose',n:1};
+const gfIsAll=()=>GF.sel.length===1&&GF.sel[0].id==='*';
+const gfCnt=()=>gfIsAll()?1:GF.sel.length;
 function gfTargets(){const out=[{id:'*',name:'الجميع'}],seen=new Set(['*','guest',LB.uid,uid]);const add=(id,name)=>{if(!id||seen.has(id))return;try{if(isHidden(id))return}catch(e){}seen.add(id);out.push({id,name:String(name||'لاعب').slice(0,20)})};
- if(GF.to&&GF.to!=='*')add(GF.to,GF.tn);
+ GF.sel.forEach(t=>{if(t.id!=='*')add(t.id,t.name)});
  try{Object.keys(FD.list||{}).forEach(id=>add(id,FD.list[id].name))}catch(e){}
  try{[...(msgs||[])].reverse().forEach(m=>{if(m&&chatLive(m))add(m.uid,m.name)})}catch(e){}
  return out.slice(0,40)}
-function gfSheet(){let s=document.getElementById('gfsheet');if(s)return s;s=document.createElement('div');s.id='gfsheet';s.className='gfsh';s.innerHTML='<div class="gfbox" role="dialog" aria-modal="true" aria-label="أرسل هدية"><div class="gfhd"><b>🎁 أرسل هدية</b><button class="gfgem" id="gfgem" type="button">💎 <span id="gfgemn">٠</span><small>اشحن</small></button></div><div class="gfl">لمين الهدية؟</div><div class="gfto" id="gfto"></div><div class="gfl">اختر الهدية</div><div class="gfgrid" id="gfgrid"></div><div class="gfqty" id="gfqty"></div><button class="btn gfgo" id="gfsend" type="button"></button><button class="btn gfx0" id="gfclose" type="button">إلغاء</button><div class="gftip">🎬 الهدايا الكبيرة تطلع على الشاشة كلها لكل اللي في الدردشة العامة</div></div>';document.body.appendChild(s);
+function gfSheet(){let s=document.getElementById('gfsheet');if(s)return s;s=document.createElement('div');s.id='gfsheet';s.className='gfsh';s.innerHTML='<div class="gfbox" role="dialog" aria-modal="true" aria-label="أرسل هدية"><div class="gfhd"><b>🎁 أرسل هدية</b><button class="gfgem" id="gfgem" type="button">💎 <span id="gfgemn">٠</span><small>اشحن</small></button></div><div class="gfl">لمين الهدية؟ <small style="font-weight:700">(شخص أو شخصين، أو الجميع)</small></div><div class="gfto" id="gfto"></div><div class="gfl">اختر الهدية</div><div class="gfgrid" id="gfgrid"></div><div class="gfqty" id="gfqty"></div><button class="btn gfgo" id="gfsend" type="button"></button><button class="btn gfx0" id="gfclose" type="button">إلغاء</button><div class="gftip">🎬 الهدايا الكبيرة تطلع على الشاشة كلها لكل اللي في الدردشة العامة</div></div>';document.body.appendChild(s);
  s.addEventListener('click',e=>{if(e.target===s)gfClose()});s.querySelector('#gfclose').onclick=gfClose;s.querySelector('#gfgem').onclick=()=>{gfClose();gfGoShop()};s.querySelector('#gfsend').onclick=gfSend;return s}
 function gfDraw(){gfSheet();$('gfgemn').textContent=ar(gemsGet());
- const T=$('gfto');T.innerHTML='';const L=gfTargets();if(!L.some(t=>t.id===GF.to)){GF.to='*';GF.tn=''}
- L.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='gftoi'+(GF.to===t.id?' on':'');b.setAttribute('aria-pressed',GF.to===t.id);if(t.id==='*'){const a=document.createElement('span');a.className='av gfall';a.textContent='🌐';b.appendChild(a)}else{try{b.appendChild(avatarEl(t.id,t.name))}catch(e){}}const sm=document.createElement('small');sm.textContent=t.name;b.appendChild(sm);b.onclick=()=>{GF.to=t.id;GF.tn=t.id==='*'?'':t.name;gfDraw()};T.appendChild(b)});
+ const T=$('gfto');T.innerHTML='';const L=gfTargets();GF.sel=GF.sel.filter(x=>L.some(t=>t.id===x.id));if(!GF.sel.length)GF.sel=[{id:'*',name:'الجميع'}];
+ L.forEach(t=>{const on=GF.sel.some(x=>x.id===t.id),b=document.createElement('button');b.type='button';b.className='gftoi'+(on?' on':'');b.setAttribute('aria-pressed',on);if(t.id==='*'){const a=document.createElement('span');a.className='av gfall';a.textContent='🌐';b.appendChild(a)}else{try{b.appendChild(avatarEl(t.id,t.name))}catch(e){}}const sm=document.createElement('small');sm.textContent=t.name;b.appendChild(sm);if(on&&t.id!=='*'){const ck=document.createElement('i');ck.className='gfck';ck.textContent='✓';b.appendChild(ck)}b.onclick=()=>gfPick(t);T.appendChild(b)});
  if(L.length<2){const n=document.createElement('div');n.className='gftip';n.style.cssText='align-self:center;text-align:start;margin:0 6px';n.textContent='أصدقاؤك واللي يكتبون في الدردشة يطلعون هنا 👥';T.appendChild(n)}
  const Gd=$('gfgrid');Gd.innerHTML='';Object.keys(GIFTS).forEach(k=>{const G=GIFTS[k],b=document.createElement('button');b.type='button';b.className=GF.k===k?'on':'';b.setAttribute('aria-pressed',GF.k===k);gfCell(b,k);b.onclick=()=>{GF.k=k;gfDraw()};Gd.appendChild(b)});
  const Q=$('gfqty');Q.innerHTML='';const lb=document.createElement('span');lb.textContent='العدد';Q.appendChild(lb);QTY.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='gfq'+(GF.n===n?' on':'');b.setAttribute('aria-pressed',GF.n===n);b.textContent='×'+ar(n);b.onclick=()=>{GF.n=n;gfDraw()};Q.appendChild(b)});
- const cost=GIFTS[GF.k].p*GF.n,ok=gemsGet()>=cost,sb=$('gfsend');sb.classList.toggle('need',!ok);sb.textContent=ok?'أرسل '+GIFTS[GF.k].n+(GF.n>1?' ×'+ar(GF.n):'')+' · '+ar(cost)+' 💎':'💎 اشحن جواهر (تحتاج '+ar(cost)+')'}
+ const cn=gfCnt(),cost=GIFTS[GF.k].p*GF.n*cn,ok=gemsGet()>=cost,sb=$('gfsend');sb.classList.toggle('need',!ok);const who=gfIsAll()?'للجميع':cn===2?'لشخصين':'لـ'+GF.sel[0].name;sb.textContent=ok?'أرسل '+GIFTS[GF.k].n+(GF.n>1?' ×'+ar(GF.n):'')+' '+who+' · '+ar(cost)+' 💎':'💎 اشحن جواهر (تحتاج '+ar(cost)+')'}
+function gfPick(t){if(t.id==='*'){GF.sel=[{id:'*',name:'الجميع'}];gfDraw();return}
+ let S=GF.sel.filter(x=>x.id!=='*');const i=S.findIndex(x=>x.id===t.id);
+ if(i>=0)S.splice(i,1);else{if(S.length>=2){alert('تقدر تختار شخصين بالكثير، أو تختار 🌐 الجميع');return}S.push({id:t.id,name:t.name})}
+ GF.sel=S.length?S:[{id:'*',name:'الجميع'}];gfDraw()}
 function gfOpen(pre){if(banGuard())return;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية عشان تقدر ترسل هدايا');return}
  try{if(!$('chat').classList.contains('on'))document.querySelector('.navb[data-p="chat"]').click();if(cmode!=='pub')$('pubchat').click()}catch(e){}
- if(pre&&pre.id){GF.to=pre.id;GF.tn=pre.name||'لاعب'}gfDraw();$('gfsheet').classList.add('on')}
+ if(pre&&pre.id){GF.sel=[{id:pre.id,name:String(pre.name||'لاعب').slice(0,20)}]}gfDraw();$('gfsheet').classList.add('on')}
 function gfClose(){const s=document.getElementById('gfsheet');if(s)s.classList.remove('on')}
 window.gfOpen=gfOpen;
 function gfNeed(cost){const have=gemsGet();$('mt').textContent='💎 جواهرك ما تكفي';$('mp').textContent='الهدية تبي '+ar(cost)+' 💎 وعندك '+ar(have)+'. اشحن من المتجر وارجع أهدِ.';$('mok').textContent='اشحن الحين';$('mok').onclick=()=>{$('md').classList.remove('on');gfGoShop()};$('md').classList.add('on')}
-async function gfSend(){const G=GIFTS[GF.k],cost=G.p*GF.n,have=gemsGet();if(banGuard())return;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية');return}
+async function gfSend(){const G=GIFTS[GF.k],cn=gfCnt(),cost=G.p*GF.n*cn,have=gemsGet();if(banGuard())return;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية');return}
  if(have<cost){gfClose();gfNeed(cost);return}
  if(CH.on&&!netOK())return;
  if(Date.now()-CH.last<3000){alert('شوي شوي 😅 انتظر ثواني وأرسل');return}
- if(GF.to!=='*'){let h=false;try{h=isHidden(GF.to)}catch(e){}if(h){alert('ما تقدر تهدي لاعب حاظره');return}}
- const text='§gf:'+GF.k+':'+GF.n+':'+(GF.to==='*'?'*':GF.to)+':'+(GF.to==='*'?'':String(GF.tn||'لاعب').replace(/§/g,'').slice(0,20));
+ const P=gfIsAll()?[]:GF.sel.slice(0,2);for(const t of P){let h=false;try{h=isHidden(t.id)}catch(e){}if(h){alert('ما تقدر تهدي لاعب حاظره');return}}
+ const cl=x=>String(x||'لاعب').replace(/[§:+]/g,'').slice(0,20);
+ const text='§gf:'+GF.k+':'+GF.n+':'+(P.length?P.map(t=>t.id).join('+'):'*')+':'+P.map(t=>cl(t.name)).join('+');
  gemsSet(have-cost);CH.last=Date.now();gfClose();
- if(!CH.on){msgs.push({uid:uid||'guest',name:u||'لاعب',text,ts:Date.now()});drawChat();gfScan(msgs);return}
- try{await LB.db.collection('chat_pub').add({uid,name:u.slice(0,20),text,fx:'none',bb:EQ.bb||'',cust:!!customized,color:custColor,cfx:custEffect,ts:Date.now()})}
+ if(!CH.on){msgs.push({uid:uid||'guest',name:u||'لاعب',text,ts:Date.now()});drawChat();gfScan(msgs);gsLocal('s',GF.k,GF.n*cn);return}
+ try{await LB.db.collection('chat_pub').add({uid,name:u.slice(0,20),text,fx:'none',bb:EQ.bb||'',cust:!!customized,color:custColor,cfx:custEffect,ts:Date.now()});
+  gsInc(LB.uid,'s',GF.k,GF.n*cn);P.forEach(t=>gsInc(t.id,'r',GF.k,GF.n))}
  catch(e){console.warn('gift',e);gemsSet(gemsGet()+cost);alert('ما انرسلت الهدية، ورجّعنا لك جواهرك. تأكد من الإنترنت وجرّب مرة ثانية.')}}
+
+/* ---- عدّادات الهدايا: gstats/{uid} (r/s المجموع، rg/sg لكل هدية) ---- */
+const GSC={};let GSTAB='r';
+const gsZero=()=>({r:0,s:0,rg:{},sg:{}});
+function gsNorm(o){o=o||{};const z=gsZero();z.r=Number(o.r)||0;z.s=Number(o.s)||0;['rg','sg'].forEach(f=>{const m=o[f]&&typeof o[f]==='object'?o[f]:{};Object.keys(m).forEach(k=>{if(GIFTS[k]){const v=Math.floor(Number(m[k])||0);if(v>0)z[f][k]=v}})});return z}
+function gsLocal(f,k,by){try{const o=gsNorm(JSON.parse(localStorage.getItem('wcp_gs')||'{}'));o[f]+=by;o[f+'g'][k]=(o[f+'g'][k]||0)+by;localStorage.setItem('wcp_gs',JSON.stringify(o))}catch(e){}gsMine()}
+async function gsInc(id,f,k,by){if(!id||!LB.db)return;try{
+ if(window.firebase&&LB.mode!=='ar'&&firebase.firestore.FieldValue.increment){const I=firebase.firestore.FieldValue.increment;await LB.db.doc('gstats/'+id).set({[f]:I(by),[f+'g']:{[k]:I(by)}},{merge:true})}
+ else{const d=await LB.db.doc('gstats/'+id).get();const o=gsNorm(d.exists?d.data():{});o[f]+=by;o[f+'g'][k]=(o[f+'g'][k]||0)+by;await LB.db.doc('gstats/'+id).set(o)}
+ delete GSC[id];if(id===LB.uid)gsMine()}catch(e){console.warn('gstats',e)}}
+async function gsGet(id){if(!id&&LB.db)return gsZero();id=id||'me';if(GSC[id]&&Date.now()-GSC[id].at<20000)return GSC[id];
+ let v=gsZero();if(LB.db){try{const d=await LB.db.doc('gstats/'+id).get();if(d.exists)v=gsNorm(d.data())}catch(e){}}
+ else if(id===LB.uid||id===uid||id==='me'){try{v=gsNorm(JSON.parse(localStorage.getItem('wcp_gs')||'{}'))}catch(e){}}
+ v.at=Date.now();return GSC[id]=v}
+window.gsGet=gsGet;
+async function gsMine(){const a=document.getElementById('gsr');if(!a)return;const id=LB.uid||uid||'me';delete GSC[id];const v=await gsGet(id);
+ a.textContent=ar(v.r);document.getElementById('gss').textContent=ar(v.s);
+ document.querySelectorAll('.gst').forEach(t=>{const on=t.dataset.t===GSTAB;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
+ const L=document.getElementById('gslist');L.innerHTML='';const m=v[GSTAB+'g'];const ks=Object.keys(GIFTS).filter(k=>m[k]>0).sort((x,y)=>m[y]-m[x]||GIFTS[y].p-GIFTS[x].p);
+ if(!ks.length){const e=document.createElement('p');e.className='gsempty';e.textContent=GSTAB==='r'?'ما وصلتك هدايا للحين 🎁 — العب ودردش، ويمكن تجيك أول هدية!':'ما أرسلت هدايا للحين 💝 — أهدِ ربعك من الدردشة العامة';L.appendChild(e);return}
+ ks.forEach(k=>{const d=document.createElement('div');d.className='gsit';d.innerHTML=gArt(k);const n=document.createElement('b');n.textContent=GIFTS[k].n;const c=document.createElement('span');c.className='gsc';c.textContent='×'+ar(m[k]);d.append(n,c);L.appendChild(d)})}
+window.gsMine=gsMine;
+document.querySelectorAll('.gst').forEach(t=>t.addEventListener('click',()=>{GSTAB=t.dataset.t;gsMine()}));
 
 /* ---- المتجر: الجواهر وقائمة الهدايا ---- */
 function gfBal(){const b=document.getElementById('gfbal');if(b)b.textContent=ar(gemsGet());const g=document.getElementById('gfgemn');if(g)g.textContent=ar(gemsGet())}
@@ -1547,6 +1598,7 @@ function gfGoShop(){document.querySelector('.navb[data-p="shop"]').click();setTi
 {const b=$('gfb');if(b)b.onclick=()=>gfOpen()}
 {const b=$('gfgo2');if(b)b.onclick=()=>gfOpen()}
 document.querySelector('.navb[data-p="shop"]').addEventListener('click',gfShopDraw);
+document.querySelector('.navb[data-p="custom"]').addEventListener('click',()=>gsMine());setTimeout(gsMine,2500);
 gfShopDraw();
 /* زر "أهدِه هدية" في قائمة ⋮ حق الرسالة */
 {const r=$('ushr');if(r&&!$('ushg')){const g=document.createElement('button');g.className='btn';g.id='ushg';g.type='button';g.style.cssText='display:none;background:linear-gradient(90deg,#8b3dff,#ff3d7f);color:#fff';g.textContent='🎁 أهدِه هدية';r.parentNode.insertBefore(g,r)}}

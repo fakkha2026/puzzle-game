@@ -665,7 +665,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 <b class="csub">الكلمات اللي أضفتها</b><div id="cw_list"></div>
 <b class="csub">الكلمات المخفية</b><div id="cw_hlist"></div>
 </details>
-<details class="cdet"><summary>🖼️ صور خمّن الصورة <span id="cpcount"></span></summary>
+<details class="cdet" style="display:none"><summary>🖼️ صور خمّن الصورة <span id="cpcount"></span></summary>
 <input type="file" id="cp_file" accept="image/*"><div id="cp_prev"></div>
 <input id="cp_ans" placeholder="الإجابة" maxlength="20" autocomplete="off">
 <input id="cp_alt" placeholder="إجابات ثانية مقبولة (اختياري، افصلها بفاصلة)" maxlength="80" autocomplete="off">
@@ -1808,7 +1808,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ٩٫٣';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ٩٫٤';s.appendChild(p)}}
 })();
 </script>
 

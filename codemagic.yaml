@@ -65,6 +65,24 @@ workflows:
           cat ios/App/Podfile
           cd ios/App && pod install --repo-update
 
+      - name: الدخول بأبل (Sign in with Apple)
+        script: |
+          set -e
+          cat > ios/App/App/App.entitlements <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>com.apple.developer.applesignin</key>
+            <array><string>Default</string></array>
+          </dict>
+          </plist>
+          PLIST
+          
+          plutil -lint ios/App/App/App.entitlements
+          ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); g.new_reference('App.entitlements') unless g.files.any?{|f| f.path=='App.entitlements'}; t.build_configurations.each{|c| c.build_settings['CODE_SIGN_ENTITLEMENTS']='App/App.entitlements'}; p.save"
+          echo "✅ الدخول بأبل انضاف"
+
       - name: بناء التطبيق (تجربة)
         script: |
           set -o pipefail

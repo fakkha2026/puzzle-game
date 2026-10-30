@@ -417,6 +417,140 @@ body.lvpad{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 @keyframes gfinr{0%,100%{opacity:0}10%,85%{opacity:1}}
 .gfbig .gfart,.gfbig .gfwh,.gfbig .gfboat,.gfbig .gfwave,.gfrays,.gfp,.gfspd,.gfcnt.bump{animation:none!important}
 .gfspd,.gfp{display:none}}
+/* v9.9: مؤثرات الهدايا المتحركة */
+/* --- الحركة الدائمة (المتجر، نافذة الإرسال، الدردشة، ملفي) --- */
+.gfc4,.gsit{--gc:#ffd34d;overflow:hidden}
+.gfc4>svg,.gsit>svg{position:relative;z-index:1;will-change:transform}
+.gfgl{position:absolute;z-index:0;top:4px;left:50%;width:96px;height:96px;margin-left:-48px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,var(--gc) 0,transparent 66%);opacity:.32;animation:gfglp 2.8s ease-in-out infinite}
+.gsit .gfgl{width:74px;height:74px;margin-left:-37px;top:3px}
+@keyframes gfglp{0%,100%{opacity:.18;transform:scale(.82)}50%{opacity:.5;transform:scale(1.08)}}
+.gfsw{position:absolute;z-index:2;top:10px;left:50%;width:84px;height:84px;margin-left:-42px;pointer-events:none;-webkit-mask:var(--gm) center/contain no-repeat;mask:var(--gm) center/contain no-repeat;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.85) 50%,transparent 62%) no-repeat;background-size:300% 100%;background-position:130% 0;animation:gfswp 4.2s ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes gfswp{0%,62%{background-position:130% 0}86%,100%{background-position:-30% 0}}
+.gftw{position:absolute;z-index:3;inset:0;pointer-events:none}
+.gftw i{position:absolute;width:9px;height:9px;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 3px var(--gc));opacity:0;animation:gftwk 2.4s ease-in-out infinite}
+.gftw i:nth-child(1){top:12%;left:20%}
+.gftw i:nth-child(2){top:22%;right:18%;animation-delay:-.8s;width:7px;height:7px}
+.gftw i:nth-child(3){top:52%;left:30%;animation-delay:-1.6s;width:6px;height:6px}
+@keyframes gftwk{0%,100%{opacity:0;transform:scale(.2) rotate(0)}45%{opacity:1;transform:scale(1.15) rotate(90deg)}70%{opacity:0;transform:scale(.3) rotate(140deg)}}
+.gfc4.on .gfgl{opacity:.7;animation-duration:1.4s}
+.gfc4.on>svg{filter:drop-shadow(0 0 10px var(--gc)) drop-shadow(0 4px 8px rgba(0,0,0,.45))}
+
+/* حركة خاصة لكل هدية */
+.gi-rose>svg{transform-origin:50% 92%;animation:gisway 3.2s ease-in-out infinite}
+.gi-salam>svg{animation:gipulse 2.6s ease-in-out infinite}
+.gi-heart>svg{animation:gibeat 1.3s ease-in-out infinite}
+.gi-perfume>svg{transform-origin:50% 90%;animation:gitilt 3s ease-in-out infinite}
+.gi-balloons>svg{animation:gifloat 3s ease-in-out infinite}
+.gi-teddy>svg{transform-origin:50% 95%;animation:giwig 2.2s ease-in-out infinite}
+.gi-trophy>svg{transform-origin:50% 95%;animation:gibob 2.4s ease-in-out infinite}
+.gi-crown>svg{animation:gicrown 3s ease-in-out infinite}
+.gi-cake>svg{transform-origin:50% 95%;animation:gibounce 2s ease-in-out infinite}
+.gi-watch>svg,.gi-lion>svg{transform-origin:50% 8%;animation:gipend 2.6s ease-in-out infinite}
+.gi-ring>svg{animation:giring 3.4s ease-in-out infinite}
+.gi-fireworks>svg{transform-origin:50% 100%;animation:gifire 1.8s ease-in-out infinite}
+.gi-falcon>svg{animation:giflap 1.5s ease-in-out infinite}
+.gi-car>svg{animation:gicar 1.2s ease-in-out infinite}
+.gi-yacht>svg{transform-origin:50% 75%;animation:giboat 2.6s ease-in-out infinite}
+.gi-jet>svg{animation:gijet 3s ease-in-out infinite}
+.gi-lamp>svg{animation:gilamp 3s ease-in-out infinite}
+@keyframes gisway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+@keyframes gipulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.07);filter:brightness(1.25)}}
+@keyframes gibeat{0%,40%,100%{transform:scale(1)}10%{transform:scale(1.14)}20%{transform:scale(1.02)}30%{transform:scale(1.1)}}
+@keyframes gitilt{0%,100%{transform:rotate(0) translateY(0)}30%{transform:rotate(-8deg) translateY(-3px)}60%{transform:rotate(5deg) translateY(-1px)}}
+@keyframes gifloat{0%,100%{transform:translateY(2px) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes giwig{0%,100%{transform:rotate(0) scale(1)}20%{transform:rotate(-7deg) scale(1.03,.97)}40%{transform:rotate(6deg) scale(.98,1.03)}60%{transform:rotate(-3deg)}80%{transform:rotate(2deg)}}
+@keyframes gibob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.05)}}
+@keyframes gicrown{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+@keyframes gibounce{0%,100%{transform:translateY(0) scale(1,1)}35%{transform:translateY(0) scale(1.06,.94)}55%{transform:translateY(-7px) scale(.97,1.04)}75%{transform:translateY(0) scale(1.02,.98)}}
+@keyframes gipend{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes giring{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.08);filter:brightness(1.3)}}
+@keyframes gifire{0%,100%{transform:scale(.94);filter:brightness(.9) saturate(1)}50%{transform:scale(1.08);filter:brightness(1.4) saturate(1.4)}}
+@keyframes giflap{0%,100%{transform:translateY(0) scale(1,1)}50%{transform:translateY(-6px) scale(1.04,.9)}}
+@keyframes gicar{0%,100%{transform:translate(0,0)}25%{transform:translate(-1.5px,-1px)}50%{transform:translate(1px,0)}75%{transform:translate(-1px,1px)}}
+@keyframes giboat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes gijet{0%,100%{transform:translate(-4px,4px) rotate(-3deg)}50%{transform:translate(4px,-5px) rotate(2deg)}}
+@keyframes gilamp{0%,100%{transform:translateY(0) rotate(-2deg);filter:drop-shadow(0 0 0 #b77bff)}50%{transform:translateY(-6px) rotate(2deg);filter:drop-shadow(0 0 12px #b77bff)}}
+.gfc.gi-heart>svg,.gfc[class*="gi-"]>svg{display:block}
+
+/* --- العرض على الشاشة لما توصل الهدية --- */
+.gfbig.mini{background:radial-gradient(circle at 50% 48%,rgba(30,10,60,.22),transparent 52%)}
+.gfbig.mini .gfrays{opacity:.55;-webkit-mask:radial-gradient(circle,#000 3%,transparent 18%);mask:radial-gradient(circle,#000 3%,transparent 18%)}
+.gfbig.mini .gfart{width:min(44vw,170px)}
+.gfbig .gfart{z-index:2;will-change:transform}
+.gfbig .gfart>svg{will-change:transform}
+.gfbg{position:absolute;left:50%;top:48%;width:min(120vw,620px);height:min(120vw,620px);margin:calc(min(120vw,620px)/-2) 0 0 calc(min(120vw,620px)/-2);border-radius:50%;background:radial-gradient(circle,var(--gc) 0,transparent 62%);opacity:0;animation:gfbgp 1.6s ease-in-out .4s infinite alternate}
+.gfbig.mid .gfbg{transform:scale(.7)}.gfbig.mini .gfbg{transform:scale(.5)}
+@keyframes gfbgp{from{opacity:.18}to{opacity:.5}}
+.gfart .gfsw{top:0;left:0;width:100%;height:100%;margin:0;animation:gfswb 1.5s ease-in-out infinite;animation-delay:var(--dl,.9s)}
+@keyframes gfswb{0%,30%{background-position:130% 0}80%,100%{background-position:-30% 0}}
+.gfflash{position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,#fff 0,rgba(255,255,255,.6) 22%,transparent 60%);opacity:0;animation:gfflash 1.1s ease-out forwards;animation-delay:var(--dl,.6s);z-index:3}
+@keyframes gfflash{0%{opacity:0}18%{opacity:.95}100%{opacity:0}}
+/* الجزيئات */
+.gfq{position:absolute;z-index:4;border:0!important;outline:0!important;padding:0;box-sizing:border-box;width:var(--z,14px);height:var(--z,14px);margin:calc(var(--z,14px)/-2);opacity:0;background:center/contain no-repeat;animation:gfmv var(--d,1.8s) cubic-bezier(.2,.7,.35,1) forwards;animation-delay:var(--dl,0s)}
+@keyframes gfmv{0%{opacity:0;transform:translate(0,0) scale(.3) rotate(0)}12%{opacity:1}75%{opacity:1}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(var(--s,1)) rotate(var(--r,180deg))}}
+.gfq.fall{animation-timing-function:linear}
+.gfq.s-star{background:#ffe27a;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 4px #ffd000)}
+.gfq.s-dia{background:#fff;clip-path:polygon(50% 0,58% 42%,100% 50%,58% 58%,50% 100%,42% 58%,0 50%,42% 42%);filter:drop-shadow(0 0 5px #9fd4ff) drop-shadow(0 0 2px #fff)}
+.gfq.s-dot{border-radius:50%;background:var(--c,#ffd34d);box-shadow:0 0 8px 2px var(--c,#ffd34d)}
+.gfq.s-conf{width:8px;height:13px;margin:-6px -4px;border-radius:2px;background:var(--c,#ff3d7f)}
+.gfq.s-magic{border-radius:50%;background:radial-gradient(circle,#fff 0,#d8b4ff 35%,rgba(183,123,255,0) 70%)}
+.gfq.s-foam{border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(180,225,255,.8) 40%,transparent 70%)}
+.gfq.s-heart{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21S1 14 1 7a5.5 5.5 0 0 1 11-1.5A5.5 5.5 0 0 1 23 7c0 7-11 14-11 14z' fill='%23ff2d55'/%3E%3Cpath d='M6 4a3 3 0 0 0-2.6 3' stroke='%23ffb3c4' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");filter:drop-shadow(0 0 5px rgba(255,45,85,.7))}
+.gfq.s-petal{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 24'%3E%3Cpath d='M10 1C3 6 1 13 4 19c2 3 10 4 12 0 3-6 1-13-6-18z' fill='%23d9123f'/%3E%3Cpath d='M10 3c-3 5-4 10-2 16' stroke='%23ff6b8a' stroke-width='1.2' fill='none'/%3E%3C/svg%3E")}
+.gfq.s-smoke{border-radius:50%;background:radial-gradient(circle,rgba(215,185,255,.32) 0,rgba(183,123,255,.12) 40%,rgba(183,123,255,0) 68%)}
+
+/* دخول كل هدية */
+.k-rose .gfart{animation:gxspin 1.2s cubic-bezier(.2,1.3,.4,1) both}
+.k-rose .gfart>svg{transform-origin:50% 90%;animation:gisway 2.2s ease-in-out 1.1s infinite}
+@keyframes gxspin{0%{transform:scale(0) rotate(-200deg);opacity:0}70%{transform:scale(1.12) rotate(10deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+.k-salam .gfart{animation:gxglow 1.1s cubic-bezier(.2,1,.3,1) both}
+.k-salam .gfart>svg{animation:gipulse 1.6s ease-in-out 1s infinite}
+@keyframes gxglow{0%{transform:scale(1.8);opacity:0;filter:blur(14px) brightness(2.5)}60%{opacity:1;filter:blur(0) brightness(1.6)}100%{transform:scale(1);filter:none}}
+.k-heart .gfart{animation:gxpop .8s cubic-bezier(.2,1.6,.4,1) both}
+.k-heart .gfart>svg{animation:gibeat 1s ease-in-out .7s infinite}
+@keyframes gxpop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+.k-perfume .gfart{animation:gxdrop .9s cubic-bezier(.3,1.5,.5,1) both}
+.k-perfume .gfart>svg{transform-origin:50% 90%;animation:gispray 1.6s ease-in-out .8s infinite}
+@keyframes gxdrop{0%{transform:translateY(-60vh) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes gispray{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg) translateY(-4px)}45%{transform:rotate(-14deg) scale(1.04,.96)}70%{transform:rotate(4deg)}}
+.k-balloons .gfart>svg{animation:gifloat 2.2s ease-in-out infinite}
+.k-teddy .gfart{animation:gxjump 1.1s cubic-bezier(.3,1.2,.5,1) both}
+.k-teddy .gfart>svg{transform-origin:50% 95%;animation:giwig 1.6s ease-in-out 1s infinite}
+@keyframes gxjump{0%{transform:translateY(70vh) scale(.6,1.3)}55%{transform:translateY(-6%) scale(.92,1.1)}72%{transform:translateY(0) scale(1.15,.85)}86%{transform:scale(.96,1.05)}100%{transform:none}}
+.k-trophy .gfart{animation:gxraise 1.4s cubic-bezier(.2,1.1,.3,1) both}
+.k-trophy .gfart>svg{transform-origin:50% 95%;animation:gibob 1.6s ease-in-out 1.3s infinite}
+@keyframes gxraise{0%{transform:translateY(60vh) scale(.5);opacity:0}60%{transform:translateY(-8%) scale(1.15);opacity:1}100%{transform:none}}
+.k-crown .gfart>svg{animation:gicrown 2s ease-in-out 1.1s infinite}
+.k-cake .gfart{animation:gxpop 1s cubic-bezier(.2,1.7,.4,1) both}
+.k-cake .gfart>svg{transform-origin:50% 95%;animation:gibounce 1.4s ease-in-out .9s infinite}
+.k-watch .gfart,.k-lion .gfart{transform-origin:50% -30%;animation:gxswing 1.8s cubic-bezier(.3,1,.4,1) both}
+.k-watch .gfart>svg,.k-lion .gfart>svg{transform-origin:50% 5%;animation:gipend 2s ease-in-out 1.6s infinite}
+@keyframes gxswing{0%{transform:translateY(-70vh) rotate(25deg);opacity:0}40%{transform:translateY(0) rotate(-18deg);opacity:1}62%{transform:rotate(10deg)}80%{transform:rotate(-5deg)}100%{transform:rotate(0)}}
+.k-lion .gfart{animation-name:gxswing}
+.k-ring .gfart{animation:gxring 1.3s cubic-bezier(.2,1.2,.3,1) both}
+.k-ring .gfart>svg{animation:giring 1.8s ease-in-out 1.2s infinite}
+@keyframes gxring{0%{transform:scale(0) rotate(-540deg);opacity:0}75%{transform:scale(1.12) rotate(8deg);opacity:1}100%{transform:none}}
+.k-fireworks .gfart{animation:gxlaunch 1s cubic-bezier(.2,1,.3,1) both}
+.k-fireworks .gfart>svg{transform-origin:50% 100%;animation:gifire 1s ease-in-out .9s infinite}
+@keyframes gxlaunch{0%{transform:translateY(80vh) scale(.2,1.6);opacity:0}60%{transform:translateY(-4%) scale(1.1);opacity:1;filter:brightness(2)}100%{transform:none;filter:none}}
+.k-falcon .gfart{animation:gxswoop 1.6s cubic-bezier(.25,.9,.3,1) both}
+.k-falcon .gfart>svg{animation:giflap .9s ease-in-out 1.5s infinite}
+@keyframes gxswoop{0%{transform:translate(70vw,-60vh) scale(.3) rotate(25deg);opacity:0}55%{transform:translate(-8vw,6vh) scale(1.1) rotate(-10deg);opacity:1}80%{transform:translate(2vw,-2vh) rotate(4deg)}100%{transform:none}}
+.k-car .gfart>svg{animation:gicar .3s linear infinite}
+.k-yacht .gfart>svg{transform-origin:50% 75%;animation:giboat 2.2s ease-in-out infinite}
+.k-jet .gfart{animation:gxjet 4.3s cubic-bezier(.3,.8,.4,1) both}
+.k-jet .gfart>svg{animation:gijet 2s ease-in-out infinite}
+@keyframes gxjet{0%{transform:translate(90vw,50vh) scale(.4) rotate(-12deg);opacity:0}28%{transform:translate(-2vw,1vh) scale(1.05);opacity:1}34%,72%{transform:none}100%{transform:translate(-110vw,-60vh) scale(.6) rotate(-14deg)}}
+.k-lamp .gfart{animation:gxrise 1.4s cubic-bezier(.2,1,.3,1) both}
+.k-lamp .gfart>svg{animation:girub 1.2s ease-in-out 1.3s infinite}
+@keyframes gxrise{0%{transform:translateY(40vh) scale(.6);opacity:0;filter:brightness(2.5) drop-shadow(0 0 30px #b77bff)}70%{opacity:1}100%{transform:none;filter:none}}
+@keyframes girub{0%,100%{transform:rotate(0) translateX(0);filter:drop-shadow(0 0 6px #b77bff)}25%{transform:rotate(-5deg) translateX(-4px)}50%{transform:rotate(0);filter:drop-shadow(0 0 22px #c084fc)}75%{transform:rotate(5deg) translateX(4px)}}
+.k-jet .gfspd i{height:2px}
+
+@media (prefers-reduced-motion:reduce){
+.gfc4>svg,.gsit>svg,.gfc>svg,.gfgl,.gfsw,.gftw i,.gfbg,.gfflash,.gfbig .gfart>svg{animation:none!important}
+.gfq,.gftw,.gfsw,.gfflash{display:none}}
+
 /* v9.2: ارسم وخمّن في الغرفة الخاصة */
 #rwsec{gap:8px}
 #rwsec [hidden]{display:none!important}
@@ -1856,13 +1990,21 @@ const GIMG={
 function gArt(k){if(GIMG[k])return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><image href="'+GIMG[k]+'" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid meet"/></svg>';const id='gf'+(++ARTN)+'_';return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+String(ART[k]||'').replace(/@/g,id)+'</svg>'}
 window.gArt=gArt;
 const DIA='<svg class="gfdia" viewBox="0 0 24 20" aria-hidden="true"><path d="M6 1H18L23 7L12 19L1 7Z" fill="#5ec8ff"/><path d="M1 7H23L12 19Z" fill="#2e8ff0"/><path d="M6 1L9 7L12 1L15 7L18 1" fill="#a7e3ff"/><path d="M9 7L12 19L15 7" fill="#4aa8ff"/></svg>';
-function gfCell(el,k){const G=GIFTS[k];el.className=(el.className||'')+' gfc4 t'+G.t;el.innerHTML=(G.nw?'<i class="gfnw">جديد</i>':'')+gArt(k);const nb=document.createElement('b');nb.textContent=G.n;const pr=document.createElement('small');pr.innerHTML='<span>'+ar(G.p)+'</span>'+DIA;el.append(nb,pr)}
+
+/* v9.9: لون التوهج والجزيئات لكل هدية */
+const GFX={rose:{c:'#ff3d6e',p:'petal'},salam:{c:'#ffd34d',p:'star'},heart:{c:'#ff2d55',p:'heart'},perfume:{c:'#ffb347',p:'magic'},balloons:{c:'#b06bff',p:'conf'},teddy:{c:'#ff4d6d',p:'heart'},trophy:{c:'#ffd34d',p:'conf'},crown:{c:'#ffcf40',p:'star'},cake:{c:'#ff9ac1',p:'conf'},watch:{c:'#ffd34d',p:'star'},lion:{c:'#7aa8ff',p:'dia'},ring:{c:'#cfe8ff',p:'dia'},fireworks:{c:'#ff7ae0',p:'burst'},falcon:{c:'#ffcf70',p:'star'},car:{c:'#fff1c9',p:'star'},yacht:{c:'#4fb3ff',p:'foam'},jet:{c:'#fff1c9',p:'star'},lamp:{c:'#b77bff',p:'magic'}};
+const GFCONF=['#ff3d7f','#ffd34d','#4fb3ff','#8b3dff','#2ee59d','#ff8a3d'];
+function gfDeco(el,k,sw){const X=GFX[k]||{c:'#ffd34d'};el.classList.add('gi-'+k);el.style.setProperty('--gc',X.c);
+ const g=document.createElement('span');g.className='gfgl';el.insertBefore(g,el.firstChild);
+ if(sw&&GIMG[k]){const s=document.createElement('span');s.className='gfsw';s.style.setProperty('--gm','url('+GIMG[k]+')');s.style.setProperty('--dl',(-Math.random()*4).toFixed(2)+'s');el.appendChild(s)}
+ const t=document.createElement('span');t.className='gftw';t.innerHTML='<i></i><i></i><i></i>';t.style.animationDelay='0s';[...t.children].forEach(i=>i.style.animationDelay=(-Math.random()*2.4).toFixed(2)+'s');el.appendChild(t)}
+function gfCell(el,k){const G=GIFTS[k];el.className=(el.className||'')+' gfc4 t'+G.t;el.innerHTML=(G.nw?'<i class="gfnw">جديد</i>':'')+gArt(k);const nb=document.createElement('b');nb.textContent=G.n;const pr=document.createElement('small');pr.innerHTML='<span>'+ar(G.p)+'</span>'+DIA;el.append(nb,pr);gfDeco(el,k,true)}
 
 /* ---- رسالة الهدية: §gf:النوع:العدد:المستلم:اسمه ---- */
 function gfParse(t){t=String(t||'');if(!t.startsWith('§gf:'))return null;const p=t.slice(4).split(':');const k=p[0],n=Math.floor(Number(p[1]));if(!GIFTS[k]||!(n>=1&&n<=99))return null;const to=p[2]||'*',tos=to==='*'?['*']:to.split('+').filter(Boolean).slice(0,2),tns=p.slice(3).join(':').split('+').map(x=>x.slice(0,20));return{k,n,to,tos,tns,tn:tns[0]||''}}
 const toName=g=>g.to==='*'?'الجميع':(g.tos||[g.to]).map((x,i)=>(g.tns&&g.tns[i])||'لاعب').join(' و ');
 
-window.gfRender=function(m,tx){const g=gfParse(m.text);if(!g){tx.textContent='🎁 هدية';return true}const G=GIFTS[g.k];tx.className='stk gfc';tx.innerHTML=gArt(g.k);const t=document.createElement('div');t.className='gft';t.append('🎁 أهدى ');const b=document.createElement('b');b.textContent=toName(g);t.append(b,' '+G.n+' ');const n=document.createElement('span');n.className='gfn';n.textContent='×'+ar(g.n);t.appendChild(n);tx.appendChild(t);return true};
+window.gfRender=function(m,tx){const g=gfParse(m.text);if(!g){tx.textContent='🎁 هدية';return true}const G=GIFTS[g.k];tx.className='stk gfc gi-'+g.k;tx.style.setProperty('--gc',(GFX[g.k]||{}).c||'#ffd34d');tx.innerHTML=gArt(g.k);const t=document.createElement('div');t.className='gft';t.append('🎁 أهدى ');const b=document.createElement('b');b.textContent=toName(g);t.append(b,' '+G.n+' ');const n=document.createElement('span');n.className='gfn';n.textContent='×'+ar(g.n);t.appendChild(n);tx.appendChild(t);return true};
 
 /* ---- عرض الهدايا اللي توصل ---- */
 const GSEEN=new Set,GQ=[];let GBUSY=false;
@@ -1871,16 +2013,31 @@ window.gfScan=function(list){const now=Date.now();(list||[]).forEach(m=>{const k
  if((g.tos||[g.to]).includes(LB.uid)&&m.uid!==LB.uid){try{fdToast('🎁 '+nm+' أهداك '+GIFTS[g.k].n+' ×'+ar(g.n))}catch(e){}}
  let vis=false;try{vis=$('chat').classList.contains('on')&&cmode==='pub'}catch(e){}if(!vis)return;
  if(GQ.length<6)GQ.push({...g,uid:m.uid,name:nm});if(!GBUSY)gfNext()})};
-function gfNext(){const ev=GQ.shift();if(!ev){GBUSY=false;return}GBUSY=true;const G=GIFTS[ev.k];gfBanner(ev);if(G.t>=2)gfBig(ev);try{fkFx(G.t>=2?'win':'ok')}catch(e){}setTimeout(gfNext,G.t===3?4400:G.t===2?3100:2900)}
+function gfNext(){const ev=GQ.shift();if(!ev){GBUSY=false;return}GBUSY=true;const G=GIFTS[ev.k];gfBanner(ev);gfBig(ev);try{fkFx(G.t>=2?'win':'ok')}catch(e){}setTimeout(gfNext,G.t===3?4400:G.t===2?3100:2900)}
 function gfBanner(ev){const G=GIFTS[ev.k],w=document.createElement('div');w.className='gfban t'+G.t;w.setAttribute('aria-hidden','true');const pill=document.createElement('div');pill.className='gfpill';try{pill.appendChild(avatarEl(ev.uid,ev.name))}catch(e){}const bt=document.createElement('div');bt.className='gfbt';const b=document.createElement('b');b.textContent=ev.name;const s=document.createElement('small');s.textContent='« '+toName(ev);bt.append(b,s);const ic=document.createElement('span');ic.className='gfic';ic.innerHTML=gArt(ev.k);pill.append(bt,ic);const c=document.createElement('span');c.className='gfcnt';c.textContent='×'+ar(1);w.append(pill,c);document.body.appendChild(w);
  if(ev.n>1){let i=1;const step=Math.max(40,Math.min(160,900/ev.n));setTimeout(function up(){i++;c.textContent='×'+ar(i);c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');if(i<ev.n)setTimeout(up,step)},450)}
  setTimeout(()=>w.remove(),3100)}
-function gfBig(ev){const G=GIFTS[ev.k],big=G.t===3,o=document.createElement('div');o.className='gfbig k-'+ev.k+(big?'':' mid');o.setAttribute('aria-hidden','true');o.appendChild(Object.assign(document.createElement('div'),{className:'gfrays'}));
- if(ev.k==='car'){const s=document.createElement('div');s.className='gfspd';for(let i=0;i<9;i++){const l=document.createElement('i');l.style.top=(30+Math.random()*40).toFixed(1)+'%';l.style.width=(18+Math.random()*30).toFixed(0)+'vw';l.style.animationDelay=(-Math.random()*.45).toFixed(2)+'s';s.appendChild(l)}o.appendChild(s)}
- const a=document.createElement('div');a.className='gfart';a.innerHTML=gArt(ev.k);o.appendChild(a);
+function gfBig(ev){const G=GIFTS[ev.k],big=G.t===3,X=GFX[ev.k]||{c:'#ffd34d',p:'star'},D=big?4.3:G.t===2?3.1:2.6,o=document.createElement('div');o.className='gfbig k-'+ev.k+(big?'':G.t===2?' mid':' mini');o.style.setProperty('--gc',X.c);o.style.animationDuration=D+'s';o.appendChild(Object.assign(document.createElement('div'),{className:'gfbg'}));o.setAttribute('aria-hidden','true');o.appendChild(Object.assign(document.createElement('div'),{className:'gfrays'}));
+ if(ev.k==='car'||ev.k==='jet'){const s=document.createElement('div');s.className='gfspd';for(let i=0;i<9;i++){const l=document.createElement('i');l.style.top=(30+Math.random()*40).toFixed(1)+'%';l.style.width=(18+Math.random()*30).toFixed(0)+'vw';l.style.animationDelay=(-Math.random()*.45).toFixed(2)+'s';s.appendChild(l)}o.appendChild(s)}
+ const a=document.createElement('div');a.className='gfart';a.innerHTML=gArt(ev.k);if(GIMG[ev.k]){const w=document.createElement('span');w.className='gfsw';w.style.setProperty('--gm','url('+GIMG[ev.k]+')');a.appendChild(w)}o.appendChild(a);if(ev.k==='ring'||ev.k==='fireworks'||ev.k==='salam'){const f=document.createElement('div');f.className='gfflash';f.style.setProperty('--dl',(ev.k==='ring'?.95:ev.k==='salam'?.5:.6)+'s');o.appendChild(f)}
  const cap=document.createElement('div');cap.className='gfcap';const b1=document.createElement('b');b1.textContent=ev.name;const b2=document.createElement('b');b2.textContent=toName(ev);cap.append(b1,' أهدى ',b2,' '+G.n+(ev.n>1?' ×'+ar(ev.n):''));o.appendChild(cap);
- const dl=ev.k==='car'?1.1:ev.k==='yacht'?1.1:ev.k==='crown'?1:.8;for(let i=0;i<(big?26:16);i++){const p=document.createElement('i');p.className='gfp';const an=Math.random()*Math.PI*2,r=(big?90:60)+Math.random()*(big?140:80);p.style.setProperty('--x',(Math.cos(an)*r).toFixed(0)+'px');p.style.setProperty('--y',(Math.sin(an)*r).toFixed(0)+'px');p.style.animationDelay=(dl+Math.random()*.35).toFixed(2)+'s';o.appendChild(p)}
- document.body.appendChild(o);setTimeout(()=>o.remove(),big?4400:3100)}
+ gfParts(o,ev.k,big?3:G.t,X);
+ document.body.appendChild(o);setTimeout(()=>o.remove(),D*1000+100)}
+function gfParts(o,k,t,X){const q=(cls,x0,y0,dx,dy,o2)=>{const p=document.createElement('i');p.className='gfq s-'+cls+(o2&&o2.fall?' fall':'');p.style.left=x0+'%';p.style.top=y0+'%';p.style.setProperty('--x',dx.toFixed(0)+'px');p.style.setProperty('--y',dy.toFixed(0)+'px');p.style.setProperty('--r',((Math.random()*2-1)*(o2&&o2.r||360)).toFixed(0)+'deg');p.style.setProperty('--d',(o2&&o2.d||1.8).toFixed(2)+'s');p.style.setProperty('--dl',(o2&&o2.dl||0).toFixed(2)+'s');if(o2&&o2.z)p.style.setProperty('--z',o2.z+'px');if(o2&&o2.c)p.style.setProperty('--c',o2.c);if(o2&&o2.s)p.style.setProperty('--s',o2.s);o.appendChild(p)};
+ const R=Math.random,n=t===3?1:t===2?.7:.45,H=innerHeight,W=innerWidth,start={rose:.6,salam:.5,heart:.4,perfume:.9,balloons:.8,teddy:.7,trophy:.9,crown:1,cake:.6,watch:.9,lion:.9,ring:1,fireworks:.6,falcon:1,car:1.1,yacht:1.1,jet:1.2,lamp:1}[k]||.8;
+ const burst=(cls,cnt,rad,o2)=>{for(let i=0;i<cnt*n;i++){const an=R()*Math.PI*2,r=rad*(.5+R()*.8);q(cls,50,48,Math.cos(an)*r,Math.sin(an)*r,Object.assign({dl:start+R()*.4,z:8+R()*10},o2||{}))}};
+ const fall=(cls,cnt,o2)=>{for(let i=0;i<cnt*n;i++)q(cls,R()*100,-6,(R()*2-1)*80,H*1.15,Object.assign({fall:1,d:2.2+R()*1.6,dl:start*.6+R()*1.6,z:10+R()*10},o2||{}))};
+ const rise=(cls,cnt,o2)=>{for(let i=0;i<cnt*n;i++)q(cls,40+R()*20,55+R()*10,(R()*2-1)*W*.35,-(H*.35+R()*H*.3),Object.assign({d:1.8+R()*1.2,dl:start+R()*1.6,z:12+R()*14,r:60},o2||{}))};
+ switch(X.p){
+  case 'petal':fall('petal',26,{r:540});burst('star',10,140);break;
+  case 'heart':rise('heart',22);burst('star',8,130);break;
+  case 'conf':for(let i=0;i<46*n;i++){const an=-Math.PI/2+(R()*2-1)*1.2,r=180+R()*260;q('conf',50,48,Math.cos(an)*r,Math.sin(an)*r+H*.55,{d:2+R()*.9,dl:start+R()*.25,c:GFCONF[i%GFCONF.length],r:900})}burst('star',10,150);break;
+  case 'dia':burst('dia',26,200,{d:1.6});rise('dia',10,{z:10});break;
+  case 'magic':rise('smoke',k==='lamp'?8:4,{z:70,d:2.6,r:20,s:1.8});rise('magic',24,{z:12});burst('star',8,120);break;
+  case 'foam':for(let i=0;i<26*n;i++)q('foam',30+R()*40,62,(R()*2-1)*160,-(40+R()*120),{d:1.2+R()*.8,dl:start+R()*2.2,z:8+R()*12,r:40});burst('star',8,150);break;
+  case 'burst':{for(let b=0;b<(t===3?5:3);b++){const cx=12+R()*76,cy=10+R()*45,c=GFCONF[(b*2)%GFCONF.length],d0=.5+b*.55;for(let i=0;i<20;i++){const an=i/20*Math.PI*2,r=70+R()*60;q('dot',cx,cy,Math.cos(an)*r,Math.sin(an)*r+30,{d:1.3,dl:d0+R()*.08,z:5+R()*3,c,r:0})}}burst('star',8,150);break}
+  default:burst('star',26,180)}}
+
 
 /* ---- نافذة إرسال الهدية ---- */
 const GF={sel:[{id:'*',name:'الجميع'}],k:'rose',n:1};
@@ -1943,7 +2100,7 @@ async function gsMine(){const a=document.getElementById('gsr');if(!a)return;cons
  document.querySelectorAll('.gst').forEach(t=>{const on=t.dataset.t===GSTAB;t.classList.toggle('on',on);t.setAttribute('aria-selected',on)});
  const L=document.getElementById('gslist');L.innerHTML='';const m=v[GSTAB+'g'];const ks=Object.keys(GIFTS).filter(k=>m[k]>0).sort((x,y)=>m[y]-m[x]||GIFTS[y].p-GIFTS[x].p);
  if(!ks.length){const e=document.createElement('p');e.className='gsempty';e.textContent=GSTAB==='r'?'ما وصلتك هدايا للحين 🎁 — العب ودردش، ويمكن تجيك أول هدية!':'ما أرسلت هدايا للحين 💝 — أهدِ ربعك من الدردشة العامة';L.appendChild(e);return}
- ks.forEach(k=>{const d=document.createElement('div');d.className='gsit';d.innerHTML=gArt(k);const n=document.createElement('b');n.textContent=GIFTS[k].n;const c=document.createElement('span');c.className='gsc';c.textContent='×'+ar(m[k]);d.append(n,c);L.appendChild(d)})}
+ ks.forEach(k=>{const d=document.createElement('div');d.className='gsit';d.innerHTML=gArt(k);const n=document.createElement('b');n.textContent=GIFTS[k].n;const c=document.createElement('span');c.className='gsc';c.textContent='×'+ar(m[k]);d.append(n,c);gfDeco(d,k,false);L.appendChild(d)})}
 window.gsMine=gsMine;
 document.querySelectorAll('.gst').forEach(t=>t.addEventListener('click',()=>{GSTAB=t.dataset.t;gsMine()}));
 
@@ -1964,7 +2121,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ٩٫٤';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ٩٫٩';s.appendChild(p)}}
 })();
 </script>
 

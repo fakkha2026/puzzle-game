@@ -2173,24 +2173,24 @@ setInit();document.querySelectorAll('.navb[data-p="settings"]').forEach(b=>b.add
 /* ===== v8.4: الهدايا والجواهر ===== */
 (function(){
 const GIFTS={
- rose:{n:'وردة',p:1,t:1},
- salam:{n:'سلام',p:3,t:1},
- heart:{n:'قلب',p:20,t:1},
- perfume:{n:'عطر',p:30,t:1},
+ rose:{n:'وردة',p:10,t:1},
+ heart:{n:'قلب',p:30,t:1},
  balloons:{n:'بالونات',p:50,t:2},
- teddy:{n:'دبدوب',p:60,t:2,nw:1},
- trophy:{n:'كأس البطل',p:75,t:2},
- crown:{n:'تاج',p:99,t:2},
- cake:{n:'كيكة عيد ميلاد',p:120,t:2},
- watch:{n:'ساعة ذهبية',p:150,t:2},
- lion:{n:'عقد لؤلؤ',p:199,t:3},
- ring:{n:'خاتم ألماس',p:300,t:2},
- fireworks:{n:'ألعاب نارية',p:350,t:3,nw:1},
- falcon:{n:'صقر',p:499,t:3,nw:1},
- car:{n:'سيارة فخمة',p:699,t:3,nw:1},
- yacht:{n:'يخت',p:999,t:3},
- jet:{n:'طيارة خاصة',p:1499,t:3,nw:1},
- lamp:{n:'المصباح السحري',p:1999,t:3}};
+ teddy:{n:'دبدوب',p:100,t:2,nw:1},
+ crown:{n:'تاج',p:400,t:2},
+ cake:{n:'كيكة عيد ميلاد',p:500,t:2},
+ ring:{n:'خاتم ألماس',p:700,t:2},
+ lion:{n:'عقد لؤلؤ',p:1000,t:3},
+ car:{n:'سيارة فخمة',p:1500,t:3,nw:1},
+ yacht:{n:'يخت',p:2000,t:3},
+ jet:{n:'طيارة خاصة',p:3000,t:3,nw:1},
+ salam:{n:'سلام',p:3,t:1,off:1},
+ perfume:{n:'عطر',p:30,t:1,off:1},
+ trophy:{n:'كأس البطل',p:75,t:2,off:1},
+ watch:{n:'ساعة ذهبية',p:150,t:2,off:1},
+ fireworks:{n:'ألعاب نارية',p:350,t:3,off:1},
+ falcon:{n:'صقر',p:499,t:3,off:1},
+ lamp:{n:'المصباح السحري',p:1999,t:3,off:1}};
 const GEMP=[{g:60,p:3},{g:200,p:10},{g:650,p:29},{g:1400,p:59,best:1}];
 const QTY=[1,5,10,30];
 window.GIFTS=GIFTS;
@@ -2308,7 +2308,7 @@ function gfDraw(){gfSheet();$('gfgemn').textContent=ar(gemsGet());
  const T=$('gfto');T.innerHTML='';const L=gfTargets();GF.sel=GF.sel.filter(x=>L.some(t=>t.id===x.id));if(!GF.sel.length)GF.sel=[{id:'*',name:'الجميع'}];
  L.forEach(t=>{const on=GF.sel.some(x=>x.id===t.id),b=document.createElement('button');b.type='button';b.className='gftoi'+(on?' on':'');b.setAttribute('aria-pressed',on);if(t.id==='*'){const a=document.createElement('span');a.className='av gfall';a.textContent='🌐';b.appendChild(a)}else{try{b.appendChild(avatarEl(t.id,t.name))}catch(e){}}const sm=document.createElement('small');sm.textContent=t.name;b.appendChild(sm);if(on&&t.id!=='*'){const ck=document.createElement('i');ck.className='gfck';ck.textContent='✓';b.appendChild(ck)}b.onclick=()=>gfPick(t);T.appendChild(b)});
  if(L.length<2){const n=document.createElement('div');n.className='gftip';n.style.cssText='align-self:center;text-align:start;margin:0 6px';n.textContent='أصدقاؤك واللي يكتبون في الدردشة يطلعون هنا 👥';T.appendChild(n)}
- const Gd=$('gfgrid');Gd.innerHTML='';Object.keys(GIFTS).forEach(k=>{const G=GIFTS[k],b=document.createElement('button');b.type='button';b.className=GF.k===k?'on':'';b.setAttribute('aria-pressed',GF.k===k);gfCell(b,k);b.onclick=()=>{GF.k=k;gfDraw()};Gd.appendChild(b)});
+ const Gd=$('gfgrid');Gd.innerHTML='';Object.keys(GIFTS).filter(k=>!GIFTS[k].off).forEach(k=>{const G=GIFTS[k],b=document.createElement('button');b.type='button';b.className=GF.k===k?'on':'';b.setAttribute('aria-pressed',GF.k===k);gfCell(b,k);b.onclick=()=>{GF.k=k;gfDraw()};Gd.appendChild(b)});
  const Q=$('gfqty');Q.innerHTML='';const lb=document.createElement('span');lb.textContent='العدد';Q.appendChild(lb);QTY.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='gfq'+(GF.n===n?' on':'');b.setAttribute('aria-pressed',GF.n===n);b.textContent='×'+ar(n);b.onclick=()=>{GF.n=n;gfDraw()};Q.appendChild(b)});
  const cn=gfCnt(),cost=GIFTS[GF.k].p*GF.n*cn,ok=gemsGet()>=cost,sb=$('gfsend');sb.classList.toggle('need',!ok);const who=gfIsAll()?'للجميع':cn===2?'لشخصين':'لـ'+GF.sel[0].name;sb.textContent=ok?'أرسل '+GIFTS[GF.k].n+(GF.n>1?' ×'+ar(GF.n):'')+' '+who+' · '+ar(cost)+' 💎':'💎 اشحن جواهر (تحتاج '+ar(cost)+')'}
 function gfPick(t){if(t.id==='*'){GF.sel=[{id:'*',name:'الجميع'}];gfDraw();return}
@@ -2321,7 +2321,7 @@ function gfOpen(pre){if(banGuard())return;if(!u){alert('ثبّت اسمك أول
 function gfClose(){const s=document.getElementById('gfsheet');if(s)s.classList.remove('on')}
 window.gfOpen=gfOpen;
 function gfNeed(cost){const have=gemsGet();$('mt').textContent='💎 جواهرك ما تكفي';$('mp').textContent='الهدية تبي '+ar(cost)+' 💎 وعندك '+ar(have)+'. اشحن من المتجر وارجع أهدِ.';$('mok').textContent='اشحن الحين';$('mok').onclick=()=>{$('md').classList.remove('on');gfGoShop()};$('md').classList.add('on')}
-async function gfSend(){const G=GIFTS[GF.k],cn=gfCnt(),cost=G.p*GF.n*cn,have=gemsGet();if(banGuard())return;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية');return}
+async function gfSend(){if(!GIFTS[GF.k]||GIFTS[GF.k].off)GF.k='rose';const G=GIFTS[GF.k],cn=gfCnt(),cost=G.p*GF.n*cn,have=gemsGet();if(banGuard())return;if(!u){alert('ثبّت اسمك أول من الصفحة الرئيسية');return}
  if(have<cost){gfClose();gfNeed(cost);return}
  if(CH.on&&!netOK())return;
  if(Date.now()-CH.last<3000){alert('شوي شوي 😅 انتظر ثواني وأرسل');return}
@@ -2361,7 +2361,7 @@ document.querySelectorAll('.gst').forEach(t=>t.addEventListener('click',()=>{GST
 /* ---- المتجر: الجواهر وقائمة الهدايا ---- */
 function gfBal(){const b=document.getElementById('gfbal');if(b)b.textContent=ar(gemsGet());const g=document.getElementById('gfgemn');if(g)g.textContent=ar(gemsGet())}
 function gfShopDraw(){gfBal();const P=$('gfpacks');if(!P)return;P.innerHTML='';GEMP.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='gfpkc'+(x.best?' best':'');b.innerHTML='<span class="gm">💎</span>';const n=document.createElement('b');n.textContent=ar(x.g);const s=document.createElement('small');s.textContent='جوهرة';const pr=document.createElement('span');pr.className='pr';pr.textContent=ar(x.p)+' ريال';b.append(n,s,pr);b.onclick=()=>buyCos('💎 '+ar(x.g)+' جوهرة',x.p,()=>{gemsSet(gemsGet()+x.g);cAlert('💎 انشحن رصيدك','صار عندك '+ar(gemsGet())+' جوهرة. روح الدردشة العامة وأهدِ ربعك 🎁')},'gems:'+x.g);P.appendChild(b)});
- const C=$('gfcat');C.innerHTML='';Object.keys(GIFTS).forEach(k=>{const d=document.createElement('div');gfCell(d,k);C.appendChild(d)})}
+ const C=$('gfcat');C.innerHTML='';Object.keys(GIFTS).filter(k=>!GIFTS[k].off).forEach(k=>{const d=document.createElement('div');gfCell(d,k);C.appendChild(d)})}
 function gfGoShop(){document.querySelector('.navb[data-p="shop"]').click();setTimeout(()=>{const b=$('gfshop');if(b)b.scrollIntoView({behavior:'smooth',block:'start'})},200)}
 
 /* ---- ربط مع اللعبة ---- */
@@ -2375,7 +2375,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٢';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٣';s.appendChild(p)}}
 })();
 </script>
 

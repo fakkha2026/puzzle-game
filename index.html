@@ -855,7 +855,12 @@ body.lvpad{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 <script>
 window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"puzzle-challenge-2114f.firebaseapp.com",projectId:"puzzle-challenge-2114f",storageBucket:"puzzle-challenge-2114f.firebasestorage.app",messagingSenderId:"719063473240",appId:"1:719063473240:web:04f4b2b9e643c34b9efe2d"};
 </script>
-<style id="fxu">/* fx-unique */
+<style id="fxu">.av.av.av.av[class*=fr-]:not(.fxrun)::before,.av.av.av.av[class*=fr-]:not(.fxrun)::after{animation-play-state:paused!important}
+.av[class*=fr-]:not(.fxrun) .fxp{display:none}
+.offs.offs.offs.offs,.offs.offs.offs.offs *,.offs.offs.offs.offs *::before,.offs.offs.offs.offs *::after,.offs.offs.offs.offs::before,.offs.offs.offs.offs::after{animation-play-state:paused!important}
+.fxhid.fxhid.fxhid.fxhid *,.fxhid.fxhid.fxhid.fxhid *::before,.fxhid.fxhid.fxhid.fxhid *::after{animation-play-state:paused!important}
+.fxp{contain:layout style;pointer-events:none}
+/* fx-unique */
 @keyframes fxbreath{0%,100%{transform:scale(1);filter:drop-shadow(0 0 2px var(--gc))}50%{transform:scale(1.035);filter:drop-shadow(0 0 9px var(--gc)) brightness(1.08)}}
 @keyframes fxsway{0%,100%{transform:rotate(-2.5deg);filter:drop-shadow(0 0 4px var(--gc))}50%{transform:rotate(2.5deg);filter:drop-shadow(0 0 8px var(--gc))}}
 @keyframes fxflap{0%,100%{transform:scaleX(1)}50%{transform:scaleX(1.05) scaleY(.985)}}
@@ -2370,9 +2375,13 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫١';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٢';s.appendChild(p)}}
 })();
 </script>
 
+<script>
+/* fx-pause: only animate frames that are on screen */
+(function(){try{const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('fxrun',e.isIntersecting)),{rootMargin:'60px'}):null;const io2='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('offs',!e.isIntersecting)),{rootMargin:'80px'}):null;const CARDS='.stkpack,.gfc4,.stkb,.rkrow,.rkall,.vipgrid,.adbox,.coscard';const seen=new WeakSet();const scan=root=>{if(io2&&root.querySelectorAll){root.querySelectorAll(CARDS).forEach(c=>{if(seen.has(c))return;seen.add(c);io2.observe(c)})}(root.querySelectorAll?root.querySelectorAll('.av[class*="fr-"]'):[]).forEach(a=>{if(seen.has(a))return;seen.add(a);if(io)io.observe(a);else a.classList.add('fxrun')})};const mo=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType!==1)return;if(io2&&n.matches&&n.matches(CARDS)&&!seen.has(n)){seen.add(n);io2.observe(n)}if(n.matches&&n.matches('.av[class*="fr-"]')){if(!seen.has(n)){seen.add(n);if(io)io.observe(n);else n.classList.add('fxrun')}}scan(n)})));const go=()=>{scan(document);mo.observe(document.body,{childList:true,subtree:true})};if(document.body)go();else document.addEventListener('DOMContentLoaded',go);document.addEventListener('visibilitychange',()=>{document.documentElement.classList.toggle('fxhid',document.hidden)})}catch(e){}})();
+</script>
 </body>
 </html>

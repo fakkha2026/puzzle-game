@@ -301,6 +301,9 @@ body.lvpad{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 .gfpkc small{font-size:.72rem;color:var(--mut);font-weight:700}
 .gfpkc .pr{margin-top:4px;background:var(--gold);color:#102a5c;font-weight:900;font-size:.8rem;border-radius:999px;padding:3px 12px}
 .gfpkc.best{border-color:#8b3dff}
+.gfpkc.fb{border-color:#ff5a3d}.gfpkc.fb.best{border-color:#8b3dff}
+.gfpkc .fbt{margin-top:5px;background:linear-gradient(90deg,#ff3d3d,#ff8a00);color:#fff;font-size:.66rem;font-weight:900;border-radius:999px;padding:2px 8px;animation:fbp 1.6s ease-in-out infinite}
+@keyframes fbp{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
 .gfpkc.best::before{content:"الأوفر";position:absolute;top:-9px;background:#8b3dff;color:#fff;font-size:.65rem;font-weight:900;border-radius:999px;padding:1px 8px}
 .gfcat{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .gfcat .gfc4{cursor:default}
@@ -2191,7 +2194,9 @@ const GIFTS={
  fireworks:{n:'ألعاب نارية',p:350,t:3,off:1},
  falcon:{n:'صقر',p:499,t:3,off:1},
  lamp:{n:'المصباح السحري',p:1999,t:3,off:1}};
-const GEMP=[{g:60,p:3},{g:200,p:10},{g:650,p:29},{g:1400,p:59,best:1}];
+const GEMP=[{g:60,p:3},{g:220,p:10},{g:600,p:25},{g:1300,p:50},{g:2800,p:100},{g:6000,p:200,best:1}];
+/* v11.4: عرض أول شراء: ضعف الجواهر في أول باقة بس (السيرفر يقرر) */
+const gfbDone=()=>{try{if(WSRV&&SV())return !!WSRV.gfb}catch(e){}try{return localStorage.getItem('wcp_gfb')==='1'}catch(e){return false}};
 const QTY=[1,5,10,30];
 window.GIFTS=GIFTS;
 
@@ -2360,7 +2365,7 @@ document.querySelectorAll('.gst').forEach(t=>t.addEventListener('click',()=>{GST
 
 /* ---- المتجر: الجواهر وقائمة الهدايا ---- */
 function gfBal(){const b=document.getElementById('gfbal');if(b)b.textContent=ar(gemsGet());const g=document.getElementById('gfgemn');if(g)g.textContent=ar(gemsGet())}
-function gfShopDraw(){gfBal();const P=$('gfpacks');if(!P)return;P.innerHTML='';GEMP.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='gfpkc'+(x.best?' best':'');b.innerHTML='<span class="gm">💎</span>';const n=document.createElement('b');n.textContent=ar(x.g);const s=document.createElement('small');s.textContent='جوهرة';const pr=document.createElement('span');pr.className='pr';pr.textContent=ar(x.p)+' ريال';b.append(n,s,pr);b.onclick=()=>buyCos('💎 '+ar(x.g)+' جوهرة',x.p,()=>{gemsSet(gemsGet()+x.g);cAlert('💎 انشحن رصيدك','صار عندك '+ar(gemsGet())+' جوهرة. روح الدردشة العامة وأهدِ ربعك 🎁')},'gems:'+x.g);P.appendChild(b)});
+function gfShopDraw(){gfBal();const P=$('gfpacks');if(!P)return;P.innerHTML='';GEMP.forEach(x=>{const dbl=!gfbDone(),get=dbl?x.g*2:x.g;const b=document.createElement('button');b.type='button';b.className='gfpkc'+(x.best?' best':'')+(dbl?' fb':'');b.innerHTML='<span class="gm">💎</span>';const n=document.createElement('b');n.textContent=ar(get);const s=document.createElement('small');s.textContent=dbl?'جوهرة بدل '+ar(x.g):'جوهرة';const pr=document.createElement('span');pr.className='pr';pr.textContent=ar(x.p)+' ريال';b.append(n,s,pr);if(dbl){const t=document.createElement('span');t.className='fbt';t.textContent='🔥 ×٢ أول شراء';b.append(t)}b.onclick=()=>buyCos('💎 '+ar(get)+' جوهرة'+(dbl?' (ضعف أول شراء 🔥)':''),x.p,()=>{if(!SV()){gemsSet(gemsGet()+get);try{localStorage.setItem('wcp_gfb','1')}catch(e){}}cAlert('💎 انشحن رصيدك',(dbl?'🔥 أول شراء: انضاعفت جواهرك! ':'')+'وصلك '+ar(get)+' جوهرة، وصار رصيدك '+ar(gemsGet())+'. روح الدردشة العامة وأهدِ ربعك 🎁');setTimeout(gfShopDraw,50)},'gems:'+x.g);P.appendChild(b)});
  const C=$('gfcat');C.innerHTML='';Object.keys(GIFTS).filter(k=>!GIFTS[k].off).forEach(k=>{const d=document.createElement('div');gfCell(d,k);C.appendChild(d)})}
 function gfGoShop(){document.querySelector('.navb[data-p="shop"]').click();setTimeout(()=>{const b=$('gfshop');if(b)b.scrollIntoView({behavior:'smooth',block:'start'})},200)}
 
@@ -2375,7 +2380,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٣';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٤';s.appendChild(p)}}
 })();
 </script>
 

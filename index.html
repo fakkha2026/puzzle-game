@@ -992,7 +992,7 @@ window.FB_CONFIG={apiKey:"AIzaSyB7GWjpTsorIblzQW9BzJStHZPbFYbhrbc",authDomain:"p
 <div id="gate" style="display:none"><div class="gcard"><h1 class="glogo">فكّها</h1><p class="gsub">سجّل دخولك عشان ينحفظ حسابك</p><div id="phform"><button class="abtn" id="asign" style="display:none"><svg width="20" height="22" viewBox="0 0 384 470" fill="#fff"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span>الدخول بحساب أبل</span></button><button class="gbtn" id="gsign"><svg width="22" height="22" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg><span>الدخول بحساب قوقل</span></button><p id="phmsg" class="cnote" style="margin-top:8px"></p></div><p class="gnote">🔒 نستخدم حسابك بس عشان نحفظ اسمك وتقدمك ونحميهم، ونمنع الحسابات الوهمية. ما نشارك بياناتك مع أحد، وإيميلك ما يظهر للاعبين.</p><a class="gpriv" href="https://fakkha2026.github.io/puzzle-game/privacy.html" target="_blank" rel="noopener">سياسة الخصوصية</a></div></div>
 <header>
 <h1 style="font-family:Marhey,Tajawal,system-ui,sans-serif;font-size:2.2rem;letter-spacing:0">فكّها</h1>
-<div class="nav"><button class="navb" data-p="home" aria-selected="true">الرئيسية</button><button class="navb" data-p="settings">الإعدادات ⚙️</button><button class="navb" data-p="rooms">غرف</button><button class="navb" data-p="chat">دردشة</button><button class="navb" data-p="friends">الأصدقاء 👥</button><button class="navb" data-p="shop">شراء 🛒</button><button class="navb" data-p="custom">ملفي ✨</button><button class="navb" data-p="ach">إنجازات</button><button class="navb" data-p="lb">الصدارة</button></div>
+<div class="nav"><button class="navb" data-p="home" aria-selected="true">الرئيسية</button><button class="navb" data-p="chat">الدردشة</button><button class="navb" data-p="friends">الأصدقاء</button><button class="navb" data-p="shop">المتجر</button><button class="navb" data-p="custom">ملفي</button><button class="navb" data-p="lb">الصدارة</button><button class="navb" data-p="rooms">الغرف</button><button class="navb" data-p="ach">إنجازات</button><button class="navb" data-p="settings">الإعدادات</button></div>
 </header>
 
 <section class="p on" id="home">
@@ -2407,7 +2407,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٥';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١١٫٦';s.appendChild(p)}}
 })();
 </script>
 
@@ -2415,5 +2415,52 @@ const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&
 /* fx-pause: only animate frames that are on screen */
 (function(){try{const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('fxrun',e.isIntersecting)),{rootMargin:'60px'}):null;const io2='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('offs',!e.isIntersecting)),{rootMargin:'80px'}):null;const CARDS='.stkpack,.gfc4,.stkb,.rkrow,.rkall,.vipgrid,.adbox,.coscard';const seen=new WeakSet();const scan=root=>{if(io2&&root.querySelectorAll){root.querySelectorAll(CARDS).forEach(c=>{if(seen.has(c))return;seen.add(c);io2.observe(c)})}(root.querySelectorAll?root.querySelectorAll('.av[class*="fr-"]'):[]).forEach(a=>{if(seen.has(a))return;seen.add(a);if(io)io.observe(a);else a.classList.add('fxrun')})};const mo=new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType!==1)return;if(io2&&n.matches&&n.matches(CARDS)&&!seen.has(n)){seen.add(n);io2.observe(n)}if(n.matches&&n.matches('.av[class*="fr-"]')){if(!seen.has(n)){seen.add(n);if(io)io.observe(n);else n.classList.add('fxrun')}}scan(n)})));const go=()=>{scan(document);mo.observe(document.body,{childList:true,subtree:true})};if(document.body)go();else document.addEventListener('DOMContentLoaded',go);document.addEventListener('visibilitychange',()=>{document.documentElement.classList.toggle('fxhid',document.hidden)})}catch(e){}})();
 </script>
+<style id="newlook">
+/* v11.6: الشكل الجديد — خلفية كحلية، ألوان الأيقونة، لون لكل طور، الشريط تحت */
+html:root:root{--bg:#0b1129;--ink:#f3f5ff;--card:#141d45;--slot:#1c2858;--mut:#98a3cf;--tile:#ff7a3d;--line:#27346b;--gold:#ffc94a;--fk1:#ff7a3d;--fk2:#ff4f8b;--fk3:#8b5cf6;--fkg:linear-gradient(120deg,#ff7a3d,#ff4f8b 55%,#8b5cf6);color-scheme:dark}
+html{background:#0b1129}
+body{background:radial-gradient(120% 50% at 50% 0%,#18245a 0%,#0b1129 60%) fixed,#0b1129;color:var(--ink);padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+header{background:transparent;padding:6px 0 2px;margin-bottom:6px}
+header h1{background:var(--fkg);-webkit-background-clip:text;background-clip:text;color:transparent!important;margin:0!important;filter:drop-shadow(0 2px 10px rgba(255,79,139,.25))}
+/* الشريط تحت */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:80;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;gap:0;background:rgba(20,29,69,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px max(6px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px))}
+.nav::-webkit-scrollbar{display:none}
+.navb{flex:0 0 auto;min-width:68px;display:flex;flex-direction:column;align-items:center;gap:1px;background:transparent!important;color:var(--mut)!important;font-size:.72rem;padding:4px 6px 3px;border-radius:12px}
+.navb::before{font-size:1.35rem;line-height:1.2;filter:grayscale(1);opacity:.65}
+.navb::after{content:"";width:18px;height:3px;border-radius:3px;margin-top:2px;background:transparent}
+.navb[aria-selected="true"]{color:var(--ink)!important}
+.navb[aria-selected="true"]::before{filter:none;opacity:1}
+.navb[aria-selected="true"]::after{background:var(--fkg)}
+.navb[data-p="home"]::before{content:"🏠"}.navb[data-p="chat"]::before{content:"💬"}.navb[data-p="friends"]::before{content:"👥"}.navb[data-p="shop"]::before{content:"🛒"}.navb[data-p="custom"]::before{content:"👤"}.navb[data-p="lb"]::before{content:"🏅"}.navb[data-p="rooms"]::before{content:"🏆"}.navb[data-p="ach"]::before{content:"🎖️"}.navb[data-p="settings"]::before{content:"⚙️"}
+#lvbar{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+.fdpop{bottom:calc(88px + env(safe-area-inset-bottom,0px))!important}
+/* القوالب والأزرار */
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px}
+.it{border-color:var(--line)}
+.btn{background:var(--fkg);color:#fff;box-shadow:0 6px 16px -8px rgba(255,79,139,.6)}
+.btn.g{background:linear-gradient(135deg,#ffb24a,#ff7a3d);color:#fff}
+#clr,#skip,#ushx,.usheet .btn:not([style*="background"]){background:transparent;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+.top div{background:var(--slot)}
+.hint{background:var(--card);border:1px solid var(--line);border-radius:18px}
+input,select,textarea{background:var(--card);color:var(--ink);border-color:var(--line)}
+/* لون لكل طور */
+.mcard{border-radius:20px;box-shadow:0 8px 20px -10px rgba(0,0,0,.6)}
+.mc1{background:linear-gradient(135deg,#ff9a4d,#ff7a3d 50%,#e8501f)}
+.mc3{background:linear-gradient(135deg,#a07cff,#8b5cf6 60%,#6a3fd6)}
+.mc4{background:linear-gradient(135deg,#ff7aa8,#ff4f8b 60%,#d93272)}
+.mc5{background:linear-gradient(135deg,#1c2858,#3b2a7a);border:1px solid var(--line)}
+/* حروف اللعب بارزة */
+.slot{background:var(--slot);border:2px dashed var(--line);font-family:Marhey,Tajawal,sans-serif}
+.tile{font-family:Marhey,Tajawal,sans-serif;background:linear-gradient(180deg,#ff9a5c,#ff7a3d);box-shadow:0 5px 0 #c4501c,0 8px 14px -4px rgba(255,122,61,.5),inset 0 2px 0 rgba(255,255,255,.35);border-radius:14px;transition:transform .08s,box-shadow .08s}
+.tile:active{transform:translateY(4px);box-shadow:0 1px 0 #c4501c,inset 0 2px 0 rgba(255,255,255,.35)}
+.row.ok .slot{border-color:transparent}
+/* الدردشة */
+#cb,#dmb{background:linear-gradient(180deg,#0f1738,#0b1129)!important;border:1px solid var(--line)}
+.m:not([class*="bb-"]):not(.m-dev){background:var(--slot);color:var(--ink);border-radius:16px 16px 16px 4px}
+.m.me:not([class*="bb-"]):not(.m-dev){background:linear-gradient(135deg,#ff4f8b,#8b5cf6);color:#fff;border-radius:16px 16px 4px 16px}
+.m.me:not([class*="bb-"]):not(.m-dev) small{color:rgba(255,255,255,.85)}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}}
+</style>
+
 </body>
 </html>

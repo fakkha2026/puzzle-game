@@ -24,6 +24,10 @@ workflows:
           echo "import {CdvPurchase} from 'capacitor-plugin-cdv-purchase'; window.CdvPurchase=CdvPurchase;" > iap-entry.mjs
           npx esbuild iap-entry.mjs --bundle --format=iife --platform=browser --outfile=www/store.js
           test -s www/store.js
+          # إضافات الجوال (Capacitor): الدخول بقوقل وأبل، الإشعارات، الاهتزاز، المشاركة
+          printf '%s\n' "import {Capacitor} from '@capacitor/core';" "import {FirebaseAuthentication} from '@capacitor-firebase/authentication';" "import {LocalNotifications} from '@capacitor/local-notifications';" "import {Haptics} from '@capacitor/haptics';" "import {Share} from '@capacitor/share';" "window.__caps=[Capacitor,FirebaseAuthentication,LocalNotifications,Haptics,Share];" > caps-entry.mjs
+          npx esbuild caps-entry.mjs --bundle --format=iife --platform=browser --outfile=www/caps.js
+          test -s www/caps.js
 
       - name: إنشاء مشروع الآيفون
         script: |
@@ -124,6 +128,10 @@ workflows:
           echo "import {CdvPurchase} from 'capacitor-plugin-cdv-purchase'; window.CdvPurchase=CdvPurchase;" > iap-entry.mjs
           npx esbuild iap-entry.mjs --bundle --format=iife --platform=browser --outfile=www/store.js
           test -s www/store.js
+          # إضافات الجوال (Capacitor): الدخول بقوقل وأبل، الإشعارات، الاهتزاز، المشاركة
+          printf '%s\n' "import {Capacitor} from '@capacitor/core';" "import {FirebaseAuthentication} from '@capacitor-firebase/authentication';" "import {LocalNotifications} from '@capacitor/local-notifications';" "import {Haptics} from '@capacitor/haptics';" "import {Share} from '@capacitor/share';" "window.__caps=[Capacitor,FirebaseAuthentication,LocalNotifications,Haptics,Share];" > caps-entry.mjs
+          npx esbuild caps-entry.mjs --bundle --format=iife --platform=browser --outfile=www/caps.js
+          test -s www/caps.js
 
       - name: إنشاء مشروع الآيفون
         script: |

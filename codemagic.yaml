@@ -86,6 +86,12 @@ workflows:
           perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD
           perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(FirebaseAuthenticationPlugin.self))\n/' $AD
           grep -q "import CapacitorFirebaseAuthentication" $AD && grep -q "NSStringFromClass(FirebaseAuthenticationPlugin.self)" $AD
+          # إضافة الشراء عن طريق أبل: نتأكد إنها دخلت المشروع ونخلي التطبيق يشير لها عشان تتسجّل
+          grep -q "PurchasePlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الشراء ما انضافت"; exit 1; }
+          perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorPluginCdvPurchase\n/' $AD
+          perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(PurchasePlugin.self))\n/' $AD
+          grep -q "import CapacitorPluginCdvPurchase" $AD && grep -q "NSStringFromClass(PurchasePlugin.self)" $AD
+          echo "✅ إضافة الشراء موجودة"
           echo "----- AppDelegate -----"
           head -20 $AD
 
@@ -206,6 +212,12 @@ workflows:
           perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD
           perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(FirebaseAuthenticationPlugin.self))\n/' $AD
           grep -q "import CapacitorFirebaseAuthentication" $AD && grep -q "NSStringFromClass(FirebaseAuthenticationPlugin.self)" $AD
+          # إضافة الشراء عن طريق أبل: نتأكد إنها دخلت المشروع ونخلي التطبيق يشير لها عشان تتسجّل
+          grep -q "PurchasePlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الشراء ما انضافت"; exit 1; }
+          perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorPluginCdvPurchase\n/' $AD
+          perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(PurchasePlugin.self))\n/' $AD
+          grep -q "import CapacitorPluginCdvPurchase" $AD && grep -q "NSStringFromClass(PurchasePlugin.self)" $AD
+          echo "✅ إضافة الشراء موجودة"
           echo "----- AppDelegate -----"
           head -20 $AD
 

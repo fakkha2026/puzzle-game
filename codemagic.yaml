@@ -73,6 +73,14 @@ workflows:
           echo "----- Podfile -----"
           cat ios/App/Podfile
           cd ios/App && pod install --repo-update
+          cd ../..
+          # إضافة Firebase مبنية كمكتبة ثابتة، فنخلي التطبيق يشير لها عشان تنربط وتتسجّل (بدونها الدخول بقوقل وأبل يعلّق)
+          AD=ios/App/App/AppDelegate.swift
+          perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD
+          perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(FirebaseAuthenticationPlugin.self))\n/' $AD
+          grep -q "import CapacitorFirebaseAuthentication" $AD && grep -q "NSStringFromClass(FirebaseAuthenticationPlugin.self)" $AD
+          echo "----- AppDelegate -----"
+          head -20 $AD
 
       - name: الدخول بأبل (Sign in with Apple)
         script: |
@@ -178,6 +186,14 @@ workflows:
           cat ios/App/Podfile
           sed -i '' "s/platform :ios, '[0-9.]*'/platform :ios, '15.0'/" ios/App/Podfile
           cd ios/App && pod install --repo-update
+          cd ../..
+          # إضافة Firebase مبنية كمكتبة ثابتة، فنخلي التطبيق يشير لها عشان تنربط وتتسجّل (بدونها الدخول بقوقل وأبل يعلّق)
+          AD=ios/App/App/AppDelegate.swift
+          perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD
+          perl -0pi -e 's/(didFinishLaunchingWithOptions[^{]*\{\n)/$1        NSLog("plugin: %@", NSStringFromClass(FirebaseAuthenticationPlugin.self))\n/' $AD
+          grep -q "import CapacitorFirebaseAuthentication" $AD && grep -q "NSStringFromClass(FirebaseAuthenticationPlugin.self)" $AD
+          echo "----- AppDelegate -----"
+          head -20 $AD
 
       - name: الدخول بأبل (Sign in with Apple)
         script: |

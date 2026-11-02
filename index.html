@@ -2451,7 +2451,7 @@ gfShopDraw();
 const _us=userSheet;userSheet=function(){const g=$('ushg');if(g)g.style.display='none';return _us.apply(this,arguments)};
 const _cm=chatMenu;chatMenu=function(m){_cm(m);const g=$('ushg');if(g&&m&&m.uid&&m.uid!==LB.uid&&m.uid!=='guest'){g.style.display='';g.onclick=()=>{$('usheet').classList.remove('on');gfOpen({id:m.uid,name:String(m.name||'لاعب').slice(0,20)})}}};
 /* رقم النسخة أسفل الإعدادات */
-{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١٢٫٤';s.appendChild(p)}}
+{const s=$('settings');if(s&&!$('fkver')){const p=document.createElement('p');p.id='fkver';p.className='fkn';p.style.textAlign='center';p.textContent='فكّها · نسخة ١٢٫٥';s.appendChild(p)}}
 })();
 </script>
 
@@ -2505,6 +2505,85 @@ input,select,textarea{background:var(--card);color:var(--ink);border-color:var(-
 .m.me:not([class*="bb-"]):not(.m-dev) small{color:rgba(255,255,255,.85)}
 @media (prefers-reduced-motion:reduce){.tile{transition:none}}
 </style>
+
+<style id="v125">
+/* v12.5: شكل أخف — ٥ خانات في الشريط، المتجر بتبويبات، الرتب مطوية */
+.nav{justify-content:space-around!important;overflow-x:hidden!important}
+.navb{flex:1 1 0!important;min-width:0!important}
+.navb.navhide{display:none!important}
+.segtabs,.shtabs,.mylinks,.backrow{width:100%;box-sizing:border-box;align-self:stretch}
+#shopcred{display:inline!important}
+#restorebuy{background:transparent!important;border:1.5px solid var(--line)!important;box-shadow:none!important;color:var(--ink)!important;padding:8px!important;font-size:.85rem}
+#mansub{background:transparent!important;border:1.5px solid var(--line)!important;box-shadow:none!important;color:var(--ink)!important;padding:8px!important;font-size:.85rem}
+.segtabs{display:flex;gap:6px;margin:0 0 10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px}
+.segtabs button{flex:1;font:inherit;font-weight:800;font-size:.85rem;border:0;border-radius:10px;padding:8px 4px;background:transparent;color:var(--mut);cursor:pointer;position:relative}
+.segtabs button.on{background:var(--fkg);color:#fff;box-shadow:0 6px 16px -10px rgba(255,79,139,.8)}
+.segtabs .ndot{position:absolute;top:-5px;left:6px}
+.backrow{display:flex;gap:6px;margin:0 0 10px}
+.backrow button{font:inherit;font-weight:800;font-size:.85rem;border:1.5px solid var(--line);border-radius:12px;padding:7px 12px;background:var(--card);color:var(--ink);cursor:pointer}
+.mylinks{display:flex;gap:8px;margin:0 0 10px}
+.mylinks button{flex:1;font:inherit;font-weight:800;font-size:.9rem;border:1px solid var(--line);border-radius:14px;padding:12px 6px;background:var(--card);color:var(--ink);cursor:pointer}
+.shtabs{position:sticky;top:0;z-index:20;display:flex;gap:4px;margin:0 0 10px;background:rgba(20,29,69,.97);border:1px solid var(--line);border-radius:14px;padding:4px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.shtabs button{flex:1;font:inherit;font-weight:800;font-size:.78rem;border:0;border-radius:10px;padding:8px 2px;background:transparent;color:var(--mut);cursor:pointer;white-space:nowrap}
+.shtabs button.on{background:var(--fkg);color:#fff}
+.shtab{display:none}.shtab.on{display:block}
+details.rkfold{margin-top:8px;border-top:1px solid var(--slot);padding-top:6px}
+details.rkfold>summary{cursor:pointer;font-weight:800;color:var(--acc2,#a78bfa);padding:6px 0;list-style:none}
+details.rkfold>summary::-webkit-details-marker{display:none}
+details.rkfold>summary::before{content:"◂ ";display:inline-block;transition:transform .15s}
+details.rkfold[open]>summary::before{transform:rotate(-90deg)}
+#go_packs{display:none!important}
+</style>
+<script>
+/* v12.5: ترتيب أخف للواجهة (بدون تغيير طريقة عمل الأقسام) */
+(function(){try{
+const $$=s=>document.querySelector(s),nb=p=>$$('.navb[data-p="'+p+'"]'),go=p=>{const b=nb(p);if(b)b.click()};
+/* ١) الشريط: الرئيسية، الدردشة، الصدارة، المتجر، ملفي — والباقي يفتح من داخل الأقسام */
+const nav=$$('.nav');
+if(nav){['home','chat','lb','shop','custom'].forEach(p=>{const b=nb(p);if(b)nav.appendChild(b)});['friends','rooms','ach','settings'].forEach(p=>{const b=nb(p);if(b){b.classList.add('navhide');nav.appendChild(b)}})}
+const ALIAS={friends:'chat',rooms:'home',ach:'custom',settings:'custom'};
+const sync=()=>{for(const k in ALIAS){const h=nb(k),v=nb(ALIAS[k]);if(h&&v&&h.getAttribute('aria-selected')==='true'&&v.getAttribute('aria-selected')!=='true')v.setAttribute('aria-selected','true')}
+  const fb=nb('friends'),on=fb&&fb.getAttribute('aria-selected')==='true';document.querySelectorAll('.segtabs').forEach(t=>{t.children[0].classList.toggle('on',!on);t.children[1].classList.toggle('on',!!on)})};
+if(nav&&window.MutationObserver)new MutationObserver(sync).observe(nav,{subtree:true,attributes:true,attributeFilter:['aria-selected']});
+/* الدردشة والأصدقاء: تبويبين فوق */
+const seg=()=>{const d=document.createElement('div');d.className='segtabs';d.setAttribute('role','tablist');const a=document.createElement('button');a.type='button';a.textContent='💬 الدردشة';a.onclick=()=>go('chat');const f=document.createElement('button');f.type='button';f.className='segfd';f.textContent='👥 الأصدقاء';f.onclick=()=>go('friends');d.append(a,f);return d};
+['chat','friends'].forEach(id=>{const s=document.getElementById(id);if(s)s.prepend(seg())});
+/* شارة طلبات الصداقة تنتقل لخانة الدردشة وتبويب الأصدقاء */
+const mirror=()=>{const src=nb('friends'),d=src&&src.querySelector('.ndot'),t=d?d.textContent:'';[nb('chat')].concat([...document.querySelectorAll('.segfd')]).forEach(b=>{if(!b)return;let x=b.querySelector('.ndot.fdm');if(!t){if(x)x.remove();return}if(!x){x=document.createElement('span');x.className='ndot fdm';b.appendChild(x)}x.textContent=t})};
+try{const o=window.fdBadge;if(typeof o==='function'){fdBadge=function(){const r=o.apply(this,arguments);try{mirror()}catch(e){}return r}}}catch(e){}
+/* ملفي: أزرار الإنجازات والإعدادات فوق، ورجوع من داخلها */
+const cu=document.getElementById('custom');
+if(cu){const r=document.createElement('div');r.className='mylinks';const a=document.createElement('button');a.type='button';a.textContent='🎖️ إنجازاتي';a.onclick=()=>go('ach');const s=document.createElement('button');s.type='button';s.textContent='⚙️ الإعدادات';s.onclick=()=>go('settings');r.append(a,s);cu.prepend(r)}
+const back=(id,txt,to)=>{const s=document.getElementById(id);if(!s)return;const r=document.createElement('div');r.className='backrow';const b=document.createElement('button');b.type='button';b.textContent=txt;b.onclick=()=>go(to);r.appendChild(b);s.prepend(r)};
+back('ach','↩️ رجوع لملفي','custom');back('settings','↩️ رجوع لملفي','custom');back('rooms','↩️ الرئيسية','home');
+/* ٣) الرئيسية: أيقونة وحدة لتحدّى ربعك (والحزم الخاصة صارت في المتجر بتبويب الاشتراك) */
+{const ic=$$('#go_friends .mcic');if(ic)ic.textContent='🎨'}
+/* ٢) المتجر بتبويبات */
+const sh=document.getElementById('shop');
+if(sh){const boxes=[...sh.children].filter(x=>x.classList&&x.classList.contains('box'));
+  /* نشيل ملاحظة "المشتريات تجريبية" القديمة */
+  [...sh.querySelectorAll('p.cnote')].forEach(p=>{if(/تجريبية/.test(p.textContent)&&p.parentNode===sh)p.remove()});
+  const head=boxes[0],gf=document.getElementById('gfshop');
+  const byTitle=t=>boxes.find(b=>{const h=b.querySelector(':scope > b');return h&&h.textContent.indexOf(t)>=0});
+  /* نفصل الهدايا عن الجواهر في قالب لحاله */
+  const gbox=document.createElement('div');gbox.className='box';gbox.id='gfgifts';gbox.style.cssText='border:2px solid #8b3dff';
+  if(gf){const t=gf.querySelector('b.gfsub');if(t){const parts=[];let n=t;while(n){parts.push(n);n=n.nextSibling}parts.forEach(x=>gbox.appendChild(x))}const tl=gf.querySelector(':scope > b');if(tl)tl.textContent='💎 الجواهر'}
+  const T=[['gems','💎 جواهر',[gf,byTitle('التلميحات'),byTitle('تخصيص الاسم')]],['gifts','🎁 هدايا',[gbox]],['look','🎨 أشكال',[byTitle('إطارات الصورة'),byTitle('شارات الرتب'),byTitle('فقاعات الدردشة'),byTitle('بكجات الملصقات')]],['vip','👑 اشتراك',[byTitle('اشتراك VIP'),byTitle('حزم الكلمات')]]];
+  const bar=document.createElement('div');bar.className='shtabs';bar.setAttribute('role','tablist');
+  const panes={};let cur='gems';
+  T.forEach(([k,lbl,list])=>{const b=document.createElement('button');b.type='button';b.textContent=lbl;b.dataset.t=k;b.onclick=()=>{shTab(k);try{window.scrollTo({top:Math.max(0,bar.getBoundingClientRect().top+window.scrollY-8),behavior:'smooth'})}catch(e){}};bar.appendChild(b);
+    const p=document.createElement('div');p.className='shtab';p.dataset.t=k;list.forEach(x=>{if(x)p.appendChild(x)});panes[k]=p});
+  if(head)head.after(bar);else sh.prepend(bar);let at=bar;T.forEach(([k])=>{at.after(panes[k]);at=panes[k]});
+  window.shTab=function(k){if(!panes[k])return;cur=k;Object.keys(panes).forEach(x=>panes[x].classList.toggle('on',x===k));[...bar.children].forEach(b=>b.classList.toggle('on',b.dataset.t===k))};
+  shTab('gems');
+  /* أي مكان في اللعبة يودّي لجزء من المتجر (مثل روح للمتجر ← الملصقات) يفتح التبويب الصح أول */
+  const sv=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(){try{const p=this.closest&&this.closest('.shtab');if(p&&!p.classList.contains('on'))shTab(p.dataset.t)}catch(e){}return sv.apply(this,arguments)};
+}
+/* ٤) ملفي: الرتب مطوية — تشوف شارتك وتفتح التفاصيل إذا تبي */
+try{const ok=window.rkBox;if(typeof ok==='function'){let open=false;rkBox=function(){const r=ok.apply(this,arguments);try{const B=document.getElementById('rk_box');if(B&&B.children.length>1){const d=document.createElement('details');d.className='rkfold';if(open)d.open=true;d.addEventListener('toggle',()=>{open=d.open});const s=document.createElement('summary');s.textContent='📊 تقدّمك في الرتب ومستوياتها';d.appendChild(s);[...B.children].slice(1).forEach(x=>d.appendChild(x));B.appendChild(d)}}catch(e){}return r};try{rkBox()}catch(e){}}}catch(e){}
+sync();try{mirror()}catch(e){}
+}catch(e){try{console.warn('v12.5',e)}catch(_){}}})();
+</script>
 
 </body>
 </html>

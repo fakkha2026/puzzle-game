@@ -69,11 +69,17 @@ workflows:
           set -e
           cp GoogleService-Info.plist ios/App/App/GoogleService-Info.plist
           ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); f=g.new_reference('GoogleService-Info.plist'); t.add_resources([f]); p.save"
-          sed -i '' "s#pod 'CapacitorFirebaseAuthentication',#pod 'CapacitorFirebaseAuthentication/Google',#" ios/App/Podfile
+          # نخلي سطر الإضافة الأصلي (فيه ملفات الإضافة نفسها) ونضيف تحته جزء الدخول بقوقل
+          perl -0pi -e "s/^(\s*)pod 'CapacitorFirebaseAuthentication', (:path => [^\n]*)\$/\$1pod 'CapacitorFirebaseAuthentication', \$2\n\$1pod 'CapacitorFirebaseAuthentication\/Google', \$2/m" ios/App/Podfile
+          grep -q "pod 'CapacitorFirebaseAuthentication', :path" ios/App/Podfile
+          grep -q "pod 'CapacitorFirebaseAuthentication/Google', :path" ios/App/Podfile
           echo "----- Podfile -----"
           cat ios/App/Podfile
           cd ios/App && pod install --repo-update
           cd ../..
+          # نتأكد إن ملفات إضافة الدخول دخلت المشروع قبل البناء
+          grep -q "FirebaseAuthenticationPlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الدخول ما انضافت"; exit 1; }
+          echo "✅ إضافة الدخول موجودة"
           # إضافة Firebase مبنية كمكتبة ثابتة، فنخلي التطبيق يشير لها عشان تنربط وتتسجّل (بدونها الدخول بقوقل وأبل يعلّق)
           AD=ios/App/App/AppDelegate.swift
           perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD
@@ -181,12 +187,18 @@ workflows:
           set -e
           cp GoogleService-Info.plist ios/App/App/GoogleService-Info.plist
           ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); f=g.new_reference('GoogleService-Info.plist'); t.add_resources([f]); p.save"
-          sed -i '' "s#pod 'CapacitorFirebaseAuthentication',#pod 'CapacitorFirebaseAuthentication/Google',#" ios/App/Podfile
+          # نخلي سطر الإضافة الأصلي (فيه ملفات الإضافة نفسها) ونضيف تحته جزء الدخول بقوقل
+          perl -0pi -e "s/^(\s*)pod 'CapacitorFirebaseAuthentication', (:path => [^\n]*)\$/\$1pod 'CapacitorFirebaseAuthentication', \$2\n\$1pod 'CapacitorFirebaseAuthentication\/Google', \$2/m" ios/App/Podfile
+          grep -q "pod 'CapacitorFirebaseAuthentication', :path" ios/App/Podfile
+          grep -q "pod 'CapacitorFirebaseAuthentication/Google', :path" ios/App/Podfile
           echo "----- Podfile -----"
           cat ios/App/Podfile
           sed -i '' "s/platform :ios, '[0-9.]*'/platform :ios, '15.0'/" ios/App/Podfile
           cd ios/App && pod install --repo-update
           cd ../..
+          # نتأكد إن ملفات إضافة الدخول دخلت المشروع قبل البناء
+          grep -q "FirebaseAuthenticationPlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الدخول ما انضافت"; exit 1; }
+          echo "✅ إضافة الدخول موجودة"
           # إضافة Firebase مبنية كمكتبة ثابتة، فنخلي التطبيق يشير لها عشان تنربط وتتسجّل (بدونها الدخول بقوقل وأبل يعلّق)
           AD=ios/App/App/AppDelegate.swift
           perl -0pi -e 's/import Capacitor\n/import Capacitor\nimport CapacitorFirebaseAuthentication\n/' $AD

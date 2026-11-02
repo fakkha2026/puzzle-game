@@ -106,7 +106,7 @@ workflows:
           cd ios/App
           xcodebuild -workspace App.xcworkspace -scheme App -configuration Debug \
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
-            CODE_SIGNING_ALLOWED=NO build -quiet
+            CODE_SIGNING_ALLOWED=NO SWIFT_ENABLE_EXPLICIT_MODULES=NO build -quiet
           echo "✅ التطبيق انبنى بدون أخطاء"
 
   ios-release:
@@ -241,7 +241,9 @@ workflows:
 
       - name: بناء ملف التطبيق
         script: |
-          xcode-project build-ipa --workspace ios/App/App.xcworkspace --scheme App
+          # Xcode الجديد يدور على الإضافات بطريقة جديدة ما تلقى إضافة الدخول، فنرجّعه للطريقة القديمة
+          xcode-project build-ipa --workspace ios/App/App.xcworkspace --scheme App \
+            --archive-xcargs "COMPILER_INDEX_STORE_ENABLE=NO SWIFT_ENABLE_EXPLICIT_MODULES=NO"
 
     artifacts:
       - build/ios/ipa/*.ipa

@@ -2122,7 +2122,7 @@ async function iapDeliver(tx){const pid=(tx.products&&tx.products[0]&&tx.product
   if(!sub&&tx.isAcknowledged&&!pend){try{await tx.finish()}catch(e){}return}
   try{const j=await api('iap',{tid:String(tx.transactionId||'')});try{await tx.finish()}catch(e){}
     if(pend){IAP.pend=null;try{pend.ok()}catch(e){}iapAfter()}
-    else{iapAfter();if(!j.dup&&!sub)cAlert('💎 وصلتك الجواهر','انضاف لرصيدك '+ar(j.gems||0)+' جوهرة')}}
+    else{iapAfter();if(!j.dup&&!sub)cAlert('💎 وصلتك الجواهر','انضاف لرصيدك '+ar(j.gems||0)+' جوهرة');else if(sub&&j.hg){const T=TIERS[j.sub]||TIERS.vip;cAlert(T.ic+' أهلاً بك في '+T.n+'!','كسبت '+ar(j.hg)+' تلميحة، وانفتحت لك كل المزايا ✨')}}}
   catch(e){if(e&&e.code!=='net'){try{await tx.finish()}catch(_){}}if(pend){IAP.pend=null;cAlert('🛒 الشراء',apiErr(e))}}}
 function iapAsk(title,price,ok,item){const pid=iapPid(item);$('mt').textContent=title;$('mp').textContent=(IAP.price[pid]||arP(price)+' ريال')+' · الدفع عن طريق أبل 🍎';$('mok').textContent='اشترِ الآن';
   $('mok').onclick=()=>{$('md').classList.remove('on');iapBuy(pid,ok)};$('md').classList.add('on')}

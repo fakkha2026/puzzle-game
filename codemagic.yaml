@@ -1,5 +1,6 @@
 # فكّها: بناء تطبيق الآيفون
 # ios-check: يجرّب إن التطبيق ينبني بدون أخطاء (ما يحتاج حساب أبل)
+# ios-release: نسخة النشر — يوقّعها ويرسلها لـ TestFlight
 workflows:
   ios-check:
     name: فكّها - تجربة البناء
@@ -19,6 +20,10 @@ workflows:
           rm -rf www && mkdir -p www
           cp index.html www/index.html
           cp privacy.html www/privacy.html
+          # الشراء عن طريق أبل: نجمع الإضافة في ملف واحد (store.js) تقراه اللعبة
+          echo "import {CdvPurchase} from 'capacitor-plugin-cdv-purchase'; window.CdvPurchase=CdvPurchase;" > iap-entry.mjs
+          npx esbuild iap-entry.mjs --bundle --format=iife --platform=browser --outfile=www/store.js
+          test -s www/store.js
 
       - name: إنشاء مشروع الآيفون
         script: |
@@ -91,3 +96,127 @@ workflows:
             -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO build -quiet
           echo "✅ التطبيق انبنى بدون أخطاء"
+
+  ios-release:
+    name: فكّها - نسخة النشر (TestFlight)
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: fakkha
+    environment:
+      node: 20
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.fakkha.game
+    scripts:
+      - name: تثبيت الأدوات
+        script: |
+          npm install
+
+      - name: تجهيز ملفات اللعبة
+        script: |
+          rm -rf www && mkdir -p www
+          cp index.html www/index.html
+          cp privacy.html www/privacy.html
+          # الشراء عن طريق أبل: نجمع الإضافة في ملف واحد (store.js) تقراه اللعبة
+          echo "import {CdvPurchase} from 'capacitor-plugin-cdv-purchase'; window.CdvPurchase=CdvPurchase;" > iap-entry.mjs
+          npx esbuild iap-entry.mjs --bundle --format=iife --platform=browser --outfile=www/store.js
+          test -s www/store.js
+
+      - name: إنشاء مشروع الآيفون
+        script: |
+          npx cap add ios
+
+      - name: الأيقونة
+        script: |
+          set -e
+          mkdir -p assets
+          if [ -f icon.png ]; then
+            cp icon.png assets/icon-only.png
+          elif [ -f icon.jpg ]; then
+            sips -s format png icon.jpg --out assets/icon-only.png
+          else
+            echo "ما فيه أيقونة"; exit 1
+          fi
+          cp assets/icon-only.png assets/icon.png
+          npx --yes @capacitor/assets generate --ios --iconBackgroundColor '#102a5c' --splashBackgroundColor '#102a5c'
+          echo "✅ الأيقونة انربطت"
+
+      - name: إعدادات التطبيق (الاسم والأذونات)
+        script: |
+          set -e
+          PL=ios/App/App/Info.plist
+          REV=$(plutil -extract REVERSED_CLIENT_ID raw GoogleService-Info.plist)
+          plutil -replace CFBundleDisplayName -string "فكّها" $PL
+          plutil -replace NSMicrophoneUsageDescription -string "نحتاج المايك عشان تسولف مع ربعك في الغرف الخاصة" $PL
+          plutil -replace NSCameraUsageDescription -string "نحتاج الكاميرا إذا حبيت تصوّر صورة لملفك" $PL
+          plutil -replace NSPhotoLibraryUsageDescription -string "نحتاج الصور عشان تختار صورة لملفك" $PL
+          plutil -replace ITSAppUsesNonExemptEncryption -bool NO $PL
+          plutil -replace CFBundleDevelopmentRegion -string "ar" $PL
+          plutil -replace CFBundleURLTypes -json "[{\"CFBundleURLSchemes\":[\"$REV\"]}]" $PL
+          plutil -lint $PL
+          echo "----- Info.plist -----"
+          cat $PL
+
+      - name: ربط Firebase وتسجيل الدخول بقوقل
+        script: |
+          set -e
+          cp GoogleService-Info.plist ios/App/App/GoogleService-Info.plist
+          ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); f=g.new_reference('GoogleService-Info.plist'); t.add_resources([f]); p.save"
+          sed -i '' "s#pod 'CapacitorFirebaseAuthentication',#pod 'CapacitorFirebaseAuthentication/Google',#" ios/App/Podfile
+          echo "----- Podfile -----"
+          cat ios/App/Podfile
+          sed -i '' "s/platform :ios, '[0-9.]*'/platform :ios, '15.0'/" ios/App/Podfile
+          cd ios/App && pod install --repo-update
+
+      - name: الدخول بأبل (Sign in with Apple)
+        script: |
+          set -e
+          cat > ios/App/App/App.entitlements <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>com.apple.developer.applesignin</key>
+            <array><string>Default</string></array>
+          </dict>
+          </plist>
+          PLIST
+          
+          plutil -lint ios/App/App/App.entitlements
+          ruby -e "require 'xcodeproj'; p=Xcodeproj::Project.open('ios/App/App.xcodeproj'); t=p.targets.find{|x| x.name=='App'}; g=p.main_group.find_subpath('App', false); g.new_reference('App.entitlements') unless g.files.any?{|f| f.path=='App.entitlements'}; t.build_configurations.each{|c| c.build_settings['CODE_SIGN_ENTITLEMENTS']='App/App.entitlements'}; p.save"
+          echo "✅ الدخول بأبل انضاف"
+
+      - name: الآيفون بس، وأقل نسخة iOS 15
+        script: |
+          set -e
+          PL=ios/App/App/Info.plist
+          plutil -remove UISupportedInterfaceOrientations~ipad $PL || true
+          sed -i '' 's/TARGETED_DEVICE_FAMILY = "1,2";/TARGETED_DEVICE_FAMILY = 1;/g' ios/App/App.xcodeproj/project.pbxproj
+          sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 15.0;/g' ios/App/App.xcodeproj/project.pbxproj
+          grep 'TARGETED_DEVICE_FAMILY' ios/App/App.xcodeproj/project.pbxproj | sort -u || true
+          grep 'IPHONEOS_DEPLOYMENT_TARGET' ios/App/App.xcodeproj/project.pbxproj | sort -u
+
+      - name: شهادات التوقيع
+        script: xcode-project use-profiles
+
+      - name: رقم البناء
+        script: |
+          set -e
+          echo "رقم البناء: $BUILD_NUMBER"
+          cd ios/App && agvtool new-version -all $BUILD_NUMBER && agvtool new-marketing-version 1.0
+
+      - name: بناء ملف التطبيق
+        script: |
+          xcode-project build-ipa --workspace ios/App/App.xcworkspace --scheme App
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true

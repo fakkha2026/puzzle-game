@@ -75,7 +75,8 @@ workflows:
           grep -q "pod 'CapacitorFirebaseAuthentication/Google', :path" ios/App/Podfile
           echo "----- Podfile -----"
           cat ios/App/Podfile
-          cd ios/App && pod install --repo-update
+          # نمسح القفل القديم اللي سوّاه إنشاء المشروع عشان المكتبات تتوافق من جديد
+          cd ios/App && rm -f Podfile.lock && pod install --repo-update
           cd ../..
           # نتأكد إن ملفات إضافة الدخول دخلت المشروع قبل البناء
           grep -q "FirebaseAuthenticationPlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الدخول ما انضافت"; exit 1; }
@@ -194,7 +195,8 @@ workflows:
           echo "----- Podfile -----"
           cat ios/App/Podfile
           sed -i '' "s/platform :ios, '[0-9.]*'/platform :ios, '15.0'/" ios/App/Podfile
-          cd ios/App && pod install --repo-update
+          # نمسح القفل القديم اللي سوّاه إنشاء المشروع عشان المكتبات تتوافق من جديد
+          cd ios/App && rm -f Podfile.lock && pod install --repo-update
           cd ../..
           # نتأكد إن ملفات إضافة الدخول دخلت المشروع قبل البناء
           grep -q "FirebaseAuthenticationPlugin.swift" ios/App/Pods/Pods.xcodeproj/project.pbxproj || { echo "❌ إضافة الدخول ما انضافت"; exit 1; }

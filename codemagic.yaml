@@ -207,6 +207,13 @@ workflows:
           grep 'TARGETED_DEVICE_FAMILY' ios/App/App.xcodeproj/project.pbxproj | sort -u || true
           grep 'IPHONEOS_DEPLOYMENT_TARGET' ios/App/App.xcodeproj/project.pbxproj | sort -u
 
+      - name: تشخيص الإضافات
+        script: |
+          echo "----- capacitor.config.json داخل التطبيق -----"
+          cat ios/App/App/capacitor.config.json || true
+          echo "----- Podfile -----"
+          grep -n "pod '" ios/App/Podfile || true
+
       - name: شهادات التوقيع
         script: xcode-project use-profiles
 
